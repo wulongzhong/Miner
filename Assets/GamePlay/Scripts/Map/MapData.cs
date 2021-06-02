@@ -40,9 +40,12 @@ public class MapData : MonoBehaviour{
 
     private const int m_smallPieceGridNum = 128;
 
+    PerLinNoiseGenerate m_perLinNoiseGenerate;
+
     private void Awake() {
         Instance = this;
         m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum/ m_smallPieceGridNum][,];
+        m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
     }
 
     public bool isPosIndexInit(Vector2Int posIndex) {
@@ -50,15 +53,17 @@ public class MapData : MonoBehaviour{
     }
 
     private void generateGridInfo(Vector2Int posIndex) {
-        System.Random rand = new System.Random(m_seed + posIndex.y * m_mapGridWidthNum + posIndex.x);
+
+        m_mapGridData[posIndex.x, posIndex.y] = new byte[m_smallPieceGridNum, m_smallPieceGridNum];
+        byte[,] currPiece = m_mapGridData[posIndex.x, posIndex.y];
+
         Vector2Int realPos = posIndex * m_smallPieceGridNum;
-        rand.Next(0, 100);
 
-        for (int i = 0; i < realPos.x; ++i) {
-            for (int j = 0; j < realPos.y; ++j) {
-                var tempValue = Mathf.PerlinNoise(realPos.x * 1.0f / m_mapGridWidthNum, realPos.y * 1.0f / m_mapGridHeigthNum);
+        for (int i = 0; i < m_smallPieceGridNum; ++i) {
+            for (int j = 0; j < m_smallPieceGridNum; ++j) {
+                var tempValue = m_perLinNoiseGenerate.OctavePerlin(realPos.x * 1.0f / m_mapGridWidthNum, realPos.y * 1.0f / m_mapGridHeigthNum);
                 if(tempValue > 0.9f) {
-
+                    currPiece[i, j] = ((byte)MapGridType.GoldMine) << 4;
                 }
             }
         }
@@ -80,7 +85,29 @@ public class MapData : MonoBehaviour{
         public MapGridType m_mapGridType;
     }
 
-    public void boomGrid(List<Vector2Int> pos, int damage, ref List<ClearGridInfo> clearGridInfos) {
-
+    private const byte m_byteGridTypeNone = 0b00010000;
+    private const byte m_byteGridMineType = 0b11110000;
+    private const byte m_byteGridDamge =    0b00001111;
+    public void boomGrid(List<Vector2Int> listPos, int damage, ref List<ClearGridInfo> clearGridInfos) {
+        foreach(Vector2Int pos in listPos) {
+            Vector2Int posIndex = pos / m_smallPieceGridNum;
+            byte[,] currPiece = m_mapGridData[posIndex.x, posIndex.y];
+            if (currPiece == null) {
+                continue;
+            }
+            Vector2Int smallPos = new Vector2Int(pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum);
+            byte gridInfo = currPiece[smallPos.x, smallPos.y];
+            if (gridInfo == 0) {
+                continue;
+            }
+            int mineType = gridInfo >> 4;
+            int currDamage = (gridInfo & m_byteGridDamge) + damage;
+            if(currDamage >= m_byteGridDamge || currDamage > 10) {
+                currPiece[smallPos.x, smallPos.y] = 0;
+                clearGridInfos.Add(new ClearGridInfo {m_pos = pos, m_mapGridType = (MapGridType)(mineType) });
+            } else {
+                currPiece[smallPos.x, smallPos.y] = (byte)((mineType << 4) + currDamage);
+            }
+        }
     }
 }
