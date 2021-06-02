@@ -32,7 +32,6 @@ public enum MapGridType {
 public class MapData : MonoBehaviour{
 
     public static MapData Instance;
-
     public int m_seed;
 
     private byte[,][,] m_mapGridData;
@@ -46,56 +45,42 @@ public class MapData : MonoBehaviour{
         m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum/ m_smallPieceGridNum][,];
     }
 
-    public MapGridType getGridType(Vector2Int pos) {
-        byte[,] currPiece = m_mapGridData[pos.x / m_smallPieceGridNum, pos.y / m_smallPieceGridNum];
-        if(currPiece == null) {
-            return MapGridType.None;
-        }
-        return (MapGridType)currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum];
-    }
-
-    int sqrRange;
-    int minX;
-    int maxX;
-    int minY;
-    int maxY;
-    public List<MapGridType> clearGrid(Vector2Int pos, int range) {
-        List<MapGridType> mines = new List<MapGridType>();
-
-        sqrRange = range * range;
-
-        minX = pos.x - range;
-        if(minX < 0) {
-            minX = 0;
-        }
-        maxX = pos.x + range;
-        if(maxX >= m_mapGridWidthNum) {
-            maxX = m_mapGridWidthNum - 1;
-        }
-        minY = pos.y - range;
-        if(minY < 0) {
-            minY = 0;
-        }
-        maxY = pos.y + range;
-        if(maxY >= m_mapGridHeigthNum) {
-            maxY = m_mapGridHeigthNum - 1;
-        }
-
-        for(int x = minX; x <= maxX; ++x) {
-            for(int y = minY; y < maxY; ++y) {
-                int offsetX = x - pos.x;
-                int offsetY = y - pos.y;
-                int offsetLength = offsetX * offsetX + offsetY * offsetY;
-                if(offsetLength <= sqrRange) {
-
-                }
-            }
-        }
-
-        return mines;
+    public bool isPosIndexInit(Vector2Int posIndex) {
+        return false;
     }
 
     private void generateGridInfo(Vector2Int posIndex) {
         System.Random rand = new System.Random(m_seed + posIndex.y * m_mapGridWidthNum + posIndex.x);
+        Vector2Int realPos = posIndex * m_smallPieceGridNum;
+        rand.Next(0, 100);
+
+        for (int i = 0; i < realPos.x; ++i) {
+            for (int j = 0; j < realPos.y; ++j) {
+                var tempValue = Mathf.PerlinNoise(realPos.x * 1.0f / m_mapGridWidthNum, realPos.y * 1.0f / m_mapGridHeigthNum);
+                if(tempValue > 0.9f) {
+
+                }
+            }
+        }
+    }
+
+    public MapGridType getGridType(Vector2Int pos) {
+        Vector2Int posIndex = pos / m_smallPieceGridNum;
+        byte[,] currPiece = m_mapGridData[posIndex.x, posIndex.y];
+        if(currPiece == null) {
+            if (!isPosIndexInit(posIndex)) {
+                generateGridInfo(posIndex);
+            }
+        }
+        return (MapGridType)currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum];
+    }
+
+    public struct ClearGridInfo {
+        public Vector2Int m_pos;
+        public MapGridType m_mapGridType;
+    }
+
+    public void boomGrid(List<Vector2Int> pos, int damage, ref List<ClearGridInfo> clearGridInfos) {
+
     }
 }
