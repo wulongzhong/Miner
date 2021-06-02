@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Profiling;
 using System;
 
-public enum GridType {
+public enum MapGridType {
     None = 0,
     /// <summary>
     /// 铁矿
@@ -17,15 +17,15 @@ public enum GridType {
     /// <summary>
     /// 银矿
     /// </summary>
-    Silver = 3,
+    SilverMine = 3,
     /// <summary>
     /// 金矿
     /// </summary>
-    Gold = 4,
+    GoldMine = 4,
     /// <summary>
     /// 钻石矿
     /// </summary>
-    Diamond = 5,
+    DiamondMine = 5,
 }
 
 
@@ -46,12 +46,12 @@ public class MapData : MonoBehaviour{
         m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum/ m_smallPieceGridNum][,];
     }
 
-    public GridType getGridType(Vector2Int pos) {
+    public MapGridType getGridType(Vector2Int pos) {
         byte[,] currPiece = m_mapGridData[pos.x / m_smallPieceGridNum, pos.y / m_smallPieceGridNum];
         if(currPiece == null) {
-            return GridType.None;
+            return MapGridType.None;
         }
-        return (GridType)currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum];
+        return (MapGridType)currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum];
     }
 
     int sqrRange;
@@ -59,8 +59,8 @@ public class MapData : MonoBehaviour{
     int maxX;
     int minY;
     int maxY;
-    public List<GridType> clearGrid(Vector2Int pos, int range) {
-        List<GridType> mines = new List<GridType>();
+    public List<MapGridType> clearGrid(Vector2Int pos, int range) {
+        List<MapGridType> mines = new List<MapGridType>();
 
         sqrRange = range * range;
 
