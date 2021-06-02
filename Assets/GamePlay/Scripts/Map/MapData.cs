@@ -34,8 +34,8 @@ public class MapData : MonoBehaviour{
     public static MapData Instance;
 
     private byte[,][,] m_mapGridData;
-    private const int m_mapGridWidthNum = 512 * 4;
-    private const int m_mapGridHeigthNum = 1024 * 4;
+    private const int m_mapGridWidthNum = 128 * 4;
+    private const int m_mapGridHeigthNum = 256 * 4;
 
     private const int m_smallPieceGridNum = 128;
 
