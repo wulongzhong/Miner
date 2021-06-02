@@ -11,12 +11,17 @@ public class MapGridTypeToRes : MonoBehaviour {
     }
     [SerializeField]
     private List<MapGridType2ResData> m_listGridType2Res;
+
     private Dictionary<MapGridType, GameObject> m_dicGridType2Res;
 
     public static MapGridTypeToRes Instance;
 
     private void Awake() {
         Instance = this;
+        m_dicGridType2Res = new Dictionary<MapGridType, GameObject>();
+        foreach(var data in m_listGridType2Res) {
+            m_dicGridType2Res.Add(data.m_mapGridType, data.m_res);
+        }
     }
 
     public GameObject getGridTypeGameObj(MapGridType mapGridType) {

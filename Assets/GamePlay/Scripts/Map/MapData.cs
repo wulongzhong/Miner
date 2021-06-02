@@ -32,7 +32,6 @@ public enum MapGridType {
 public class MapData : MonoBehaviour{
 
     public static MapData Instance;
-    public int m_seed;
 
     private byte[,][,] m_mapGridData;
     private const int m_mapGridWidthNum = 512 * 4;
@@ -48,6 +47,18 @@ public class MapData : MonoBehaviour{
         m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
     }
 
+    private void Start() {
+    }
+
+    private void testInit() {
+        Vector2Int maxPosIndex = new Vector2Int(m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum / m_smallPieceGridNum);
+        for(int i = 0; i < maxPosIndex.x; ++i) {
+            for(int j = 0; j < maxPosIndex.y; ++j) {
+                generateGridInfo(new Vector2Int(i, j));
+            }
+        }
+    }
+
     public bool isPosIndexInit(Vector2Int posIndex) {
         return false;
     }
@@ -61,9 +72,20 @@ public class MapData : MonoBehaviour{
 
         for (int i = 0; i < m_smallPieceGridNum; ++i) {
             for (int j = 0; j < m_smallPieceGridNum; ++j) {
-                var tempValue = m_perLinNoiseGenerate.OctavePerlin(realPos.x * 1.0f / m_mapGridWidthNum, realPos.y * 1.0f / m_mapGridHeigthNum);
+                var tempValue = m_perLinNoiseGenerate.OctavePerlin((realPos.x + i) * 1.0f / m_mapGridWidthNum, (realPos.y + j) * 1.0f / m_mapGridHeigthNum);
+                //if(tempValue > 0.5f) {
+                //    Debug.Log(tempValue);
+                //}
                 if(tempValue > 0.9f) {
                     currPiece[i, j] = ((byte)MapGridType.GoldMine) << 4;
+                } else if(tempValue > 0.8f) {
+                    currPiece[i, j] = ((byte)MapGridType.SilverMine) << 4;
+                } else if(tempValue > 0.7f) {
+                    currPiece[i, j] = ((byte)MapGridType.CopperMine) << 4;
+                } else if(tempValue > 0.5f) {
+                    currPiece[i, j] = ((byte)MapGridType.IronMine) << 4;
+                } else {
+                    currPiece[i, j] = 0;
                 }
             }
         }
@@ -77,7 +99,8 @@ public class MapData : MonoBehaviour{
                 generateGridInfo(posIndex);
             }
         }
-        return (MapGridType)currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum];
+        currPiece = m_mapGridData[posIndex.x, posIndex.y];
+        return (MapGridType)(currPiece[pos.x % m_smallPieceGridNum, pos.y % m_smallPieceGridNum] >> 4);
     }
 
     public struct ClearGridInfo {

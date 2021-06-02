@@ -59,7 +59,7 @@ public class PerLinNoiseGenerate {
         }
     }
 
-    public float OctavePerlin(float x, float y, int octaves = 6, float persistence = 0.25f) {
+    public float OctavePerlin(float x, float y, int octaves = 4, float persistence = 0.25f) {
         float total = 0;
         float frequency = 1;
         float amplitude = 1;
@@ -94,11 +94,8 @@ public class PerLinNoiseGenerate {
         float x1 = lerp(grad(p1, xf, yf - 1.0f), grad(p2, xf - 1.0f, yf - 1.0f), u);
         float x2 = lerp(grad(p3, xf, yf), grad(p4, xf - 1.0f, yf), u);
 
-        x1 += 1.5f;
-        x2 += 1.5f;
-
-        x1 /= 3.0f;
-        x2 /= 3.0f;
+        x1 += 0.75f;
+        x2 += 0.75f;
 
         return lerp(x2, x1, v);
     }
