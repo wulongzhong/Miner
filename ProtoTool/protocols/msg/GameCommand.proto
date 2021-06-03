@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+enum GameCommandTypeEnum{
+    NONE = 0;
+    PLAYER_MOVE = 1;
+    PLAYER_JUMP = 2;
+}
+
+message GameCommand_PlayerMove{
+    int32 m_playerId;
+    int32 m_dirAngle;
+}
+
+message GameCommand_PlayerJump{
+    int32 m_playerId;
+}
