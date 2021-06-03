@@ -24,7 +24,7 @@ public class PerLinNoiseGenerate {
         }
     }
 
-    const int m_length = 1024;
+    const int m_length = 256;
     const int m_lengthIndex = m_length - 1;
 
     //private int[] m_oldPerm = { 151,160,137,91,90,15,                 // Hash lookup table as defined by Ken Perlin.  This is a randomly

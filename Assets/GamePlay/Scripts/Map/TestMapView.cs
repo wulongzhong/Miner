@@ -9,7 +9,7 @@ public class TestMapView : MonoBehaviour {
                 var prefab = MapGridTypeToRes.Instance.getGridTypeGameObj(MapData.Instance.getGridType(new Vector2Int(i, j)));
                 if(prefab != null) {
                     var tempGameObj = Instantiate(prefab);
-                    tempGameObj.transform.position = new Vector3(i * 0.25f, j * 0.25f, 0);
+                    tempGameObj.transform.position = new Vector3(i * 0.5f, j * 0.5f, 0);
                 }
             }
         }

@@ -34,8 +34,8 @@ public class MapData : MonoBehaviour{
     public static MapData Instance;
 
     private byte[,][,] m_mapGridData;
-    private const int m_mapGridWidthNum = 512 * 4;
-    private const int m_mapGridHeigthNum = 1024 * 4;
+    private const int m_mapGridWidthNum = 512 * 2;
+    private const int m_mapGridHeigthNum = 1024 * 2;
 
     private const int m_smallPieceGridNum = 128;
 
@@ -73,7 +73,7 @@ public class MapData : MonoBehaviour{
                     currPiece[i, j] = ((byte)MapGridType.SilverMine) << 4;
                 } else if(tempValue > 0.7f) {
                     currPiece[i, j] = ((byte)MapGridType.CopperMine) << 4;
-                } else if(tempValue > 0.4f) {
+                } else if(tempValue > 0.48f) {
                     currPiece[i, j] = ((byte)MapGridType.IronMine) << 4;
                 } else {
                     currPiece[i, j] = 0;
