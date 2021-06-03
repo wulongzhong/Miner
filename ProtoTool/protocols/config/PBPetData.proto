@@ -1,0 +1,28 @@
+syntax = "proto3";
+package MsgPB;
+
+message PetHatchData{
+    int32 pos = 1;
+    int64 startTime = 2;
+    int32 petEggId = 3;
+}
+
+message LstPetHatchData{
+    repeated PetHatchData lstData = 1;
+}
+
+message PetData{
+    int64 uuid = 1;
+    string name = 2;
+    int32 petId = 3;
+    int32 startNum = 4;
+    int64 bornTime = 5;
+}
+
+message LstPetData{
+    repeated PetData lstData = 1;
+}
+
+message LstPetFollowPlayerUuid{
+    repeated int64 lstData = 1;
+}

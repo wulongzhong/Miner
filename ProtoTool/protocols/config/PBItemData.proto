@@ -1,0 +1,26 @@
+syntax = "proto3";
+package MsgPB;
+
+enum ItemCurrency2ItemId{
+    NONE = 0;
+    GLOD = 1;
+}
+
+//背包类型
+enum PacketType {
+    BAG = 0;
+    PLAYER = 1;
+}
+
+message ItemData{
+    int64 uuid = 1;//唯一id
+    int32 itemId = 2;//类型id
+    PacketType packetType = 3;//背包类型
+    int32 pos = 4;//所在位置
+    int32 count = 5;//数量
+    int64 obtainTime = 6;//获取时间
+}
+
+message LstItemData{
+    repeated ItemData lstData = 1;
+}

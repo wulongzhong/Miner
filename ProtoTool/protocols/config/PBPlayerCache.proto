@@ -1,0 +1,38 @@
+syntax = "proto3";
+package MsgPB;
+
+message CacheStrData{
+    string key = 1;
+    string data = 2;
+}
+
+message CacheBoolData{
+    string key = 1;
+    bool data = 2;
+}
+
+message CacheInt32Data{
+    string key = 1;
+    int32 data = 2;
+}
+
+message CacheInt64Data{
+    string key = 1;
+    int64 data = 2;
+}
+
+message LstStrData{
+    repeated CacheStrData lst_data = 1;
+}
+
+message LstBoolData{
+    repeated CacheBoolData lst_data = 1;
+}
+
+message LstInt32Data{
+    repeated CacheInt32Data lst_data = 1;
+}
+
+message LstInt64Data{
+    repeated CacheInt64Data lst_data = 1;
+}

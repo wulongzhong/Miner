@@ -73,7 +73,7 @@ public class MapData : MonoBehaviour{
                     currPiece[i, j] = ((byte)MapGridType.SilverMine) << 4;
                 } else if(tempValue > 0.7f) {
                     currPiece[i, j] = ((byte)MapGridType.CopperMine) << 4;
-                } else if(tempValue > 0.5f) {
+                } else if(tempValue > 0.4f) {
                     currPiece[i, j] = ((byte)MapGridType.IronMine) << 4;
                 } else {
                     currPiece[i, j] = 0;
