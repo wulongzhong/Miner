@@ -34,8 +34,8 @@ public class MapData : MonoBehaviour{
     public static MapData Instance;
 
     private byte[,][,] m_mapGridData;
-    private const int m_mapGridWidthNum = 128 * 4;
-    private const int m_mapGridHeigthNum = 256 * 4;
+    private const int m_mapGridWidthNum = 512 * 4;
+    private const int m_mapGridHeigthNum = 1024 * 4;
 
     private const int m_smallPieceGridNum = 128;
 
@@ -43,20 +43,11 @@ public class MapData : MonoBehaviour{
 
     private void Awake() {
         Instance = this;
-        m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum/ m_smallPieceGridNum][,];
-        m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
+        m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum / m_smallPieceGridNum][,];
     }
 
     private void Start() {
-    }
-
-    private void testInit() {
-        Vector2Int maxPosIndex = new Vector2Int(m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum / m_smallPieceGridNum);
-        for(int i = 0; i < maxPosIndex.x; ++i) {
-            for(int j = 0; j < maxPosIndex.y; ++j) {
-                generateGridInfo(new Vector2Int(i, j));
-            }
-        }
+        m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
     }
 
     public bool isPosIndexInit(Vector2Int posIndex) {
@@ -72,7 +63,7 @@ public class MapData : MonoBehaviour{
 
         for (int i = 0; i < m_smallPieceGridNum; ++i) {
             for (int j = 0; j < m_smallPieceGridNum; ++j) {
-                var tempValue = m_perLinNoiseGenerate.OctavePerlin((realPos.x + i) * 1.0f / m_mapGridWidthNum, (realPos.y + j) * 1.0f / m_mapGridHeigthNum);
+                var tempValue = m_perLinNoiseGenerate.OctavePerlin((realPos.x + i) * 0.1f, (realPos.y + j) * 0.1f);
                 //if(tempValue > 0.5f) {
                 //    Debug.Log(tempValue);
                 //}

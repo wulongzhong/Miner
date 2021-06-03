@@ -24,7 +24,7 @@ public class PerLinNoiseGenerate {
         }
     }
 
-    const int m_length = 16384;
+    const int m_length = 1024;
     const int m_lengthIndex = m_length - 1;
 
     //private int[] m_oldPerm = { 151,160,137,91,90,15,                 // Hash lookup table as defined by Ken Perlin.  This is a randomly
@@ -97,8 +97,11 @@ public class PerLinNoiseGenerate {
         float x1 = lerp(grad(p1, xf, yf - 1.0f), grad(p2, xf - 1.0f, yf - 1.0f), u);
         float x2 = lerp(grad(p3, xf, yf), grad(p4, xf - 1.0f, yf), u);
 
-        x1 += 0.75f;
-        x2 += 0.75f;
+        x1 += 1.5f;
+        x2 += 1.5f;
+
+        x1 /= 3.0f;
+        x2 /= 3.0f;
 
         return lerp(x2, x1, v);
     }
