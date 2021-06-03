@@ -1,4 +1,5 @@
 syntax = "proto3";
+package MsgPB;
 
 enum GameCommandTypeEnum{
     NONE = 0;
@@ -7,10 +8,20 @@ enum GameCommandTypeEnum{
 }
 
 message GameCommand_PlayerMove{
-    int32 m_playerId;
-    int32 m_dirAngle;
+    int32 m_playerId = 1;
+    int32 m_dirAngle = 2;
 }
 
 message GameCommand_PlayerJump{
-    int32 m_playerId;
+    int32 m_playerId = 3;
+}
+
+message GameCommandInfo{
+    GameCommandTypeEnum m_commandType = 1;
+    GameCommand_PlayerMove m_playerMove = 2;
+    GameCommand_PlayerJump m_playerJump = 3;
+}
+
+message GameCommandS2C{
+    repeated GameCommandInfo m_lstGameCommandInfo = 1;
 }

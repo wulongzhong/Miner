@@ -1,0 +1,6 @@
+syntax = "proto3";
+package MsgPB;
+
+message GameRoomConfig{
+    int32 m_frameRate = 1;
+}
