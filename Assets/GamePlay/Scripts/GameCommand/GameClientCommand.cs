@@ -8,7 +8,7 @@ public class GameClientCommand : MonoBehaviour {
         Instance = this;
     }
 
-    MsgPB.GameCommandInfo m_waitSendCmdInfo;
+    MsgPB.GameCommandC2S m_waitSendCmdInfo;
 
     public void makePlayerMove(MsgPB.PlayerMoveType moveType) {
         MsgPB.GameCommand_PlayerMove cmd = new MsgPB.GameCommand_PlayerMove();

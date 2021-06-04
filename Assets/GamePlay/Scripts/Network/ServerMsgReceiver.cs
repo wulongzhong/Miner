@@ -66,8 +66,8 @@ public class ServerMsgReceiver : MonoBehaviour
     }
 
     //对用户发送消息
-    public void sendMsgByUserId<T>(uint userId, T msg) {
-        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByUserId(userId);
+    public void sendMsgByPlayerId<T>(uint playerId, T msg) {
+        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
         if (pGroupEp == null) {
             return;
         }
@@ -81,8 +81,8 @@ public class ServerMsgReceiver : MonoBehaviour
     }
 
     //对单个玩家发送消息
-    public void sendMsg<T>(uint userId, T msg) {
-        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByUserId(userId);
+    public void sendMsg<T>(uint playerId, T msg) {
+        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
         if (pGroupEp == null) {
             return;
         }
@@ -109,9 +109,9 @@ public class ServerMsgReceiver : MonoBehaviour
                     m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
                 }
                 if (m_onPlayerRevDic.ContainsKey(msgId)) {
-                    uint userId = m_ipPool.getUserIdByIPEndPoint(waitHandler.m_groupEP);
+                    uint playerId = m_ipPool.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
                     try {
-                        m_onPlayerRevDic[msgId](msgInfo, userId);
+                        m_onPlayerRevDic[msgId](msgInfo, playerId);
                     } catch (InvalidProtocolBufferException e) {
                         ServerLog.log(e.Message);
                     }

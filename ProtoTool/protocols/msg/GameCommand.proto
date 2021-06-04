@@ -7,7 +7,6 @@ enum GameCommandTypeEnum{
     PLAYER_JUMP = 2;
 }
 
-
 enum PlayerMoveType{
     STOP = 0;
     LEFT = 1;
@@ -21,11 +20,15 @@ message GameCommand_PlayerJump{
     int32 m_none = 1;
 }
 
+message GameCommandC2S{
+    GameCommandTypeEnum m_commandType = 1;
+    GameCommand_PlayerMove m_playerMove = 2;
+    GameCommand_PlayerJump m_playerJump = 3;
+}
+
 message GameCommandInfo{
-    int64 m_playerId = 1;
-    GameCommandTypeEnum m_commandType = 2;
-    GameCommand_PlayerMove m_playerMove = 3;
-    GameCommand_PlayerJump m_playerJump = 4;
+    int32 m_playerId = 1;
+    GameCommandC2S m_gameCommandC2S = 2;
 }
 
 message GameCommandS2C{
