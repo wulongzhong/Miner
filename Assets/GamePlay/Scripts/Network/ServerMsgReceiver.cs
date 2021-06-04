@@ -13,7 +13,6 @@ public class ServerMsgReceiver : MonoBehaviour
     public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
     public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
 
-    private const int MSG_LOGIN_ID_MAX = 1000;
     private const int m_listenPort = 19981;
     private UdpClient m_listener;
     private Thread m_udpListenThread;
@@ -61,7 +60,7 @@ public class ServerMsgReceiver : MonoBehaviour
                 m_waitHandleSyncList.Add(new WaitHandler() { m_bytes = bytes, m_groupEP = groupEP });
                 mutex.ReleaseMutex();
             } catch (SocketException e) {
-                //ServerLog.Log(e.Message);
+                ServerLog.log(e.Message);
             }
         }
     }
@@ -111,23 +110,20 @@ public class ServerMsgReceiver : MonoBehaviour
                 }
                 if (m_onPlayerRevDic.ContainsKey(msgId)) {
                     uint userId = m_ipPool.getUserIdByIPEndPoint(waitHandler.m_groupEP);
-                    //UserServer.Instance.updateUserHeartBeat(userId);
-                    //uint playerId = PlayerServer.Instance.getUserId2RoleId(userId);
-                    //Type type = typeof(MsgPB.MsgPlayerRequestLoginC2S);
                     try {
-                        //m_onPlayerRevDic[msgId](msgInfo, playerId);
+                        m_onPlayerRevDic[msgId](msgInfo, userId);
                     } catch (InvalidProtocolBufferException e) {
-                        //ServerLog.Log(e.Message);
+                        ServerLog.log(e.Message);
                     }
                 }
             } catch (SocketException e) {
-                //ServerLog.Log(e.Message);
+                ServerLog.log(e.Message);
             }
         }
         m_waitHandleMasterList.Clear();
     }
 
-    //此为UserServer专用
+    //此为登录流程专用
     public void registerC2S(Type type, OnIpRev onRev) {
         int msgId = MsgType.getTypeId(type);
         if (m_onIpRevDic.ContainsKey(msgId)) {
