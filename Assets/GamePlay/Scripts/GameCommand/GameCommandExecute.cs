@@ -22,25 +22,27 @@ public class GameCommandExecute : MonoBehaviour {
         if(m_listGameCommand.Count == 0) {
             return;
         }
-        MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
-        m_listGameCommand.RemoveAt(0);
+        while(m_listGameCommand.Count > 3) {
+            MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
+            m_listGameCommand.RemoveAt(0);
 
-        //excute
-        foreach(MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
-            if(commandInfo.MCreatePlayer != null) {
-                PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+            //excute
+            foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
+                if (commandInfo.MCreatePlayer != null) {
+                    PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+                }
+                PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
+                if (playerBev == null) {
+                    Debug.LogError("playerBev == null");
+                    continue;
+                }
+                if (commandInfo.MPlayerMove != null) {
+                    playerBev.doMove(commandInfo.MPlayerMove);
+                }
             }
-            PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
-            if(playerBev == null) {
-                Debug.LogError("playerBev == null");
-                continue;
-            }
-            if(commandInfo.MPlayerMove != null) {
 
-            }
+            Physics2D.Simulate(Time.fixedDeltaTime);
         }
-
-        Physics2D.Simulate(Time.fixedDeltaTime);
     }
 
     public void onGameCommandS2C(byte[] protobytes) {

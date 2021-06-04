@@ -31,5 +31,8 @@ public class GameClientCommand : MonoBehaviour {
             return;
         }
         ClientMsgReceiver.Instance.sendMsg(m_waitSendCmdInfo);
+
+        m_waitSendCmdInfo = new MsgPB.GameCommandInfo();
+        m_bHasCmd = false;
     }
 }

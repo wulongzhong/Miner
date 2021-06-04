@@ -10,7 +10,7 @@ public class PcInputBev : MonoBehaviour {
         if (Input.GetKey(KeyCode.A)) {
             GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
         } else if (Input.GetKey(KeyCode.D)) {
-            GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
+            GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
         }
     }
 }
