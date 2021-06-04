@@ -33,6 +33,8 @@ public class UIPCStart : UIBevBase {
     }
 
     private void onBtnJoinPlayClick() {
+        onHide();
+
         GamePlay.Instance.ServerIpAddr = m_inputIP.text;
         PlayerMgr.Instance.SelfPlayerId = uint.Parse(m_inputPlayerId.text);
 
@@ -40,6 +42,7 @@ public class UIPCStart : UIBevBase {
         PlayerPrefs.SetString(m_keyLastPlayerID, m_inputPlayerId.text);
 
         Instantiate(m_gameClientPrefab);
-        onHide();
+
+        PlayerMgr.Instance.joinGameRoom();
     }
 }
