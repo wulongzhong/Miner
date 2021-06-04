@@ -19,6 +19,10 @@ public class GameCommandSyncServer : MonoBehaviour {
         m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
     }
 
+    public void addPlayer(uint playerId) {
+
+    }
+
     private void FixedUpdate() {
         ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_gameCommandS2C);
         m_gameCommandS2C = new MsgPB.GameCommandS2C();

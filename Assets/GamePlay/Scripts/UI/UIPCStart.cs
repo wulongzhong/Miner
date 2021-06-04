@@ -25,10 +25,9 @@ public class UIPCStart : UIBevBase {
     }
 
     private void onBtnStartLocalPlayClick() {
+        onHide();
         Instantiate(m_gameServerPrefab);
         Instantiate(m_gameClientPrefab);
-
-        onHide();
     }
 
     private void onBtnJoinPlayClick() {

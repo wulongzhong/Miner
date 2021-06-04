@@ -23,8 +23,6 @@ public class ServerMsgReceiver : MonoBehaviour
     private Dictionary<int, OnIpRev> m_onIpRevDic;
     private Dictionary<int, OnPlayerRev> m_onPlayerRevDic;
 
-    private IpPool m_ipPool;
-
     public static Mutex mutex = new Mutex();
     class WaitHandler {
         public byte[] m_bytes;
@@ -39,7 +37,6 @@ public class ServerMsgReceiver : MonoBehaviour
         m_onPlayerRevDic = new Dictionary<int, OnPlayerRev>();
         m_waitHandleSyncList = new List<WaitHandler>();
         m_waitHandleMasterList = new List<WaitHandler>();
-        m_ipPool = new IpPool();
         startUdpListen();
     }
     public void startUdpListen() {
@@ -67,7 +64,7 @@ public class ServerMsgReceiver : MonoBehaviour
 
     //对单个玩家发送消息
     public void sendMsg<T>(uint playerId, T msg) {
-        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
+        IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
         if (pGroupEp == null) {
             return;
         }
@@ -93,7 +90,7 @@ public class ServerMsgReceiver : MonoBehaviour
         msgByte.CopyTo(sendByte, 4);
 
         foreach(uint playerId in listPlayerId) {
-            IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
+            IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
             if (pGroupEp == null) {
                 return;
             }
@@ -115,7 +112,7 @@ public class ServerMsgReceiver : MonoBehaviour
                     m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
                 }
                 if (m_onPlayerRevDic.ContainsKey(msgId)) {
-                    uint playerId = m_ipPool.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
+                    uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
                     try {
                         m_onPlayerRevDic[msgId](msgInfo, playerId);
                     } catch (InvalidProtocolBufferException e) {

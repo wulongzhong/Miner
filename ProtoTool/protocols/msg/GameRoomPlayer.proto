@@ -7,6 +7,10 @@ message GameRoomPlayerInfo{
     int32 m_bodyViewData = 3;
 }
 
-message GameRoomCreatePlayerC2S{
+enum GameRoomPlayerLoginType{
+    PLAY = 0;
+    VIEW = 1;
+}
+message GameRoomPlayerLogin{
     uint32 m_playerId = 1;
 }

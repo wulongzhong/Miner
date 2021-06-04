@@ -34,4 +34,10 @@ public class PlayerMgr : MonoBehaviour {
         GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
         m_dicId2PlayerBec[playerId] = playerGameObj.GetComponent<PlayerBev>();
     }
+
+    public void joinGameRoom() {
+        MsgPB.GameRoomPlayerLogin msg = new MsgPB.GameRoomPlayerLogin();
+        msg.MPlayerId = SelfPlayerId;
+        ClientMsgReceiver.Instance.sendMsg(msg);
+    }
 }

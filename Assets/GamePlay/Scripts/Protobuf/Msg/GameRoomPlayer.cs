@@ -26,18 +26,27 @@ namespace MsgPB {
           string.Concat(
             "ChRHYW1lUm9vbVBsYXllci5wcm90bxIFTXNnUEIiUAoSR2FtZVJvb21QbGF5",
             "ZXJJbmZvEhIKCm1fcGxheWVySWQYASABKA0SDgoGbV9uYW1lGAIgASgJEhYK",
-            "Dm1fYm9keVZpZXdEYXRhGAMgASgFIi0KF0dhbWVSb29tQ3JlYXRlUGxheWVy",
-            "QzJTEhIKCm1fcGxheWVySWQYASABKA1iBnByb3RvMw=="));
+            "Dm1fYm9keVZpZXdEYXRhGAMgASgFIikKE0dhbWVSb29tUGxheWVyTG9naW4S",
+            "EgoKbV9wbGF5ZXJJZBgBIAEoDSotChdHYW1lUm9vbVBsYXllckxvZ2luVHlw",
+            "ZRIICgRQTEFZEAASCAoEVklFVxABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.GameRoomPlayerLoginType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerInfo), global::MsgPB.GameRoomPlayerInfo.Parser, new[]{ "MPlayerId", "MName", "MBodyViewData" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomCreatePlayerC2S), global::MsgPB.GameRoomCreatePlayerC2S.Parser, new[]{ "MPlayerId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerLogin), global::MsgPB.GameRoomPlayerLogin.Parser, new[]{ "MPlayerId" }, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum GameRoomPlayerLoginType {
+    [pbr::OriginalName("PLAY")] Play = 0,
+    [pbr::OriginalName("VIEW")] View = 1,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class GameRoomPlayerInfo : pb::IMessage<GameRoomPlayerInfo> {
     private static readonly pb::MessageParser<GameRoomPlayerInfo> _parser = new pb::MessageParser<GameRoomPlayerInfo>(() => new GameRoomPlayerInfo());
@@ -224,11 +233,11 @@ namespace MsgPB {
 
   }
 
-  public sealed partial class GameRoomCreatePlayerC2S : pb::IMessage<GameRoomCreatePlayerC2S> {
-    private static readonly pb::MessageParser<GameRoomCreatePlayerC2S> _parser = new pb::MessageParser<GameRoomCreatePlayerC2S>(() => new GameRoomCreatePlayerC2S());
+  public sealed partial class GameRoomPlayerLogin : pb::IMessage<GameRoomPlayerLogin> {
+    private static readonly pb::MessageParser<GameRoomPlayerLogin> _parser = new pb::MessageParser<GameRoomPlayerLogin>(() => new GameRoomPlayerLogin());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GameRoomCreatePlayerC2S> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameRoomPlayerLogin> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -241,21 +250,21 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomCreatePlayerC2S() {
+    public GameRoomPlayerLogin() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomCreatePlayerC2S(GameRoomCreatePlayerC2S other) : this() {
+    public GameRoomPlayerLogin(GameRoomPlayerLogin other) : this() {
       mPlayerId_ = other.mPlayerId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomCreatePlayerC2S Clone() {
-      return new GameRoomCreatePlayerC2S(this);
+    public GameRoomPlayerLogin Clone() {
+      return new GameRoomPlayerLogin(this);
     }
 
     /// <summary>Field number for the "m_playerId" field.</summary>
@@ -271,11 +280,11 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as GameRoomCreatePlayerC2S);
+      return Equals(other as GameRoomPlayerLogin);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GameRoomCreatePlayerC2S other) {
+    public bool Equals(GameRoomPlayerLogin other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -325,7 +334,7 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GameRoomCreatePlayerC2S other) {
+    public void MergeFrom(GameRoomPlayerLogin other) {
       if (other == null) {
         return;
       }
