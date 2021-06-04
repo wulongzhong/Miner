@@ -20,15 +20,10 @@ message GameCommand_PlayerJump{
     int32 m_none = 1;
 }
 
-message GameCommandC2S{
-    bool m_hasCmd = 1;
-    GameCommand_PlayerMove m_playerMove = 2;
-    GameCommand_PlayerJump m_playerJump = 3;
-}
-
 message GameCommandInfo{
     uint32 m_playerId = 1;
-    GameCommandC2S m_gameCommandC2S = 2;
+    GameCommand_PlayerMove m_playerMove = 2;
+    GameCommand_PlayerJump m_playerJump = 3;
 }
 
 message GameCommandS2C{

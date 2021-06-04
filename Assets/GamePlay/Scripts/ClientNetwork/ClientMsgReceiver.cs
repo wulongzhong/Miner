@@ -18,7 +18,7 @@ public class ClientMsgReceiver : MonoBehaviour {
     private List<byte[]> m_waitHandleSyncList;
     private List<byte[]> m_waitHandleMasterList;
 
-    private string m_serverIpAddr = "47.98.39.254";
+    private string m_serverIpAddr = "127.0.0.1";
 
     private UdpClient m_listener;
     private IPEndPoint m_groupEP;
@@ -104,10 +104,12 @@ public class ClientMsgReceiver : MonoBehaviour {
     private void terminate() {
         if (m_udpListenThread != null) {
             m_udpListenThread.Abort();
+            m_udpListenThread = null;
         }
 
         if (m_listener != null) {
             m_listener.Close();
+            m_listener = null;
         }
         m_serverIsRuning = false;
     }

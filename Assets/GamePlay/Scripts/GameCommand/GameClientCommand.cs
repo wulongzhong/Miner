@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class GameClientCommand : MonoBehaviour {
     public static GameClientCommand Instance;
+    MsgPB.GameCommandInfo m_waitSendCmdInfo;
+    bool m_bHasCmd = false;
     private void Awake() {
         Instance = this;
-        m_waitSendCmdInfo = new MsgPB.GameCommandC2S();
+        m_waitSendCmdInfo = new MsgPB.GameCommandInfo();
     }
 
-    MsgPB.GameCommandC2S m_waitSendCmdInfo;
 
     public void makePlayerMove(MsgPB.PlayerMoveType moveType) {
+        m_bHasCmd = true;
         MsgPB.GameCommand_PlayerMove cmd = new MsgPB.GameCommand_PlayerMove();
         cmd.MMoveType = moveType;
         m_waitSendCmdInfo.MPlayerMove = cmd;
     }
 
     public void makePlayerJump() {
+        m_bHasCmd = true;
         MsgPB.GameCommand_PlayerJump cmd = new MsgPB.GameCommand_PlayerJump();
         cmd.MNone = 1;
         m_waitSendCmdInfo.MPlayerJump = cmd;
     }
 
     public void FixedUpdate() {
-        if (!m_waitSendCmdInfo.MHasCmd) {
+        if (!m_bHasCmd) {
             return;
         }
         ClientMsgReceiver.Instance.sendMsg(m_waitSendCmdInfo);

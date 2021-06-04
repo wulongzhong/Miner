@@ -149,19 +149,23 @@ public class ServerMsgReceiver : MonoBehaviour
         }
     }
     private void OnDestroy() {
+        Debug.Log("OnDestroy");
         terminate();
     }
 
     private void OnApplicationQuit() {
+        Debug.Log("OnApplicationQuit");
         terminate();
     }
 
     public void terminate() {
         if (m_udpListenThread != null) {
             m_udpListenThread.Abort();
+            m_udpListenThread = null;
         }
         if (m_listener != null) {
             m_listener.Close();
+            m_listener = null;
         }
         m_serverIsRuning = false;
     }

@@ -10,8 +10,8 @@ public class GameCommandSyncServer : MonoBehaviour {
     }
 
     public void onGameCommandC2S(byte[] protobytes, uint playerId) {
-        MsgPB.GameCommandC2S msg = MsgPB.GameCommandC2S.Parser.ParseFrom(protobytes);
-        m_gameCommandS2C.MLstGameCommandInfo.Add(new MsgPB.GameCommandInfo { MPlayerId = playerId, MGameCommandC2S = msg });
+        MsgPB.GameCommandInfo msg = MsgPB.GameCommandInfo.Parser.ParseFrom(protobytes);
+        m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
     }
 
     private void FixedUpdate() {
