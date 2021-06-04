@@ -27,6 +27,6 @@ public class GameClientCommand : MonoBehaviour {
         if (!m_waitSendCmdInfo.MHasCmd) {
             return;
         }
-
+        ClientMsgReceiver.Instance.sendMsg(m_waitSendCmdInfo);
     }
 }

@@ -10,11 +10,20 @@ public class GameCommandExecute : MonoBehaviour {
         Physics2D.simulationMode = SimulationMode2D.Script;
     }
     private void Start() {
+        ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameCommandS2C), onGameCommandS2C);
     }
 
     private void FixedUpdate() {
-        if(m_updateIndex > 0) {
-            Physics2D.Simulate(Time.fixedDeltaTime);
-        }
+        executeCommand();
+    }
+
+    private void executeCommand() {
+
+        Physics2D.Simulate(Time.fixedDeltaTime);
+    }
+
+    public void onGameCommandS2C(byte[] protobytes) {
+        MsgPB.GameCommandS2C msg = MsgPB.GameCommandS2C.Parser.ParseFrom(protobytes);
+
     }
 }
