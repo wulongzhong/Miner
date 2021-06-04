@@ -29,16 +29,19 @@ public class ClientMsgReceiver : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-        //获得GamePlay里存储的服务器ip地址
-        //m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
+    }
 
+    public void open() {
         //实例化成员变量
         m_onRevDic = new Dictionary<int, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
-
         //开启udp消息接收器
         startUdp();
+    }
+
+    public void close() {
+        terminate();
     }
 
     private void startUdp() {

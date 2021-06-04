@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMgr : MonoBehaviour {
     public static PlayerMgr Instance;
-
     public GameObject m_playerPrefab;
 
+    private uint m_selfPlayerId;
     private Dictionary<uint, PlayerBev> m_dicId2PlayerBec;
 
     private void Awake() {
@@ -17,6 +17,13 @@ public class PlayerMgr : MonoBehaviour {
     public PlayerBev getPlayerBevById(uint playerId) {
         if (m_dicId2PlayerBec.ContainsKey(playerId)) {
             return m_dicId2PlayerBec[playerId];
+        }
+        return null;
+    }
+
+    public PlayerBev getSelf() {
+        if (m_dicId2PlayerBec.ContainsKey(m_selfPlayerId)) {
+            return m_dicId2PlayerBec[m_selfPlayerId];
         }
         return null;
     }

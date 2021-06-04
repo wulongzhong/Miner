@@ -35,6 +35,9 @@ public class ServerMsgReceiver : MonoBehaviour
 
     private void Awake() {
         Instance = this;
+    }
+
+    public void open() {
         m_onIpRevDic = new Dictionary<int, OnIpRev>();
         m_onPlayerRevDic = new Dictionary<int, OnPlayerRev>();
         m_waitHandleSyncList = new List<WaitHandler>();
@@ -42,6 +45,11 @@ public class ServerMsgReceiver : MonoBehaviour
         m_ipPool = new IpPool();
         startUdpListen();
     }
+
+    public void close() {
+        terminate();
+    }
+
     public void startUdpListen() {
         m_listener = new UdpClient(m_listenPort);
         m_udpListenThread = new Thread(UdpListenUpdate);

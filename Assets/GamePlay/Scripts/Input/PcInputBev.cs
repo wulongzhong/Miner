@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PcInputBev : MonoBehaviour {
     private void Update() {
+        if(PlayerMgr.Instance.getSelf() == null) {
+            return;
+        }
         if (Input.GetKey(KeyCode.A)) {
             GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
         } else if (Input.GetKey(KeyCode.D)) {
