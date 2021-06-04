@@ -24,20 +24,22 @@ namespace MsgPB {
     static GameCommandReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFHYW1lQ29tbWFuZC5wcm90bxIFTXNnUEIiQwoWR2FtZUNvbW1hbmRfUGxh",
-            "eWVyTW92ZRIpCgptX21vdmVUeXBlGAIgASgOMhUuTXNnUEIuUGxheWVyTW92",
-            "ZVR5cGUiKAoWR2FtZUNvbW1hbmRfUGxheWVySnVtcBIOCgZtX25vbmUYASAB",
-            "KAUijwEKD0dhbWVDb21tYW5kSW5mbxISCgptX3BsYXllcklkGAEgASgNEjMK",
-            "DG1fcGxheWVyTW92ZRgCIAEoCzIdLk1zZ1BCLkdhbWVDb21tYW5kX1BsYXll",
-            "ck1vdmUSMwoMbV9wbGF5ZXJKdW1wGAMgASgLMh0uTXNnUEIuR2FtZUNvbW1h",
-            "bmRfUGxheWVySnVtcCJGCg5HYW1lQ29tbWFuZFMyQxI0ChRtX2xzdEdhbWVD",
-            "b21tYW5kSW5mbxgBIAMoCzIWLk1zZ1BCLkdhbWVDb21tYW5kSW5mbypBChNH",
-            "YW1lQ29tbWFuZFR5cGVFbnVtEggKBE5PTkUQABIPCgtQTEFZRVJfTU9WRRAB",
-            "Eg8KC1BMQVlFUl9KVU1QEAIqLwoOUGxheWVyTW92ZVR5cGUSCAoEU1RPUBAA",
-            "EggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
+            "ChFHYW1lQ29tbWFuZC5wcm90bxIFTXNnUEIaFEdhbWVSb29tUGxheWVyLnBy",
+            "b3RvIksKGEdhbWVDb21tYW5kX0NyZWF0ZVBsYXllchIvCgxtX3BsYXllcklu",
+            "Zm8YASABKAsyGS5Nc2dQQi5HYW1lUm9vbVBsYXllckluZm8iQwoWR2FtZUNv",
+            "bW1hbmRfUGxheWVyTW92ZRIpCgptX21vdmVUeXBlGAIgASgOMhUuTXNnUEIu",
+            "UGxheWVyTW92ZVR5cGUiKAoWR2FtZUNvbW1hbmRfUGxheWVySnVtcBIOCgZt",
+            "X25vbmUYASABKAUijwEKD0dhbWVDb21tYW5kSW5mbxISCgptX3BsYXllcklk",
+            "GAEgASgNEjMKDG1fcGxheWVyTW92ZRgCIAEoCzIdLk1zZ1BCLkdhbWVDb21t",
+            "YW5kX1BsYXllck1vdmUSMwoMbV9wbGF5ZXJKdW1wGAMgASgLMh0uTXNnUEIu",
+            "R2FtZUNvbW1hbmRfUGxheWVySnVtcCJGCg5HYW1lQ29tbWFuZFMyQxI0ChRt",
+            "X2xzdEdhbWVDb21tYW5kSW5mbxgBIAMoCzIWLk1zZ1BCLkdhbWVDb21tYW5k",
+            "SW5mbyovCg5QbGF5ZXJNb3ZlVHlwZRIICgRTVE9QEAASCAoETEVGVBABEgkK",
+            "BVJJR0hUEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.GameCommandTypeEnum), typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_CreatePlayer), global::MsgPB.GameCommand_CreatePlayer.Parser, new[]{ "MPlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerJump), global::MsgPB.GameCommand_PlayerJump.Parser, new[]{ "MNone" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MPlayerMove", "MPlayerJump" }, null, null, null),
@@ -48,12 +50,9 @@ namespace MsgPB {
 
   }
   #region Enums
-  public enum GameCommandTypeEnum {
-    [pbr::OriginalName("NONE")] None = 0,
-    [pbr::OriginalName("PLAYER_MOVE")] PlayerMove = 1,
-    [pbr::OriginalName("PLAYER_JUMP")] PlayerJump = 2,
-  }
-
+  /// <summary>
+  ///玩家移动
+  /// </summary>
   public enum PlayerMoveType {
     [pbr::OriginalName("STOP")] Stop = 0,
     [pbr::OriginalName("LEFT")] Left = 1,
@@ -63,6 +62,144 @@ namespace MsgPB {
   #endregion
 
   #region Messages
+  /// <summary>
+  ///创建玩家
+  /// </summary>
+  public sealed partial class GameCommand_CreatePlayer : pb::IMessage<GameCommand_CreatePlayer> {
+    private static readonly pb::MessageParser<GameCommand_CreatePlayer> _parser = new pb::MessageParser<GameCommand_CreatePlayer>(() => new GameCommand_CreatePlayer());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GameCommand_CreatePlayer> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_CreatePlayer() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_CreatePlayer(GameCommand_CreatePlayer other) : this() {
+      mPlayerInfo_ = other.mPlayerInfo_ != null ? other.mPlayerInfo_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_CreatePlayer Clone() {
+      return new GameCommand_CreatePlayer(this);
+    }
+
+    /// <summary>Field number for the "m_playerInfo" field.</summary>
+    public const int MPlayerInfoFieldNumber = 1;
+    private global::MsgPB.GameRoomPlayerInfo mPlayerInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.GameRoomPlayerInfo MPlayerInfo {
+      get { return mPlayerInfo_; }
+      set {
+        mPlayerInfo_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GameCommand_CreatePlayer);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameCommand_CreatePlayer other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(MPlayerInfo, other.MPlayerInfo)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (mPlayerInfo_ != null) hash ^= MPlayerInfo.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (mPlayerInfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(MPlayerInfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (mPlayerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MPlayerInfo);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GameCommand_CreatePlayer other) {
+      if (other == null) {
+        return;
+      }
+      if (other.mPlayerInfo_ != null) {
+        if (mPlayerInfo_ == null) {
+          MPlayerInfo = new global::MsgPB.GameRoomPlayerInfo();
+        }
+        MPlayerInfo.MergeFrom(other.MPlayerInfo);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (mPlayerInfo_ == null) {
+              MPlayerInfo = new global::MsgPB.GameRoomPlayerInfo();
+            }
+            input.ReadMessage(MPlayerInfo);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class GameCommand_PlayerMove : pb::IMessage<GameCommand_PlayerMove> {
     private static readonly pb::MessageParser<GameCommand_PlayerMove> _parser = new pb::MessageParser<GameCommand_PlayerMove>(() => new GameCommand_PlayerMove());
     private pb::UnknownFieldSet _unknownFields;
@@ -71,7 +208,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -192,6 +329,9 @@ namespace MsgPB {
 
   }
 
+  /// <summary>
+  ///玩家跳跃
+  /// </summary>
   public sealed partial class GameCommand_PlayerJump : pb::IMessage<GameCommand_PlayerJump> {
     private static readonly pb::MessageParser<GameCommand_PlayerJump> _parser = new pb::MessageParser<GameCommand_PlayerJump>(() => new GameCommand_PlayerJump());
     private pb::UnknownFieldSet _unknownFields;
@@ -200,7 +340,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -329,7 +469,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -526,7 +666,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -46,15 +46,14 @@ public class MapData : MonoBehaviour{
         m_mapGridData = new byte[m_mapGridWidthNum / m_smallPieceGridNum, m_mapGridHeigthNum / m_smallPieceGridNum][,];
     }
 
-    private void Start() {
-        m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
-    }
-
     public bool isPosIndexInit(Vector2Int posIndex) {
         return false;
     }
 
     private void generateGridInfo(Vector2Int posIndex) {
+        if(m_perLinNoiseGenerate == null) {
+            m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
+        }
 
         m_mapGridData[posIndex.x, posIndex.y] = new byte[m_smallPieceGridNum, m_smallPieceGridNum];
         byte[,] currPiece = m_mapGridData[posIndex.x, posIndex.y];

@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMgr : MonoBehaviour {
     public static PlayerMgr Instance;
 
+    public GameObject m_playerPrefab;
+
     private Dictionary<uint, PlayerBev> m_dicId2PlayerBec;
 
     private void Awake() {
@@ -17,5 +19,10 @@ public class PlayerMgr : MonoBehaviour {
             return m_dicId2PlayerBec[playerId];
         }
         return null;
+    }
+
+    public void createPlayer(uint playerId, MsgPB.GameRoomPlayerInfo playerInfo) {
+        GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
+        m_dicId2PlayerBec[playerId] = playerGameObj.GetComponent<PlayerBev>();
     }
 }

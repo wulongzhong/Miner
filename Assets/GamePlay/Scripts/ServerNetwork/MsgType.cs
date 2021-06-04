@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public static class MsgType {
     private static Dictionary<Type, int> m_msgType2IdDic = new Dictionary<Type, int>() {
-        { typeof(MsgPB.GameCommandS2C), 1001},
-
+        { typeof(MsgPB.GameCommandInfo), 1001},
+        { typeof(MsgPB.GameCommandS2C), 1002},
     };
 
     public static int getTypeId(Type type) {

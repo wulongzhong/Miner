@@ -1,12 +1,13 @@
 syntax = "proto3";
 package MsgPB;
+import "GameRoomPlayer.proto";
 
-enum GameCommandTypeEnum{
-    NONE = 0;
-    PLAYER_MOVE = 1;
-    PLAYER_JUMP = 2;
+//创建玩家
+message GameCommand_CreatePlayer{
+    GameRoomPlayerInfo m_playerInfo = 1;
 }
 
+//玩家移动
 enum PlayerMoveType{
     STOP = 0;
     LEFT = 1;
@@ -15,10 +16,13 @@ enum PlayerMoveType{
 message GameCommand_PlayerMove{
     PlayerMoveType m_moveType = 2;
 }
+//
 
+//玩家跳跃
 message GameCommand_PlayerJump{
     int32 m_none = 1;
 }
+//
 
 message GameCommandInfo{
     uint32 m_playerId = 1;
