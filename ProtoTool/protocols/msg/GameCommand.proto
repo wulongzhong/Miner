@@ -21,7 +21,7 @@ message GameCommand_PlayerJump{
 }
 
 message GameCommandC2S{
-    GameCommandTypeEnum m_commandType = 1;
+    bool m_hasCmd = 1;
     GameCommand_PlayerMove m_playerMove = 2;
     GameCommand_PlayerJump m_playerJump = 3;
 }

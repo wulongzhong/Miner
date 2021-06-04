@@ -148,6 +148,14 @@ public class ServerMsgReceiver : MonoBehaviour
             m_onPlayerRevDic.Add(msgId, onPlayerRev);
         }
     }
+    private void OnDestroy() {
+        terminate();
+    }
+
+    private void OnApplicationQuit() {
+        terminate();
+    }
+
     public void terminate() {
         if (m_udpListenThread != null) {
             m_udpListenThread.Abort();
