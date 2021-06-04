@@ -6,8 +6,10 @@ public class PlayerMgr : MonoBehaviour {
     public static PlayerMgr Instance;
     public GameObject m_playerPrefab;
 
-    private uint m_selfPlayerId;
+    private uint m_selfPlayerId = 1;
     private Dictionary<uint, PlayerBev> m_dicId2PlayerBec;
+
+    public uint SelfPlayerId { get => m_selfPlayerId; set => m_selfPlayerId = value; }
 
     private void Awake() {
         Instance = this;
@@ -22,8 +24,8 @@ public class PlayerMgr : MonoBehaviour {
     }
 
     public PlayerBev getSelf() {
-        if (m_dicId2PlayerBec.ContainsKey(m_selfPlayerId)) {
-            return m_dicId2PlayerBec[m_selfPlayerId];
+        if (m_dicId2PlayerBec.ContainsKey(SelfPlayerId)) {
+            return m_dicId2PlayerBec[SelfPlayerId];
         }
         return null;
     }

@@ -9,5 +9,9 @@ public class GamePlay : MonoBehaviour {
         Instance = this;
     }
 
-    public int m_seed;
+    private int m_gameRoomSeed;
+    private string m_serverIpAddr = "127.0.0.1";
+
+    public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
+    public int GameRoomSeed { get => m_gameRoomSeed; set => m_gameRoomSeed = value; }
 }

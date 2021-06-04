@@ -52,7 +52,7 @@ public class MapData : MonoBehaviour{
 
     private void generateGridInfo(Vector2Int posIndex) {
         if(m_perLinNoiseGenerate == null) {
-            m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.m_seed);
+            m_perLinNoiseGenerate = new PerLinNoiseGenerate(GamePlay.Instance.GameRoomSeed);
         }
 
         m_mapGridData[posIndex.x, posIndex.y] = new byte[m_smallPieceGridNum, m_smallPieceGridNum];

@@ -25,23 +25,18 @@ public class ClientMsgReceiver : MonoBehaviour {
     private Thread m_udpListenThread;
     private bool m_serverIsRuning;
 
-    public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
+    //public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
 
     private void Awake() {
         Instance = this;
-    }
-
-    public void open() {
         //实例化成员变量
+        gameObject.SetActive(true);
         m_onRevDic = new Dictionary<int, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
+        m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
         //开启udp消息接收器
         startUdp();
-    }
-
-    public void close() {
-        terminate();
     }
 
     private void startUdp() {
