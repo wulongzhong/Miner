@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerServer : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class PlayerServer : MonoBehaviour {
+
+    public static PlayerServer Instance;
+
+    private void Awake() {
+        Instance = this;
+        m_listPlayerIds = new List<uint>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    List<uint> m_listPlayerIds;
+
+    public List<uint> getAllPlayerId() {
+        return new List<uint>(m_listPlayerIds);
     }
 }

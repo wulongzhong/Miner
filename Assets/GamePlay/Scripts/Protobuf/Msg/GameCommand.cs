@@ -31,7 +31,7 @@ namespace MsgPB {
             "Gi5Nc2dQQi5HYW1lQ29tbWFuZFR5cGVFbnVtEjMKDG1fcGxheWVyTW92ZRgC",
             "IAEoCzIdLk1zZ1BCLkdhbWVDb21tYW5kX1BsYXllck1vdmUSMwoMbV9wbGF5",
             "ZXJKdW1wGAMgASgLMh0uTXNnUEIuR2FtZUNvbW1hbmRfUGxheWVySnVtcCJW",
-            "Cg9HYW1lQ29tbWFuZEluZm8SEgoKbV9wbGF5ZXJJZBgBIAEoBRIvChBtX2dh",
+            "Cg9HYW1lQ29tbWFuZEluZm8SEgoKbV9wbGF5ZXJJZBgBIAEoDRIvChBtX2dh",
             "bWVDb21tYW5kQzJTGAIgASgLMhUuTXNnUEIuR2FtZUNvbW1hbmRDMlMiRgoO",
             "R2FtZUNvbW1hbmRTMkMSNAoUbV9sc3RHYW1lQ29tbWFuZEluZm8YASADKAsy",
             "Fi5Nc2dQQi5HYW1lQ29tbWFuZEluZm8qQQoTR2FtZUNvbW1hbmRUeXBlRW51",
@@ -559,9 +559,9 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_playerId" field.</summary>
     public const int MPlayerIdFieldNumber = 1;
-    private int mPlayerId_;
+    private uint mPlayerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MPlayerId {
+    public uint MPlayerId {
       get { return mPlayerId_; }
       set {
         mPlayerId_ = value;
@@ -617,7 +617,7 @@ namespace MsgPB {
     public void WriteTo(pb::CodedOutputStream output) {
       if (MPlayerId != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(MPlayerId);
+        output.WriteUInt32(MPlayerId);
       }
       if (mGameCommandC2S_ != null) {
         output.WriteRawTag(18);
@@ -632,7 +632,7 @@ namespace MsgPB {
     public int CalculateSize() {
       int size = 0;
       if (MPlayerId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MPlayerId);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
       }
       if (mGameCommandC2S_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MGameCommandC2S);
@@ -669,7 +669,7 @@ namespace MsgPB {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            MPlayerId = input.ReadInt32();
+            MPlayerId = input.ReadUInt32();
             break;
           }
           case 18: {

@@ -65,21 +65,6 @@ public class ServerMsgReceiver : MonoBehaviour
         }
     }
 
-    //对用户发送消息
-    public void sendMsgByPlayerId<T>(uint playerId, T msg) {
-        IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
-        if (pGroupEp == null) {
-            return;
-        }
-        IMessage data = (IMessage)(object)msg;
-        byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
-        byte[] msgByte = data.ToByteArray();
-        byte[] sendByte = new byte[msgByte.Length + 4];
-        msgIdByte.CopyTo(sendByte, 0);
-        msgByte.CopyTo(sendByte, 4);
-        sendMsg2Client(pGroupEp, sendByte);
-    }
-
     //对单个玩家发送消息
     public void sendMsg<T>(uint playerId, T msg) {
         IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
@@ -93,6 +78,27 @@ public class ServerMsgReceiver : MonoBehaviour
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 4);
         sendMsg2Client(pGroupEp, sendByte);
+    }
+    //对多个玩家发送消息
+    public void sendMsg<T>(List<uint> listPlayerId, T msg) {
+        if(listPlayerId.Count == 0) {
+            return;
+        }
+
+        IMessage data = (IMessage)(object)msg;
+        byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
+        byte[] msgByte = data.ToByteArray();
+        byte[] sendByte = new byte[msgByte.Length + 4];
+        msgIdByte.CopyTo(sendByte, 0);
+        msgByte.CopyTo(sendByte, 4);
+
+        foreach(uint playerId in listPlayerId) {
+            IPEndPoint pGroupEp = m_ipPool.getIpEndPointByPlayerId(playerId);
+            if (pGroupEp == null) {
+                return;
+            }
+            sendMsg2Client(pGroupEp, sendByte);
+        }
     }
 
     private void Update() {
@@ -151,7 +157,6 @@ public class ServerMsgReceiver : MonoBehaviour
         }
         m_serverIsRuning = false;
     }
-
 
     private void sendMsg2Client(IPEndPoint iPEndPoint, byte[] sendbuf) {
         m_listener.SendAsync(sendbuf, sendbuf.Length, iPEndPoint);

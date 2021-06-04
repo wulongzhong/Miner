@@ -1,0 +1,8 @@
+syntax = "proto3";
+package MsgPB;
+
+message GameRoomPlayerInfo{
+    uint32 m_playerId = 1;
+    string m_name = 2;
+    int32 m_bodyViewData = 3;
+}

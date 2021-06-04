@@ -25,7 +25,7 @@ namespace MsgPB {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChRHYW1lUm9vbUNvbmZpZy5wcm90bxIFTXNnUEIiJQoOR2FtZVJvb21Db25m",
-            "aWcSEwoLbV9mcmFtZVJhdGUYASABKAViBnByb3RvMw=="));
+            "aWcSEwoLbV9mcmFtZVJhdGUYASABKA1iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -72,9 +72,9 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_frameRate" field.</summary>
     public const int MFrameRateFieldNumber = 1;
-    private int mFrameRate_;
+    private uint mFrameRate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MFrameRate {
+    public uint MFrameRate {
       get { return mFrameRate_; }
       set {
         mFrameRate_ = value;
@@ -117,7 +117,7 @@ namespace MsgPB {
     public void WriteTo(pb::CodedOutputStream output) {
       if (MFrameRate != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(MFrameRate);
+        output.WriteUInt32(MFrameRate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -128,7 +128,7 @@ namespace MsgPB {
     public int CalculateSize() {
       int size = 0;
       if (MFrameRate != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MFrameRate);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MFrameRate);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -156,7 +156,7 @@ namespace MsgPB {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            MFrameRate = input.ReadInt32();
+            MFrameRate = input.ReadUInt32();
             break;
           }
         }

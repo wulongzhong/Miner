@@ -27,7 +27,7 @@ message GameCommandC2S{
 }
 
 message GameCommandInfo{
-    int32 m_playerId = 1;
+    uint32 m_playerId = 1;
     GameCommandC2S m_gameCommandC2S = 2;
 }
 
