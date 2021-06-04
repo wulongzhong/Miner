@@ -32,6 +32,7 @@ public class PlayerServer : MonoBehaviour {
         MsgPB.GameRoomPlayerLogin msg = MsgPB.GameRoomPlayerLogin.Parser.ParseFrom(protobytes);
         addIpEndPoint(msg.MPlayerId, iPEndPoint);
         m_listPlayerIds.Add(msg.MPlayerId);
+        GameCommandSyncServer.Instance.addPlayer(msg.MPlayerId);
     }
 
     private void addIpEndPoint(uint playerId, IPEndPoint ipEndPoint) {

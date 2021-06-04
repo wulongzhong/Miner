@@ -29,20 +29,21 @@ namespace MsgPB {
             "Zm8YASABKAsyGS5Nc2dQQi5HYW1lUm9vbVBsYXllckluZm8iQwoWR2FtZUNv",
             "bW1hbmRfUGxheWVyTW92ZRIpCgptX21vdmVUeXBlGAIgASgOMhUuTXNnUEIu",
             "UGxheWVyTW92ZVR5cGUiKAoWR2FtZUNvbW1hbmRfUGxheWVySnVtcBIOCgZt",
-            "X25vbmUYASABKAUijwEKD0dhbWVDb21tYW5kSW5mbxISCgptX3BsYXllcklk",
-            "GAEgASgNEjMKDG1fcGxheWVyTW92ZRgCIAEoCzIdLk1zZ1BCLkdhbWVDb21t",
-            "YW5kX1BsYXllck1vdmUSMwoMbV9wbGF5ZXJKdW1wGAMgASgLMh0uTXNnUEIu",
-            "R2FtZUNvbW1hbmRfUGxheWVySnVtcCJGCg5HYW1lQ29tbWFuZFMyQxI0ChRt",
-            "X2xzdEdhbWVDb21tYW5kSW5mbxgBIAMoCzIWLk1zZ1BCLkdhbWVDb21tYW5k",
-            "SW5mbyovCg5QbGF5ZXJNb3ZlVHlwZRIICgRTVE9QEAASCAoETEVGVBABEgkK",
-            "BVJJR0hUEAJiBnByb3RvMw=="));
+            "X25vbmUYASABKAUiyAEKD0dhbWVDb21tYW5kSW5mbxISCgptX3BsYXllcklk",
+            "GAEgASgNEjcKDm1fY3JlYXRlUGxheWVyGAIgASgLMh8uTXNnUEIuR2FtZUNv",
+            "bW1hbmRfQ3JlYXRlUGxheWVyEjMKDG1fcGxheWVyTW92ZRgDIAEoCzIdLk1z",
+            "Z1BCLkdhbWVDb21tYW5kX1BsYXllck1vdmUSMwoMbV9wbGF5ZXJKdW1wGAQg",
+            "ASgLMh0uTXNnUEIuR2FtZUNvbW1hbmRfUGxheWVySnVtcCJGCg5HYW1lQ29t",
+            "bWFuZFMyQxI0ChRtX2xzdEdhbWVDb21tYW5kSW5mbxgBIAMoCzIWLk1zZ1BC",
+            "LkdhbWVDb21tYW5kSW5mbyovCg5QbGF5ZXJNb3ZlVHlwZRIICgRTVE9QEAAS",
+            "CAoETEVGVBABEgkKBVJJR0hUEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_CreatePlayer), global::MsgPB.GameCommand_CreatePlayer.Parser, new[]{ "MPlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerJump), global::MsgPB.GameCommand_PlayerJump.Parser, new[]{ "MNone" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MPlayerMove", "MPlayerJump" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove", "MPlayerJump" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MLstGameCommandInfo" }, null, null, null)
           }));
     }
@@ -487,6 +488,7 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameCommandInfo(GameCommandInfo other) : this() {
       mPlayerId_ = other.mPlayerId_;
+      mCreatePlayer_ = other.mCreatePlayer_ != null ? other.mCreatePlayer_.Clone() : null;
       mPlayerMove_ = other.mPlayerMove_ != null ? other.mPlayerMove_.Clone() : null;
       mPlayerJump_ = other.mPlayerJump_ != null ? other.mPlayerJump_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -508,8 +510,19 @@ namespace MsgPB {
       }
     }
 
+    /// <summary>Field number for the "m_createPlayer" field.</summary>
+    public const int MCreatePlayerFieldNumber = 2;
+    private global::MsgPB.GameCommand_CreatePlayer mCreatePlayer_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.GameCommand_CreatePlayer MCreatePlayer {
+      get { return mCreatePlayer_; }
+      set {
+        mCreatePlayer_ = value;
+      }
+    }
+
     /// <summary>Field number for the "m_playerMove" field.</summary>
-    public const int MPlayerMoveFieldNumber = 2;
+    public const int MPlayerMoveFieldNumber = 3;
     private global::MsgPB.GameCommand_PlayerMove mPlayerMove_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::MsgPB.GameCommand_PlayerMove MPlayerMove {
@@ -520,7 +533,7 @@ namespace MsgPB {
     }
 
     /// <summary>Field number for the "m_playerJump" field.</summary>
-    public const int MPlayerJumpFieldNumber = 3;
+    public const int MPlayerJumpFieldNumber = 4;
     private global::MsgPB.GameCommand_PlayerJump mPlayerJump_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::MsgPB.GameCommand_PlayerJump MPlayerJump {
@@ -544,6 +557,7 @@ namespace MsgPB {
         return true;
       }
       if (MPlayerId != other.MPlayerId) return false;
+      if (!object.Equals(MCreatePlayer, other.MCreatePlayer)) return false;
       if (!object.Equals(MPlayerMove, other.MPlayerMove)) return false;
       if (!object.Equals(MPlayerJump, other.MPlayerJump)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -553,6 +567,7 @@ namespace MsgPB {
     public override int GetHashCode() {
       int hash = 1;
       if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
+      if (mCreatePlayer_ != null) hash ^= MCreatePlayer.GetHashCode();
       if (mPlayerMove_ != null) hash ^= MPlayerMove.GetHashCode();
       if (mPlayerJump_ != null) hash ^= MPlayerJump.GetHashCode();
       if (_unknownFields != null) {
@@ -572,12 +587,16 @@ namespace MsgPB {
         output.WriteRawTag(8);
         output.WriteUInt32(MPlayerId);
       }
-      if (mPlayerMove_ != null) {
+      if (mCreatePlayer_ != null) {
         output.WriteRawTag(18);
+        output.WriteMessage(MCreatePlayer);
+      }
+      if (mPlayerMove_ != null) {
+        output.WriteRawTag(26);
         output.WriteMessage(MPlayerMove);
       }
       if (mPlayerJump_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(MPlayerJump);
       }
       if (_unknownFields != null) {
@@ -590,6 +609,9 @@ namespace MsgPB {
       int size = 0;
       if (MPlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
+      }
+      if (mCreatePlayer_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MCreatePlayer);
       }
       if (mPlayerMove_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MPlayerMove);
@@ -610,6 +632,12 @@ namespace MsgPB {
       }
       if (other.MPlayerId != 0) {
         MPlayerId = other.MPlayerId;
+      }
+      if (other.mCreatePlayer_ != null) {
+        if (mCreatePlayer_ == null) {
+          MCreatePlayer = new global::MsgPB.GameCommand_CreatePlayer();
+        }
+        MCreatePlayer.MergeFrom(other.MCreatePlayer);
       }
       if (other.mPlayerMove_ != null) {
         if (mPlayerMove_ == null) {
@@ -639,13 +667,20 @@ namespace MsgPB {
             break;
           }
           case 18: {
+            if (mCreatePlayer_ == null) {
+              MCreatePlayer = new global::MsgPB.GameCommand_CreatePlayer();
+            }
+            input.ReadMessage(MCreatePlayer);
+            break;
+          }
+          case 26: {
             if (mPlayerMove_ == null) {
               MPlayerMove = new global::MsgPB.GameCommand_PlayerMove();
             }
             input.ReadMessage(MPlayerMove);
             break;
           }
-          case 26: {
+          case 34: {
             if (mPlayerJump_ == null) {
               MPlayerJump = new global::MsgPB.GameCommand_PlayerJump();
             }

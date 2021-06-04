@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCommandSyncServer : MonoBehaviour {
+    public static GameCommandSyncServer Instance;
+
     MsgPB.GameCommandS2C m_gameCommandS2C;
 
     private void Awake() {
+        Instance = this;
         m_gameCommandS2C = new MsgPB.GameCommandS2C();
     }
 
@@ -20,7 +23,10 @@ public class GameCommandSyncServer : MonoBehaviour {
     }
 
     public void addPlayer(uint playerId) {
-
+        MsgPB.GameCommandInfo msg = new MsgPB.GameCommandInfo();
+        msg.MPlayerId = playerId;
+        msg.MCreatePlayer = new MsgPB.GameCommand_CreatePlayer();
+        m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
     }
 
     private void FixedUpdate() {

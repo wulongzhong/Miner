@@ -28,6 +28,8 @@ public class UIPCStart : UIBevBase {
         onHide();
         Instantiate(m_gameServerPrefab);
         Instantiate(m_gameClientPrefab);
+
+        PlayerMgr.Instance.joinGameRoom();
     }
 
     private void onBtnJoinPlayClick() {

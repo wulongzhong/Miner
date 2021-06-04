@@ -8,6 +8,7 @@ public class GameCommandExecute : MonoBehaviour {
     private int m_updateIndex;
     private void Awake() {
         Physics2D.simulationMode = SimulationMode2D.Script;
+        m_listGameCommand = new List<MsgPB.GameCommandS2C>();
     }
     private void Start() {
         ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameCommandS2C), onGameCommandS2C);
@@ -26,6 +27,9 @@ public class GameCommandExecute : MonoBehaviour {
 
         //excute
         foreach(MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
+            if(commandInfo.MCreatePlayer != null) {
+                PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+            }
             PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
             if(playerBev == null) {
                 Debug.LogError("playerBev == null");
