@@ -9,7 +9,6 @@ public class UIPCStart : UIBevBase {
     public Button m_btnStartLocalPlay;
     public Button m_btnJoinPlay;
 
-    public GameObject m_gameClientPrefab;
     public GameObject m_gameServerPrefab;
 
     private string m_keyLastIP = "last_ip";
@@ -27,8 +26,7 @@ public class UIPCStart : UIBevBase {
     private void onBtnStartLocalPlayClick() {
         onHide();
         Instantiate(m_gameServerPrefab);
-        Instantiate(m_gameClientPrefab);
-
+        ClientMsgReceiver.Instance.startUdp();
         PlayerMgr.Instance.joinGameRoom();
     }
 
@@ -40,8 +38,7 @@ public class UIPCStart : UIBevBase {
 
         PlayerPrefs.SetString(m_keyLastIP, m_inputIP.text);
         PlayerPrefs.SetString(m_keyLastPlayerID, m_inputPlayerId.text);
-
-        Instantiate(m_gameClientPrefab);
+        ClientMsgReceiver.Instance.startUdp();
 
         PlayerMgr.Instance.joinGameRoom();
     }

@@ -34,13 +34,12 @@ public class ClientMsgReceiver : MonoBehaviour {
         m_onRevDic = new Dictionary<ushort, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
-        m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
-        //开启udp消息接收器
-        startUdp();
     }
 
-    private void startUdp() {
+    public void startUdp() {
+        terminate();
         m_serverIsRuning = true;
+        m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
         m_listener = new UdpClient();
         //IPAddress broadcast = IPAddress.Parse("47.98.39.254");
         IPAddress broadcast = IPAddress.Parse(m_serverIpAddr);
@@ -100,6 +99,9 @@ public class ClientMsgReceiver : MonoBehaviour {
     }
 
     private void terminate() {
+        m_waitHandleSyncList = new List<byte[]>();
+        m_waitHandleMasterList = new List<byte[]>();
+
         if (m_udpListenThread != null) {
             m_udpListenThread.Abort();
             m_udpListenThread = null;
