@@ -43,7 +43,9 @@ public class PlayerServer : MonoBehaviour {
         }
         ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, dataSyncMsg);
 
-        m_listPlayerIds.Add(msg.MPlayerId);
+        if(!(m_listPlayerIds.Contains(msg.MPlayerId))){
+            m_listPlayerIds.Add(msg.MPlayerId);
+        }
         if (GameRoomCacheServer.Instance.getPlayerCache(msg.MPlayerId) == null) {
             GameRoomCacheServer.Instance.createNonePlayerCache(msg.MPlayerId);
         }
