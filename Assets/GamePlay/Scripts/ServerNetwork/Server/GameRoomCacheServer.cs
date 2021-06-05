@@ -22,4 +22,11 @@ public class GameRoomCacheServer : MonoBehaviour {
         }
         return null;
     }
+
+    public void createNonePlayerCache(uint playerId) {
+        MsgPB.GameRoomPlayerCache nonePlayerCahce = new MsgPB.GameRoomPlayerCache();
+        nonePlayerCahce.MPlayerInfo = new MsgPB.GameRoomPlayerInfo();
+        nonePlayerCahce.MPlayerInfo.MPlayerId = playerId;
+        m_dicPlayerCache[playerId] = nonePlayerCahce;
+    }
 }
