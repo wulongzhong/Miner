@@ -31,6 +31,18 @@ public class PlayerServer : MonoBehaviour {
     public void onGameRoomPlayerLogin(byte[] protobytes, IPEndPoint iPEndPoint) {
         MsgPB.GameRoomPlayerLogin msg = MsgPB.GameRoomPlayerLogin.Parser.ParseFrom(protobytes);
         addIpEndPoint(msg.MPlayerId, iPEndPoint);
+
+        MsgPB.GameRoomDataSyncS2C dataSyncMsg = new MsgPB.GameRoomDataSyncS2C();
+        foreach(var playerId in m_listPlayerIds) {
+            var cacheData = GameRoomCacheServer.Instance.getPlayerCache(playerId);
+            if(cacheData != null) {
+                dataSyncMsg.MLstCachePlayer.Add(cacheData);
+            } else {
+                ServerLog.log("cacheData != null");
+            }
+        }
+        ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, dataSyncMsg);
+
         m_listPlayerIds.Add(msg.MPlayerId);
         GameCommandSyncServer.Instance.addPlayer(msg.MPlayerId);
     }

@@ -12,7 +12,7 @@ public class ClientMsgReceiver : MonoBehaviour {
     public static ClientMsgReceiver Instance;
 
     public delegate void OnRev(byte[] protobytes);
-    private Dictionary<int, OnRev> m_onRevDic;
+    private Dictionary<ushort, OnRev> m_onRevDic;
 
     public static Mutex mutex = new Mutex();
     private List<byte[]> m_waitHandleSyncList;
@@ -31,7 +31,7 @@ public class ClientMsgReceiver : MonoBehaviour {
         Instance = this;
         //实例化成员变量
         gameObject.SetActive(true);
-        m_onRevDic = new Dictionary<int, OnRev>();
+        m_onRevDic = new Dictionary<ushort, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
         m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
@@ -74,8 +74,8 @@ public class ClientMsgReceiver : MonoBehaviour {
         mutex.ReleaseMutex();
         foreach (byte[] bytes in m_waitHandleMasterList) {
             try {
-                int msgId = BitConverter.ToInt32(bytes.Skip(0).Take(4).ToArray(), 0);
-                byte[] msgInfo = bytes.Skip(4).Take(bytes.Length - 4).ToArray();
+                ushort msgId = BitConverter.ToUInt16(bytes.Skip(0).Take(2).ToArray(), 0);
+                byte[] msgInfo = bytes.Skip(2).Take(bytes.Length - 2).ToArray();
 
                 if (m_onRevDic.ContainsKey(msgId)) {
                     try {
@@ -113,7 +113,7 @@ public class ClientMsgReceiver : MonoBehaviour {
     }
 
     public void registerS2C(Type type, OnRev onRev) {
-        int msgId = MsgType.getTypeId(type);
+        ushort msgId = MsgType.getTypeId(type);
         if (m_onRevDic.ContainsKey(msgId)) {
             m_onRevDic[msgId] = onRev;
         } else {
@@ -125,9 +125,9 @@ public class ClientMsgReceiver : MonoBehaviour {
         IMessage data = (IMessage)(object)msg;
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
-        byte[] sendByte = new byte[msgByte.Length + 4];
+        byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
-        msgByte.CopyTo(sendByte, 4);
+        msgByte.CopyTo(sendByte, 2);
         sendMsg2Server(sendByte);
     }
 

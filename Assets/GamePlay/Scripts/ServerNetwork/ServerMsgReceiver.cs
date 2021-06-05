@@ -20,8 +20,8 @@ public class ServerMsgReceiver : MonoBehaviour
 
     public static ServerMsgReceiver Instance;
 
-    private Dictionary<int, OnIpRev> m_onIpRevDic;
-    private Dictionary<int, OnPlayerRev> m_onPlayerRevDic;
+    private Dictionary<ushort, OnIpRev> m_onIpRevDic;
+    private Dictionary<ushort, OnPlayerRev> m_onPlayerRevDic;
 
     public static Mutex mutex = new Mutex();
     class WaitHandler {
@@ -33,8 +33,8 @@ public class ServerMsgReceiver : MonoBehaviour
 
     private void Awake() {
         Instance = this;
-        m_onIpRevDic = new Dictionary<int, OnIpRev>();
-        m_onPlayerRevDic = new Dictionary<int, OnPlayerRev>();
+        m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
+        m_onPlayerRevDic = new Dictionary<ushort, OnPlayerRev>();
         m_waitHandleSyncList = new List<WaitHandler>();
         m_waitHandleMasterList = new List<WaitHandler>();
         startUdpListen();
@@ -71,9 +71,9 @@ public class ServerMsgReceiver : MonoBehaviour
         IMessage data = (IMessage)(object)msg;
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
-        byte[] sendByte = new byte[msgByte.Length + 4];
+        byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
-        msgByte.CopyTo(sendByte, 4);
+        msgByte.CopyTo(sendByte, 2);
         sendMsg2Client(pGroupEp, sendByte);
     }
     //对多个玩家发送消息
@@ -85,9 +85,9 @@ public class ServerMsgReceiver : MonoBehaviour
         IMessage data = (IMessage)(object)msg;
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
-        byte[] sendByte = new byte[msgByte.Length + 4];
+        byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
-        msgByte.CopyTo(sendByte, 4);
+        msgByte.CopyTo(sendByte, 2);
 
         foreach(uint playerId in listPlayerId) {
             IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
@@ -105,8 +105,8 @@ public class ServerMsgReceiver : MonoBehaviour
         mutex.ReleaseMutex();
         foreach (WaitHandler waitHandler in m_waitHandleMasterList) {
             try {
-                int msgId = BitConverter.ToInt32(waitHandler.m_bytes.Skip(0).Take(4).ToArray(), 0);
-                byte[] msgInfo = waitHandler.m_bytes.Skip(4).Take(waitHandler.m_bytes.Length - 4).ToArray();
+                ushort msgId = BitConverter.ToUInt16(waitHandler.m_bytes.Skip(0).Take(2).ToArray(), 0);
+                byte[] msgInfo = waitHandler.m_bytes.Skip(2).Take(waitHandler.m_bytes.Length - 2).ToArray();
 
                 if (m_onIpRevDic.ContainsKey(msgId)) {
                     m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
@@ -128,7 +128,7 @@ public class ServerMsgReceiver : MonoBehaviour
 
     //此为登录流程专用
     public void registerC2S(Type type, OnIpRev onRev) {
-        int msgId = MsgType.getTypeId(type);
+        ushort msgId = MsgType.getTypeId(type);
         if (m_onIpRevDic.ContainsKey(msgId)) {
             m_onIpRevDic[msgId] = onRev;
         } else {
@@ -138,7 +138,7 @@ public class ServerMsgReceiver : MonoBehaviour
 
     //此为正常的服务端消息注册
     public void registerC2S(Type type, OnPlayerRev onPlayerRev) {
-        int msgId = MsgType.getTypeId(type);
+        ushort msgId = MsgType.getTypeId(type);
         if (m_onPlayerRevDic.ContainsKey(msgId)) {
             m_onPlayerRevDic[msgId] = onPlayerRev;
         } else {
