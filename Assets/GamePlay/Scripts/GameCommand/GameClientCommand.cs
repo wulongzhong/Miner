@@ -16,6 +16,10 @@ public class GameClientCommand : MonoBehaviour {
         m_bHasCmd = true;
         MsgPB.GameCommand_PlayerMove cmd = new MsgPB.GameCommand_PlayerMove();
         cmd.MMoveType = moveType;
+        Vector3 pos = PlayerMgr.Instance.getSelf().gameObject.transform.position;
+        Vector2 velocity = PlayerMgr.Instance.getSelf().gameObject.GetComponent<Rigidbody2D>().velocity;
+        cmd.MLastPos = new MsgPB.Vector2 {MX = pos.x, MY = pos.y };
+        cmd.MLastVelocity = new MsgPB.Vector2 {MX = velocity.x, MY = velocity.y };
         m_waitSendCmdInfo.MPlayerMove = cmd;
     }
 

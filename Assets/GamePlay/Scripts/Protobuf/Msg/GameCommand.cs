@@ -25,23 +25,25 @@ namespace MsgPB {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFHYW1lQ29tbWFuZC5wcm90bxIFTXNnUEIaFEdhbWVSb29tUGxheWVyLnBy",
-            "b3RvIksKGEdhbWVDb21tYW5kX0NyZWF0ZVBsYXllchIvCgxtX3BsYXllcklu",
-            "Zm8YASABKAsyGS5Nc2dQQi5HYW1lUm9vbVBsYXllckluZm8iQwoWR2FtZUNv",
-            "bW1hbmRfUGxheWVyTW92ZRIpCgptX21vdmVUeXBlGAIgASgOMhUuTXNnUEIu",
-            "UGxheWVyTW92ZVR5cGUiKAoWR2FtZUNvbW1hbmRfUGxheWVySnVtcBIOCgZt",
-            "X25vbmUYASABKAUiyAEKD0dhbWVDb21tYW5kSW5mbxISCgptX3BsYXllcklk",
-            "GAEgASgNEjcKDm1fY3JlYXRlUGxheWVyGAIgASgLMh8uTXNnUEIuR2FtZUNv",
-            "bW1hbmRfQ3JlYXRlUGxheWVyEjMKDG1fcGxheWVyTW92ZRgDIAEoCzIdLk1z",
-            "Z1BCLkdhbWVDb21tYW5kX1BsYXllck1vdmUSMwoMbV9wbGF5ZXJKdW1wGAQg",
-            "ASgLMh0uTXNnUEIuR2FtZUNvbW1hbmRfUGxheWVySnVtcCJGCg5HYW1lQ29t",
-            "bWFuZFMyQxI0ChRtX2xzdEdhbWVDb21tYW5kSW5mbxgBIAMoCzIWLk1zZ1BC",
-            "LkdhbWVDb21tYW5kSW5mbyovCg5QbGF5ZXJNb3ZlVHlwZRIICgRTVE9QEAAS",
-            "CAoETEVGVBABEgkKBVJJR0hUEAJiBnByb3RvMw=="));
+            "b3RvGg1HYW1lRGVmLnByb3RvIksKGEdhbWVDb21tYW5kX0NyZWF0ZVBsYXll",
+            "chIvCgxtX3BsYXllckluZm8YASABKAsyGS5Nc2dQQi5HYW1lUm9vbVBsYXll",
+            "ckluZm8ijgEKFkdhbWVDb21tYW5kX1BsYXllck1vdmUSKQoKbV9tb3ZlVHlw",
+            "ZRgBIAEoDjIVLk1zZ1BCLlBsYXllck1vdmVUeXBlEiEKCW1fbGFzdFBvcxgC",
+            "IAEoCzIOLk1zZ1BCLlZlY3RvcjISJgoObV9sYXN0VmVsb2NpdHkYAyABKAsy",
+            "Di5Nc2dQQi5WZWN0b3IyIigKFkdhbWVDb21tYW5kX1BsYXllckp1bXASDgoG",
+            "bV9ub25lGAEgASgFIsgBCg9HYW1lQ29tbWFuZEluZm8SEgoKbV9wbGF5ZXJJ",
+            "ZBgBIAEoDRI3Cg5tX2NyZWF0ZVBsYXllchgCIAEoCzIfLk1zZ1BCLkdhbWVD",
+            "b21tYW5kX0NyZWF0ZVBsYXllchIzCgxtX3BsYXllck1vdmUYAyABKAsyHS5N",
+            "c2dQQi5HYW1lQ29tbWFuZF9QbGF5ZXJNb3ZlEjMKDG1fcGxheWVySnVtcBgE",
+            "IAEoCzIdLk1zZ1BCLkdhbWVDb21tYW5kX1BsYXllckp1bXAiRgoOR2FtZUNv",
+            "bW1hbmRTMkMSNAoUbV9sc3RHYW1lQ29tbWFuZEluZm8YASADKAsyFi5Nc2dQ",
+            "Qi5HYW1lQ29tbWFuZEluZm8qLwoOUGxheWVyTW92ZVR5cGUSCAoEU1RPUBAA",
+            "EggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, global::MsgPB.GameDefReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_CreatePlayer), global::MsgPB.GameCommand_CreatePlayer.Parser, new[]{ "MPlayerInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType", "MLastPos", "MLastVelocity" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerJump), global::MsgPB.GameCommand_PlayerJump.Parser, new[]{ "MNone" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove", "MPlayerJump" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MLstGameCommandInfo" }, null, null, null)
@@ -227,6 +229,8 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameCommand_PlayerMove(GameCommand_PlayerMove other) : this() {
       mMoveType_ = other.mMoveType_;
+      mLastPos_ = other.mLastPos_ != null ? other.mLastPos_.Clone() : null;
+      mLastVelocity_ = other.mLastVelocity_ != null ? other.mLastVelocity_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -236,13 +240,35 @@ namespace MsgPB {
     }
 
     /// <summary>Field number for the "m_moveType" field.</summary>
-    public const int MMoveTypeFieldNumber = 2;
+    public const int MMoveTypeFieldNumber = 1;
     private global::MsgPB.PlayerMoveType mMoveType_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::MsgPB.PlayerMoveType MMoveType {
       get { return mMoveType_; }
       set {
         mMoveType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_lastPos" field.</summary>
+    public const int MLastPosFieldNumber = 2;
+    private global::MsgPB.Vector2 mLastPos_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.Vector2 MLastPos {
+      get { return mLastPos_; }
+      set {
+        mLastPos_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_lastVelocity" field.</summary>
+    public const int MLastVelocityFieldNumber = 3;
+    private global::MsgPB.Vector2 mLastVelocity_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.Vector2 MLastVelocity {
+      get { return mLastVelocity_; }
+      set {
+        mLastVelocity_ = value;
       }
     }
 
@@ -260,6 +286,8 @@ namespace MsgPB {
         return true;
       }
       if (MMoveType != other.MMoveType) return false;
+      if (!object.Equals(MLastPos, other.MLastPos)) return false;
+      if (!object.Equals(MLastVelocity, other.MLastVelocity)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -267,6 +295,8 @@ namespace MsgPB {
     public override int GetHashCode() {
       int hash = 1;
       if (MMoveType != 0) hash ^= MMoveType.GetHashCode();
+      if (mLastPos_ != null) hash ^= MLastPos.GetHashCode();
+      if (mLastVelocity_ != null) hash ^= MLastVelocity.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -281,8 +311,16 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (MMoveType != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteEnum((int) MMoveType);
+      }
+      if (mLastPos_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MLastPos);
+      }
+      if (mLastVelocity_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MLastVelocity);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -294,6 +332,12 @@ namespace MsgPB {
       int size = 0;
       if (MMoveType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MMoveType);
+      }
+      if (mLastPos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MLastPos);
+      }
+      if (mLastVelocity_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MLastVelocity);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -309,6 +353,18 @@ namespace MsgPB {
       if (other.MMoveType != 0) {
         MMoveType = other.MMoveType;
       }
+      if (other.mLastPos_ != null) {
+        if (mLastPos_ == null) {
+          MLastPos = new global::MsgPB.Vector2();
+        }
+        MLastPos.MergeFrom(other.MLastPos);
+      }
+      if (other.mLastVelocity_ != null) {
+        if (mLastVelocity_ == null) {
+          MLastVelocity = new global::MsgPB.Vector2();
+        }
+        MLastVelocity.MergeFrom(other.MLastVelocity);
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -320,8 +376,22 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 16: {
+          case 8: {
             MMoveType = (global::MsgPB.PlayerMoveType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (mLastPos_ == null) {
+              MLastPos = new global::MsgPB.Vector2();
+            }
+            input.ReadMessage(MLastPos);
+            break;
+          }
+          case 26: {
+            if (mLastVelocity_ == null) {
+              MLastVelocity = new global::MsgPB.Vector2();
+            }
+            input.ReadMessage(MLastVelocity);
             break;
           }
         }

@@ -1,0 +1,7 @@
+syntax = "proto3";
+package MsgPB;
+
+message Vector2{
+    float m_x = 1;
+    float m_y = 2;
+}

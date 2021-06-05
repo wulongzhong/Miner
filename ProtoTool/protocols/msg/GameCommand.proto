@@ -1,6 +1,7 @@
 syntax = "proto3";
 package MsgPB;
 import "GameRoomPlayer.proto";
+import "GameDef.proto";
 
 //创建玩家
 message GameCommand_CreatePlayer{
@@ -14,7 +15,9 @@ enum PlayerMoveType{
     RIGHT = 2;
 }
 message GameCommand_PlayerMove{
-    PlayerMoveType m_moveType = 2;
+    PlayerMoveType m_moveType = 1;
+    Vector2 m_lastPos = 2;
+    Vector2 m_lastVelocity = 3;
 }
 //
 
