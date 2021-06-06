@@ -36,7 +36,9 @@ public class PlayerMgr : MonoBehaviour {
 
     public PlayerBev createPlayer(uint playerId, MsgPB.GameRoomPlayerInfo playerInfo) {
         GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
-        m_dicId2PlayerBec[playerId] = playerGameObj.GetComponent<PlayerBev>();
+        PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
+        playerBev.initPlayer(playerInfo);
+        m_dicId2PlayerBec[playerId] = playerBev;
         return m_dicId2PlayerBec[playerId];
     }
 
@@ -44,5 +46,21 @@ public class PlayerMgr : MonoBehaviour {
         MsgPB.GameRoomPlayerLogin msg = new MsgPB.GameRoomPlayerLogin();
         msg.MPlayerId = SelfPlayerId;
         ClientMsgReceiver.Instance.sendMsg(msg);
+    }
+
+    public void getCache(MsgPB.GameRoomCache roomCache) {
+        roomCache.MLstCachePlayer.Clear();
+        foreach(var keyValue in m_dicId2PlayerBec) {
+            roomCache.MLstCachePlayer.Add(keyValue.Value.getCache());
+        }
+    }
+
+    public void setCache(MsgPB.GameRoomCache roomCache) {
+        foreach(var playerCache in roomCache.MLstCachePlayer) {
+            GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
+            PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
+            playerBev.initPlayer(playerCache);
+            m_dicId2PlayerBec[playerCache.MPlayerInfo.MPlayerId] = playerBev;
+        }
     }
 }
