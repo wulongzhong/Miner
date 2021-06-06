@@ -26,6 +26,8 @@ public class GameCommandSyncServer : MonoBehaviour {
         MsgPB.GameCommandInfo msg = new MsgPB.GameCommandInfo();
         msg.MPlayerId = playerId;
         msg.MCreatePlayer = new MsgPB.GameCommand_CreatePlayer();
+        msg.MCreatePlayer.MPlayerInfo = new MsgPB.GameRoomPlayerInfo();
+        msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
         m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
     }
 

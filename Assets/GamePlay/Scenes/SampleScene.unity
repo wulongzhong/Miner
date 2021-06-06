@@ -621,7 +621,6 @@ MonoBehaviour:
   m_inputIP: {fileID: 737965935}
   m_btnStartLocalPlay: {fileID: 2010866607}
   m_btnJoinPlay: {fileID: 1209611911}
-  m_gameClientPrefab: {fileID: 4896125869218154882, guid: 9c65feafd7159a44ba4c0016c8f087d8, type: 3}
   m_gameServerPrefab: {fileID: 6010983571292600146, guid: 98b964b84ac11a045ac183741795d71e, type: 3}
 --- !u!1 &519420028
 GameObject:

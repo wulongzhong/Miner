@@ -7,6 +7,7 @@ public static class MsgType {
         { typeof(MsgPB.GameCommandInfo), 1001},
         { typeof(MsgPB.GameCommandS2C), 1002},
         { typeof(MsgPB.GameRoomPlayerLogin), 1003},
+        { typeof(MsgPB.GameRoomCache), 1004},
     };
 
     public static ushort getTypeId(Type type) {

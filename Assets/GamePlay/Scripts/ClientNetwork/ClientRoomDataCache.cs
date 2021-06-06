@@ -11,19 +11,30 @@ public class ClientRoomDataCache : MonoBehaviour {
     private MsgPB.GameRoomCache m_gameRoomCache;
 
     private void Awake() {
+        Instance = this;
+    }
+
+    private void Start() {
+        ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomCache), onGameRoomCache);
     }
 
     public MsgPB.GameRoomCache getGameRoomCache() {
+        PlayerMgr.Instance.getCache(m_gameRoomCache);
         return m_gameRoomCache;
     }
 
     public void saveCache() {
-        PlayerMgr.Instance.getCache(m_gameRoomCache);
+        getGameRoomCache();
     }
 
     public void setCache(MsgPB.GameRoomCache gameRoomCache) {
         m_gameRoomCache = gameRoomCache;
+        PlayerMgr.Instance.setCache(m_gameRoomCache);
+    }
 
+    public void onGameRoomCache(byte[] protobytes) {
+        MsgPB.GameRoomCache cache = MsgPB.GameRoomCache.Parser.ParseFrom(protobytes);
+        setCache(cache);
     }
 
     public void initCache() {
