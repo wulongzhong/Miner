@@ -1,16 +1,15 @@
 syntax = "proto3";
 package MsgPB;
-import "GameRoomPlayer.proto";
 import "GameDef.proto";
+import "GameRoomPlayer.proto";
 
-message GameRoomPlayerCache{
+message GameRoomOnePlayerCache{
     GameRoomPlayerInfo m_playerInfo = 1;
     Vector2 m_lastPos = 2;
     Vector2 m_lastVelocity = 3;
     bool m_dirLeft = 4;
 }
 
-message GameRoomDataSyncS2C{
-    uint32 m_frameIndex = 1;
-    repeated GameRoomPlayerCache m_lstCachePlayer = 2;
+message GameRoomCache{
+    repeated GameRoomOnePlayerCache m_lstCachePlayer = 2;
 }

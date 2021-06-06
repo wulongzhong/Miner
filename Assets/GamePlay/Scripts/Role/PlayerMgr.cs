@@ -17,7 +17,7 @@ public class PlayerMgr : MonoBehaviour {
     }
 
     private void Start() {
-        ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomDataSyncS2C), onGameRoomDataSyncS2C);
+
     }
 
     public PlayerBev getPlayerBevById(uint playerId) {
@@ -44,13 +44,5 @@ public class PlayerMgr : MonoBehaviour {
         MsgPB.GameRoomPlayerLogin msg = new MsgPB.GameRoomPlayerLogin();
         msg.MPlayerId = SelfPlayerId;
         ClientMsgReceiver.Instance.sendMsg(msg);
-    }
-
-    public void onGameRoomDataSyncS2C(byte[] protobytes) {
-        MsgPB.GameRoomDataSyncS2C msg = MsgPB.GameRoomDataSyncS2C.Parser.ParseFrom(protobytes);
-        foreach(var playerCache in msg.MLstCachePlayer) {
-            PlayerBev playerBev = createPlayer(playerCache.MPlayerInfo.MPlayerId, playerCache.MPlayerInfo);
-
-        }
     }
 }
