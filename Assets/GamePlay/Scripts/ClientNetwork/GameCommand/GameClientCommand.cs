@@ -14,20 +14,18 @@ public class GameClientCommand : MonoBehaviour {
 
     public void makePlayerMove(MsgPB.PlayerMoveType moveType) {
         m_bHasCmd = true;
-        MsgPB.GameCommand_PlayerMove cmd = new MsgPB.GameCommand_PlayerMove();
-        cmd.MMoveType = moveType;
-        Vector3 pos = PlayerMgr.Instance.getSelf().gameObject.transform.position;
-        Vector2 velocity = PlayerMgr.Instance.getSelf().gameObject.GetComponent<Rigidbody2D>().velocity;
-        cmd.MLastPos = new MsgPB.Vector2 {MX = pos.x, MY = pos.y };
-        cmd.MLastVelocity = new MsgPB.Vector2 {MX = velocity.x, MY = velocity.y };
-        m_waitSendCmdInfo.MPlayerMove = cmd;
+        if(m_waitSendCmdInfo.MPlayerMove == null) {
+            m_waitSendCmdInfo.MPlayerMove = new MsgPB.GameCommand_PlayerMove();
+        }
+        m_waitSendCmdInfo.MPlayerMove.MMoveType = moveType;
     }
 
     public void makePlayerJump() {
         m_bHasCmd = true;
-        MsgPB.GameCommand_PlayerJump cmd = new MsgPB.GameCommand_PlayerJump();
-        cmd.MNone = 1;
-        m_waitSendCmdInfo.MPlayerJump = cmd;
+        if (m_waitSendCmdInfo.MPlayerMove == null) {
+            m_waitSendCmdInfo.MPlayerMove = new MsgPB.GameCommand_PlayerMove();
+        }
+        m_waitSendCmdInfo.MPlayerMove.MBJump = true;
     }
 
     public void FixedUpdate() {

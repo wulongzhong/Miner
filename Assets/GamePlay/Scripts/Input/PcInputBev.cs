@@ -12,5 +12,8 @@ public class PcInputBev : MonoBehaviour {
         } else if (Input.GetKey(KeyCode.D)) {
             GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
         }
+        if (Input.GetKey(KeyCode.Space)) {
+            GameClientCommand.Instance.makePlayerJump();
+        }
     }
 }

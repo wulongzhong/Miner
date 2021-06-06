@@ -29,16 +29,34 @@ public class PlayerBev : MonoBehaviour {
 
 
     public void doMove(MsgPB.GameCommand_PlayerMove cmd) {
+        Vector2 velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
         switch (cmd.MMoveType) {
             case MsgPB.PlayerMoveType.Stop:
                 //gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 break;
             case MsgPB.PlayerMoveType.Left:
-                gameObject.GetComponent<Rigidbody2D>().MovePosition((Vector2)(gameObject.transform.position) + Vector2.left * Time.fixedDeltaTime);
+                velocity += Vector2.left;
                 break;
             case MsgPB.PlayerMoveType.Right:
-                gameObject.GetComponent<Rigidbody2D>().MovePosition((Vector2)(gameObject.transform.position) + Vector2.right * Time.fixedDeltaTime);
+                velocity += Vector2.right;
                 break;
         }
+
+        if (cmd.MBJump && (Mathf.Abs(velocity.y) < 0.01f)) {
+            velocity.y += 5;
+        }
+
+        if(velocity.x > 3.0f) {
+            velocity.x = 3;
+        } else if(velocity.x < -3.0f) {
+            velocity.x = -3;
+        }
+
+        if(velocity.x > 5.0f) {
+            velocity.x = 5;
+        } else if(velocity.x < -5.0f) {
+            velocity.x = -5;
+        }
+        gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
     }
 }
