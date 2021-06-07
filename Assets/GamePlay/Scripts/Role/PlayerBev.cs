@@ -43,7 +43,7 @@ public class PlayerBev : MonoBehaviour {
         }
 
         if (cmd.MBJump && (Mathf.Abs(velocity.y) < 0.01f)) {
-            velocity.y += 5;
+            velocity.y += 10;
         }
 
         if(velocity.x > 3.0f) {
@@ -52,10 +52,10 @@ public class PlayerBev : MonoBehaviour {
             velocity.x = -3;
         }
 
-        if(velocity.x > 5.0f) {
-            velocity.x = 5;
-        } else if(velocity.x < -5.0f) {
-            velocity.x = -5;
+        if(velocity.x > 10.0f) {
+            velocity.x = 10;
+        } else if(velocity.x < -10.0f) {
+            velocity.x = -10;
         }
         gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
     }

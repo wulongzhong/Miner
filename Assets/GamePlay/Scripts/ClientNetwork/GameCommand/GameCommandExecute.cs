@@ -15,33 +15,46 @@ public class GameCommandExecute : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        executeCommand();
+        updateCommand();
     }
 
-    private void executeCommand() {
+    private void executeCommand(MsgPB.GameCommandS2C currCommandS2C) {
+        //excute
+        foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
+            if (commandInfo.MCreatePlayer != null) {
+                PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+            }
+            PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
+            if (playerBev == null) {
+                Debug.LogError("playerBev == null");
+                continue;
+            }
+            if (commandInfo.MPlayerMove != null) {
+                playerBev.doMove(commandInfo.MPlayerMove);
+            }
+        }
+
+        Physics2D.Simulate(Time.fixedDeltaTime);
+    }
+
+    private void updateCommand() {
         if(m_listGameCommand.Count == 0) {
             return;
         }
-        while(m_listGameCommand.Count > 3) {
+
+        MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
+        m_listGameCommand.RemoveAt(0);
+        executeCommand(currCommandS2C);
+
+        chaseFram();
+    }
+
+    private void chaseFram() {
+        while (m_listGameCommand.Count > 2) {
             MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
             m_listGameCommand.RemoveAt(0);
-
             //excute
-            foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
-                if (commandInfo.MCreatePlayer != null) {
-                    PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
-                }
-                PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
-                if (playerBev == null) {
-                    Debug.LogError("playerBev == null");
-                    continue;
-                }
-                if (commandInfo.MPlayerMove != null) {
-                    playerBev.doMove(commandInfo.MPlayerMove);
-                }
-            }
-
-            Physics2D.Simulate(Time.fixedDeltaTime);
+            executeCommand(currCommandS2C);
         }
     }
 
