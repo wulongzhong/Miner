@@ -30,8 +30,13 @@ public class GameCommandSyncServer : MonoBehaviour {
         msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
         m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
     }
-
+    private int m_sendRemaining = 0;
     private void FixedUpdate() {
+        m_sendRemaining--;
+        if (m_sendRemaining > 0) {
+            return;
+        }
+        m_sendRemaining = GameRoomConfig.Instance.FrameScale;
         ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_gameCommandS2C);
         m_gameCommandS2C = new MsgPB.GameCommandS2C();
     }
