@@ -11,9 +11,6 @@ namespace RoomClient {
         private uint m_updateIndex;
         private int m_frameLastCount = 0;
 
-        private System.Action m_onCommandFrameExecuteEnd;
-        public Action OnCommandFrameExecuteEnd { get => m_onCommandFrameExecuteEnd; set => m_onCommandFrameExecuteEnd = value; }
-
         private void Awake() {
             Instance = this;
             Physics2D.simulationMode = SimulationMode2D.Script;
@@ -27,9 +24,11 @@ namespace RoomClient {
             updateCommand();
         }
 
-        private bool executeNextCommand() {
-            OnCommandFrameExecuteEnd?.Invoke();
+        public void initUpdateIndex(uint index) {
+            m_updateIndex = index;
+        }
 
+        private bool executeNextCommand() {
             if (m_listGameCommand.Count == 0) {
                 return false;
             }
@@ -43,7 +42,6 @@ namespace RoomClient {
                 }
                 return false;
             }
-
             m_listGameCommand.RemoveAt(0);
 
             m_updateIndex = currCommandS2C.MFrameIndex;
@@ -70,6 +68,13 @@ namespace RoomClient {
             if (m_frameLastCount > 0) {
                 m_frameLastCount--;
                 Physics2D.Simulate(Time.fixedDeltaTime);
+
+                //execute end
+                if(m_frameLastCount == 0) {
+                    if(RoomDataCache.Instance != null) {
+                        RoomDataCache.Instance.doSaveCache(m_updateIndex);
+                    }
+                }
                 return;
             }
 
@@ -108,7 +113,7 @@ namespace RoomClient {
             if(m_listGameCommand.Count == 0) {
                 m_listGameCommand.Add(command);
             }
-            if (command.MFrameIndex <= m_listGameCommand[0].MFrameIndex) {
+            if (command.MFrameIndex <= m_updateIndex) {
                 //丢弃
                 return;
             }

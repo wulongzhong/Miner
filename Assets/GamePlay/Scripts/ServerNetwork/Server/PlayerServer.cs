@@ -35,7 +35,8 @@ public class PlayerServer : MonoBehaviour {
         if(!(m_listPlayerIds.Contains(msg.MPlayerId))){
             m_listPlayerIds.Add(msg.MPlayerId);
         }
-        ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, RoomClient.RoomDataCache.Instance.getGameRoomCache());
+        MsgPB.GameRoomCache roomCache = RoomClient.RoomDataCache.Instance.getGameRoomCache();
+        ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, roomCache);
         GameCommandSyncServer.Instance.addPlayer(msg.MPlayerId);
     }
 

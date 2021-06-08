@@ -9,6 +9,7 @@ namespace RoomClient {
         private string m_roomDataCacheKey;
         private string m_gameRoomName;
         private MsgPB.GameRoomCache m_gameRoomCache;
+        private uint m_gameRoomCacheFrameIndex = 0;
 
         private void Awake() {
             Instance = this;
@@ -16,33 +17,36 @@ namespace RoomClient {
 
         private void Start() {
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomCache), onGameRoomCache);
-            GameCommandExecute.Instance.OnCommandFrameExecuteEnd = () => {
-
-            };
         }
 
         public MsgPB.GameRoomCache getGameRoomCache() {
+            return m_gameRoomCache;
+        }
+
+        public uint getGameRoomCacheFrameIndex() {
+            return m_gameRoomCacheFrameIndex;
+        }
+
+        public MsgPB.GameRoomCache updateGameRoomCache() {
             PlayerMgr.Instance.getCache(m_gameRoomCache);
             return m_gameRoomCache;
         }
 
-        public void saveCache() {
-            getGameRoomCache();
-        }
-
-        public void setCache(MsgPB.GameRoomCache gameRoomCache) {
-            m_gameRoomCache = gameRoomCache;
-            PlayerMgr.Instance.setCache(m_gameRoomCache);
+        public void doSaveCache(uint frameIndex) {
+            updateGameRoomCache();
+            m_gameRoomCacheFrameIndex = frameIndex;
         }
 
         public void onGameRoomCache(byte[] protobytes) {
-            MsgPB.GameRoomCache cache = MsgPB.GameRoomCache.Parser.ParseFrom(protobytes);
-            setCache(cache);
+            m_gameRoomCache = MsgPB.GameRoomCache.Parser.ParseFrom(protobytes);
+            PlayerMgr.Instance.setCache(m_gameRoomCache);
+            GameCommandExecute.Instance.initUpdateIndex(m_gameRoomCache.MFrameIndex);
         }
 
         public void initCache() {
             m_roomDataCacheKey = "roomDataCache" + m_gameRoomName;
-            setCache(MsgPB.GameRoomCache.Parser.ParseFrom(Convert.FromBase64String(PlayerPrefs.GetString(m_roomDataCacheKey, ""))));
+            m_gameRoomCache = MsgPB.GameRoomCache.Parser.ParseFrom(Convert.FromBase64String(PlayerPrefs.GetString(m_roomDataCacheKey, "")));
+            m_gameRoomCache.MFrameIndex = 0;
         }
     }
 }

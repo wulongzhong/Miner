@@ -52,6 +52,17 @@ public class GameCommandSyncServer : MonoBehaviour {
         msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
         m_currCommandS2C.MLstGameCommandInfo.Add(msg);
     }
+
+    public void syncCacheCommandToNewPlayer(uint playerId, uint roomCahceIndex) {
+        if(m_listCacheGameRoomandS2C.Count == 0) {
+            return;
+        }
+        int offset = (int)(roomCahceIndex - m_listCacheGameRoomandS2C[0].MFrameIndex) + 1;
+        for(;offset < m_listCacheGameRoomandS2C.Count; ++offset) {
+
+        }
+    }
+
     private int m_sendRemaining = 0;
     private void FixedUpdate() {
         m_sendRemaining--;
