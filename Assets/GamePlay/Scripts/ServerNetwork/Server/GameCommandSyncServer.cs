@@ -32,15 +32,17 @@ public class GameCommandSyncServer : MonoBehaviour {
             ServerLog.log("m_listCacheGameRoomandS2C.Count == 0");
             return;
         }
-        if(m_listCacheGameRoomandS2C[0].MFrameIndex <= msg.MFrameIndex) {
-            int offset = (int)(msg.MFrameIndex - m_listCacheGameRoomandS2C[0].MFrameIndex);
-            if(offset < m_listCacheGameRoomandS2C.Count) {
-                ServerMsgReceiver.Instance.sendMsg(playerId, m_listCacheGameRoomandS2C[offset]);
+        foreach(uint retrieveFrameIndex in msg.MFrameIndex) {
+            if (m_listCacheGameRoomandS2C[0].MFrameIndex <= retrieveFrameIndex) {
+                int offset = (int)(retrieveFrameIndex - m_listCacheGameRoomandS2C[0].MFrameIndex);
+                if (offset < m_listCacheGameRoomandS2C.Count) {
+                    ServerMsgReceiver.Instance.sendMsg(playerId, m_listCacheGameRoomandS2C[offset]);
+                } else {
+                    ServerLog.log("offset >= m_listCacheGameRoomandS2C.Count");
+                }
             } else {
-                ServerLog.log("offset >= m_listCacheGameRoomandS2C.Count");
+                ServerLog.log("m_listCacheGameRoomandS2C[0].MFrameIndex > msg.MFrameIndex");
             }
-        } else {
-            ServerLog.log("m_listCacheGameRoomandS2C[0].MFrameIndex > msg.MFrameIndex");
         }
     }
 
@@ -59,7 +61,7 @@ public class GameCommandSyncServer : MonoBehaviour {
         }
         int offset = (int)(roomCahceIndex - m_listCacheGameRoomandS2C[0].MFrameIndex) + 1;
         for(;offset < m_listCacheGameRoomandS2C.Count; ++offset) {
-
+            ServerMsgReceiver.Instance.sendMsg(playerId, m_listCacheGameRoomandS2C[offset]);
         }
     }
 

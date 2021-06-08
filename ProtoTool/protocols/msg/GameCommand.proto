@@ -36,5 +36,5 @@ message GameCommandS2C{
 }
 
 message GameCommandRetrieveC2S{
-    uint32 m_frameIndex = 1;
+    repeated uint32 m_frameIndex = 1;
 }

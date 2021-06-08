@@ -37,7 +37,7 @@ namespace MsgPB {
             "AiADKAsyFi5Nc2dQQi5HYW1lQ29tbWFuZEluZm8iUgoOR2FtZUNvbW1hbmRT",
             "MkMSQAoYbV9sc3RGcmFtZUFsbENvbW1hbmRJbmZvGAEgAygLMh4uTXNnUEIu",
             "R2FtZUZyYW1lQWxsQ29tbWFuZEluZm8iLgoWR2FtZUNvbW1hbmRSZXRyaWV2",
-            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASABKA0qLwoOUGxheWVyTW92ZVR5cGUS",
+            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASADKA0qLwoOUGxheWVyTW92ZVR5cGUS",
             "CAoEU1RPUBAAEggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, global::MsgPB.GameDefReflection.Descriptor, },
@@ -853,7 +853,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameCommandRetrieveC2S(GameCommandRetrieveC2S other) : this() {
-      mFrameIndex_ = other.mFrameIndex_;
+      mFrameIndex_ = other.mFrameIndex_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -864,13 +864,12 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_frameIndex" field.</summary>
     public const int MFrameIndexFieldNumber = 1;
-    private uint mFrameIndex_;
+    private static readonly pb::FieldCodec<uint> _repeated_mFrameIndex_codec
+        = pb::FieldCodec.ForUInt32(10);
+    private readonly pbc::RepeatedField<uint> mFrameIndex_ = new pbc::RepeatedField<uint>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint MFrameIndex {
+    public pbc::RepeatedField<uint> MFrameIndex {
       get { return mFrameIndex_; }
-      set {
-        mFrameIndex_ = value;
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -886,14 +885,14 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (MFrameIndex != other.MFrameIndex) return false;
+      if(!mFrameIndex_.Equals(other.mFrameIndex_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (MFrameIndex != 0) hash ^= MFrameIndex.GetHashCode();
+      hash ^= mFrameIndex_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -907,10 +906,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MFrameIndex != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(MFrameIndex);
-      }
+      mFrameIndex_.WriteTo(output, _repeated_mFrameIndex_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -919,9 +915,7 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (MFrameIndex != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MFrameIndex);
-      }
+      size += mFrameIndex_.CalculateSize(_repeated_mFrameIndex_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -933,9 +927,7 @@ namespace MsgPB {
       if (other == null) {
         return;
       }
-      if (other.MFrameIndex != 0) {
-        MFrameIndex = other.MFrameIndex;
-      }
+      mFrameIndex_.Add(other.mFrameIndex_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -947,8 +939,9 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10:
           case 8: {
-            MFrameIndex = input.ReadUInt32();
+            mFrameIndex_.AddEntriesFrom(input, _repeated_mFrameIndex_codec);
             break;
           }
         }

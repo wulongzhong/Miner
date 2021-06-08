@@ -35,11 +35,11 @@ namespace RoomClient {
             //excute
             MsgPB.GameFrameAllCommandInfo currCommandS2C = m_listGameCommand[0];
             if(currCommandS2C.MFrameIndex > (m_updateIndex + 1)) {
-                for(uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
-                    MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
-                    msg.MFrameIndex = i;
-                    ClientMsgReceiver.Instance.sendMsg(msg);
+                MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
+                for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
+                    msg.MFrameIndex.Add(i);
                 }
+                ClientMsgReceiver.Instance.sendMsg(msg);
                 return false;
             }
             m_listGameCommand.RemoveAt(0);
