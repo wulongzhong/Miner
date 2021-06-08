@@ -10,6 +10,7 @@ namespace RoomClient {
         private List<MsgPB.GameFrameAllCommandInfo> m_listGameCommand;
         private uint m_updateIndex;
         private int m_frameLastCount = 0;
+        bool m_bCanRetrieving = true;
 
         private void Awake() {
             Instance = this;
@@ -35,13 +36,18 @@ namespace RoomClient {
             //excute
             MsgPB.GameFrameAllCommandInfo currCommandS2C = m_listGameCommand[0];
             if(currCommandS2C.MFrameIndex > (m_updateIndex + 1)) {
-                MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
-                for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
-                    msg.MFrameIndex.Add(i);
+                if (m_bCanRetrieving) {
+                    m_bCanRetrieving = false;
+                    MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
+                    for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
+                        msg.MFrameIndex.Add(i);
+                    }
+                    ClientMsgReceiver.Instance.sendMsg(msg);
                 }
-                ClientMsgReceiver.Instance.sendMsg(msg);
                 return false;
             }
+
+            m_bCanRetrieving = true;
             m_listGameCommand.RemoveAt(0);
 
             m_updateIndex = currCommandS2C.MFrameIndex;
