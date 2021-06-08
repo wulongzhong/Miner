@@ -32,18 +32,21 @@ namespace MsgPB {
             "CCKTAQoPR2FtZUNvbW1hbmRJbmZvEhIKCm1fcGxheWVySWQYASABKA0SNwoO",
             "bV9jcmVhdGVQbGF5ZXIYAiABKAsyHy5Nc2dQQi5HYW1lQ29tbWFuZF9DcmVh",
             "dGVQbGF5ZXISMwoMbV9wbGF5ZXJNb3ZlGAMgASgLMh0uTXNnUEIuR2FtZUNv",
-            "bW1hbmRfUGxheWVyTW92ZSJcCg5HYW1lQ29tbWFuZFMyQxIUCgxtX2ZyYW1l",
-            "SW5kZXgYASABKA0SNAoUbV9sc3RHYW1lQ29tbWFuZEluZm8YAiADKAsyFi5N",
-            "c2dQQi5HYW1lQ29tbWFuZEluZm8iLgoWR2FtZUNvbW1hbmRSZXRyaWV2ZUMy",
-            "UxIUCgxtX2ZyYW1lSW5kZXgYASABKA0qLwoOUGxheWVyTW92ZVR5cGUSCAoE",
-            "U1RPUBAAEggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
+            "bW1hbmRfUGxheWVyTW92ZSJlChdHYW1lRnJhbWVBbGxDb21tYW5kSW5mbxIU",
+            "CgxtX2ZyYW1lSW5kZXgYASABKA0SNAoUbV9sc3RHYW1lQ29tbWFuZEluZm8Y",
+            "AiADKAsyFi5Nc2dQQi5HYW1lQ29tbWFuZEluZm8iUgoOR2FtZUNvbW1hbmRT",
+            "MkMSQAoYbV9sc3RGcmFtZUFsbENvbW1hbmRJbmZvGAEgAygLMh4uTXNnUEIu",
+            "R2FtZUZyYW1lQWxsQ29tbWFuZEluZm8iLgoWR2FtZUNvbW1hbmRSZXRyaWV2",
+            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASABKA0qLwoOUGxheWVyTW92ZVR5cGUS",
+            "CAoEU1RPUBAAEggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, global::MsgPB.GameDefReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_CreatePlayer), global::MsgPB.GameCommand_CreatePlayer.Parser, new[]{ "MPlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType", "MBJump" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MFrameIndex", "MLstGameCommandInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameFrameAllCommandInfo), global::MsgPB.GameFrameAllCommandInfo.Parser, new[]{ "MFrameIndex", "MLstGameCommandInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MLstFrameAllCommandInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandRetrieveC2S), global::MsgPB.GameCommandRetrieveC2S.Parser, new[]{ "MFrameIndex" }, null, null, null)
           }));
     }
@@ -555,11 +558,11 @@ namespace MsgPB {
 
   }
 
-  public sealed partial class GameCommandS2C : pb::IMessage<GameCommandS2C> {
-    private static readonly pb::MessageParser<GameCommandS2C> _parser = new pb::MessageParser<GameCommandS2C>(() => new GameCommandS2C());
+  public sealed partial class GameFrameAllCommandInfo : pb::IMessage<GameFrameAllCommandInfo> {
+    private static readonly pb::MessageParser<GameFrameAllCommandInfo> _parser = new pb::MessageParser<GameFrameAllCommandInfo>(() => new GameFrameAllCommandInfo());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GameCommandS2C> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameFrameAllCommandInfo> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -572,22 +575,22 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameCommandS2C() {
+    public GameFrameAllCommandInfo() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameCommandS2C(GameCommandS2C other) : this() {
+    public GameFrameAllCommandInfo(GameFrameAllCommandInfo other) : this() {
       mFrameIndex_ = other.mFrameIndex_;
       mLstGameCommandInfo_ = other.mLstGameCommandInfo_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameCommandS2C Clone() {
-      return new GameCommandS2C(this);
+    public GameFrameAllCommandInfo Clone() {
+      return new GameFrameAllCommandInfo(this);
     }
 
     /// <summary>Field number for the "m_frameIndex" field.</summary>
@@ -613,11 +616,11 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as GameCommandS2C);
+      return Equals(other as GameFrameAllCommandInfo);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GameCommandS2C other) {
+    public bool Equals(GameFrameAllCommandInfo other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -671,7 +674,7 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GameCommandS2C other) {
+    public void MergeFrom(GameFrameAllCommandInfo other) {
       if (other == null) {
         return;
       }
@@ -704,6 +707,127 @@ namespace MsgPB {
 
   }
 
+  public sealed partial class GameCommandS2C : pb::IMessage<GameCommandS2C> {
+    private static readonly pb::MessageParser<GameCommandS2C> _parser = new pb::MessageParser<GameCommandS2C>(() => new GameCommandS2C());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GameCommandS2C> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandS2C() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandS2C(GameCommandS2C other) : this() {
+      mLstFrameAllCommandInfo_ = other.mLstFrameAllCommandInfo_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandS2C Clone() {
+      return new GameCommandS2C(this);
+    }
+
+    /// <summary>Field number for the "m_lstFrameAllCommandInfo" field.</summary>
+    public const int MLstFrameAllCommandInfoFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::MsgPB.GameFrameAllCommandInfo> _repeated_mLstFrameAllCommandInfo_codec
+        = pb::FieldCodec.ForMessage(10, global::MsgPB.GameFrameAllCommandInfo.Parser);
+    private readonly pbc::RepeatedField<global::MsgPB.GameFrameAllCommandInfo> mLstFrameAllCommandInfo_ = new pbc::RepeatedField<global::MsgPB.GameFrameAllCommandInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::MsgPB.GameFrameAllCommandInfo> MLstFrameAllCommandInfo {
+      get { return mLstFrameAllCommandInfo_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GameCommandS2C);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameCommandS2C other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!mLstFrameAllCommandInfo_.Equals(other.mLstFrameAllCommandInfo_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= mLstFrameAllCommandInfo_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      mLstFrameAllCommandInfo_.WriteTo(output, _repeated_mLstFrameAllCommandInfo_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += mLstFrameAllCommandInfo_.CalculateSize(_repeated_mLstFrameAllCommandInfo_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GameCommandS2C other) {
+      if (other == null) {
+        return;
+      }
+      mLstFrameAllCommandInfo_.Add(other.mLstFrameAllCommandInfo_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            mLstFrameAllCommandInfo_.AddEntriesFrom(input, _repeated_mLstFrameAllCommandInfo_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class GameCommandRetrieveC2S : pb::IMessage<GameCommandRetrieveC2S> {
     private static readonly pb::MessageParser<GameCommandRetrieveC2S> _parser = new pb::MessageParser<GameCommandRetrieveC2S>(() => new GameCommandRetrieveC2S());
     private pb::UnknownFieldSet _unknownFields;
@@ -712,7 +836,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[4]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

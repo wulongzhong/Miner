@@ -7,8 +7,8 @@ namespace RoomClient {
     public class GameCommandExecute : MonoBehaviour {
         public static GameCommandExecute Instance;
 
-        private List<MsgPB.GameCommandS2C> m_listGameCommand;
-        private int m_updateIndex;
+        private List<MsgPB.GameFrameAllCommandInfo> m_listGameCommand;
+        private uint m_updateIndex;
         private int m_frameLastCount = 0;
 
         private System.Action m_onCommandFrameExecuteEnd;
@@ -17,7 +17,7 @@ namespace RoomClient {
         private void Awake() {
             Instance = this;
             Physics2D.simulationMode = SimulationMode2D.Script;
-            m_listGameCommand = new List<MsgPB.GameCommandS2C>();
+            m_listGameCommand = new List<MsgPB.GameFrameAllCommandInfo>();
         }
         private void Start() {
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameCommandS2C), onGameCommandS2C);
@@ -27,9 +27,26 @@ namespace RoomClient {
             updateCommand();
         }
 
-        private void executeCommand(MsgPB.GameCommandS2C currCommandS2C) {
+        private bool executeNextCommand() {
             OnCommandFrameExecuteEnd?.Invoke();
+
+            if (m_listGameCommand.Count == 0) {
+                return false;
+            }
             //excute
+            MsgPB.GameFrameAllCommandInfo currCommandS2C = m_listGameCommand[0];
+            if(currCommandS2C.MFrameIndex > (m_updateIndex + 1)) {
+                for(uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
+                    MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
+                    msg.MFrameIndex = i;
+                    ClientMsgReceiver.Instance.sendMsg(msg);
+                }
+                return false;
+            }
+
+            m_listGameCommand.RemoveAt(0);
+
+            m_updateIndex = currCommandS2C.MFrameIndex;
             m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
             foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
                 if (commandInfo.MCreatePlayer != null) {
@@ -46,6 +63,7 @@ namespace RoomClient {
             }
 
             Physics2D.Simulate(Time.fixedDeltaTime);
+            return true;
         }
 
         private void updateCommand() {
@@ -59,9 +77,9 @@ namespace RoomClient {
                 return;
             }
 
-            MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
-            m_listGameCommand.RemoveAt(0);
-            executeCommand(currCommandS2C);
+            if (!executeNextCommand()) {
+                return;
+            }
 
             chaseFrame();
         }
@@ -72,19 +90,24 @@ namespace RoomClient {
                     m_frameLastCount--;
                     Physics2D.Simulate(Time.fixedDeltaTime);
                 }
-                MsgPB.GameCommandS2C currCommandS2C = m_listGameCommand[0];
-                m_listGameCommand.RemoveAt(0);
                 //excute
-                executeCommand(currCommandS2C);
+                if (!executeNextCommand()) {
+                    return;
+                }
             }
         }
 
         public void onGameCommandS2C(byte[] protobytes) {
             MsgPB.GameCommandS2C msg = MsgPB.GameCommandS2C.Parser.ParseFrom(protobytes);
-            m_listGameCommand.Add(msg);
+            foreach(var command in msg.MLstFrameAllCommandInfo) {
+                addGameCommand(command);
+            }
         }
 
-        private void addGameCommand(MsgPB.GameCommandS2C command) {
+        private void addGameCommand(MsgPB.GameFrameAllCommandInfo command) {
+            if(m_listGameCommand.Count == 0) {
+                m_listGameCommand.Add(command);
+            }
             if (command.MFrameIndex <= m_listGameCommand[0].MFrameIndex) {
                 //丢弃
                 return;
@@ -98,7 +121,7 @@ namespace RoomClient {
                     continue;
                 }
                 if(command.MFrameIndex >= m_listGameCommand[i + 1].MFrameIndex) {
-                    continue;
+                    return;
                 }
                 m_listGameCommand.Insert(i + 1, command);
                 return;

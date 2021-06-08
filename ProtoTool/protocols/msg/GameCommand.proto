@@ -26,9 +26,13 @@ message GameCommandInfo{
     GameCommand_PlayerMove m_playerMove = 3;
 }
 
-message GameCommandS2C{
+message GameFrameAllCommandInfo{
     uint32 m_frameIndex = 1;
     repeated GameCommandInfo m_lstGameCommandInfo = 2;
+}
+
+message GameCommandS2C{
+    repeated GameFrameAllCommandInfo m_lstFrameAllCommandInfo = 1;
 }
 
 message GameCommandRetrieveC2S{

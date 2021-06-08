@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class GameCommandSyncServer : MonoBehaviour {
     public static GameCommandSyncServer Instance;
+    private const int m_maxFrameCommandCacheCount = 200;
     uint m_frameIndex = 0;
-    MsgPB.GameCommandS2C m_currCommandS2C;
-    List<MsgPB.GameCommandS2C> m_listCacheGameRoomandS2C;
+    MsgPB.GameFrameAllCommandInfo m_currCommandS2C;
+    List<MsgPB.GameFrameAllCommandInfo> m_listCacheGameRoomandS2C;
 
     private void Awake() {
         Instance = this;
-        m_currCommandS2C = new MsgPB.GameCommandS2C();
-        m_listCacheGameRoomandS2C = new List<MsgPB.GameCommandS2C>();
+        m_currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
+        m_listCacheGameRoomandS2C = new List<MsgPB.GameFrameAllCommandInfo>();
     }
 
     private void Start() {
@@ -60,11 +61,17 @@ public class GameCommandSyncServer : MonoBehaviour {
         m_sendRemaining = GameRoomConfig.Instance.FrameScale;
         ++m_frameIndex;
         m_currCommandS2C.MFrameIndex = m_frameIndex;
-        ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_currCommandS2C);
+
         m_listCacheGameRoomandS2C.Add(m_currCommandS2C);
-        if(m_listCacheGameRoomandS2C.Count > 200) {
+        if (m_listCacheGameRoomandS2C.Count > m_maxFrameCommandCacheCount) {
             m_listCacheGameRoomandS2C.RemoveAt(0);
         }
-        m_currCommandS2C = new MsgPB.GameCommandS2C();
+        m_currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
+
+        MsgPB.GameCommandS2C msg = new MsgPB.GameCommandS2C();
+        for (int i = m_listCacheGameRoomandS2C.Count - 1; (i >= 0) && (i >= m_listCacheGameRoomandS2C.Count - 3); --i) {
+            msg.MLstFrameAllCommandInfo.Add(m_listCacheGameRoomandS2C[i]);
+        }
+        ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), msg);
     }
 }
