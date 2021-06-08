@@ -117,6 +117,12 @@ namespace RoomClient {
                 //丢弃
                 return;
             }
+
+            if(command.MFrameIndex < m_listGameCommand[0].MFrameIndex) {
+                m_listGameCommand.Insert(0, command);
+                return;
+            }
+
             if (command.MFrameIndex > m_listGameCommand[m_listGameCommand.Count - 1].MFrameIndex) {
                 m_listGameCommand.Add(command);
                 return;
