@@ -37,6 +37,7 @@ public class PlayerServer : MonoBehaviour {
         }
         MsgPB.GameRoomCache roomCache = RoomClient.RoomDataCache.Instance.getGameRoomCache();
         ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, roomCache);
+        GameCommandSyncServer.Instance.syncCacheCommandToNewPlayer(msg.MPlayerId, roomCache.MFrameIndex);
         GameCommandSyncServer.Instance.addPlayer(msg.MPlayerId);
     }
 

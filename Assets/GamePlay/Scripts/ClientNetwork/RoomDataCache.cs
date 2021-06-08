@@ -9,7 +9,6 @@ namespace RoomClient {
         private string m_roomDataCacheKey;
         private string m_gameRoomName;
         private MsgPB.GameRoomCache m_gameRoomCache;
-        private uint m_gameRoomCacheFrameIndex = 0;
 
         private void Awake() {
             Instance = this;
@@ -23,10 +22,6 @@ namespace RoomClient {
             return m_gameRoomCache;
         }
 
-        public uint getGameRoomCacheFrameIndex() {
-            return m_gameRoomCacheFrameIndex;
-        }
-
         public MsgPB.GameRoomCache updateGameRoomCache() {
             PlayerMgr.Instance.getCache(m_gameRoomCache);
             return m_gameRoomCache;
@@ -34,7 +29,7 @@ namespace RoomClient {
 
         public void doSaveCache(uint frameIndex) {
             updateGameRoomCache();
-            m_gameRoomCacheFrameIndex = frameIndex;
+            m_gameRoomCache.MFrameIndex = frameIndex;
         }
 
         public void onGameRoomCache(byte[] protobytes) {
