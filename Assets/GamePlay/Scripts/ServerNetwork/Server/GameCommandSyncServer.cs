@@ -4,22 +4,43 @@ using UnityEngine;
 
 public class GameCommandSyncServer : MonoBehaviour {
     public static GameCommandSyncServer Instance;
-
-    MsgPB.GameCommandS2C m_gameCommandS2C;
+    uint m_frameIndex = 0;
+    MsgPB.GameCommandS2C m_currCommandS2C;
+    List<MsgPB.GameCommandS2C> m_listCacheGameRoomandS2C;
 
     private void Awake() {
         Instance = this;
-        m_gameCommandS2C = new MsgPB.GameCommandS2C();
+        m_currCommandS2C = new MsgPB.GameCommandS2C();
+        m_listCacheGameRoomandS2C = new List<MsgPB.GameCommandS2C>();
     }
 
     private void Start() {
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameCommandInfo), onGameCommandC2S);
+        ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameCommandRetrieveC2S), onGameCommandRetrieveC2S);
     }
 
     public void onGameCommandC2S(byte[] protobytes, uint playerId) {
         MsgPB.GameCommandInfo msg = MsgPB.GameCommandInfo.Parser.ParseFrom(protobytes);
         msg.MPlayerId = playerId;
-        m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
+        m_currCommandS2C.MLstGameCommandInfo.Add(msg);
+    }
+
+    public void onGameCommandRetrieveC2S(byte[] protobytes, uint playerId) {
+        MsgPB.GameCommandRetrieveC2S msg = MsgPB.GameCommandRetrieveC2S.Parser.ParseFrom(protobytes);
+        if(m_listCacheGameRoomandS2C.Count == 0) {
+            ServerLog.log("m_listCacheGameRoomandS2C.Count == 0");
+            return;
+        }
+        if(m_listCacheGameRoomandS2C[0].MFrameIndex <= msg.MFrameIndex) {
+            int offset = (int)(msg.MFrameIndex - m_listCacheGameRoomandS2C[0].MFrameIndex);
+            if(offset < m_listCacheGameRoomandS2C.Count) {
+                ServerMsgReceiver.Instance.sendMsg(playerId, m_listCacheGameRoomandS2C[offset]);
+            } else {
+                ServerLog.log("offset >= m_listCacheGameRoomandS2C.Count");
+            }
+        } else {
+            ServerLog.log("m_listCacheGameRoomandS2C[0].MFrameIndex > msg.MFrameIndex");
+        }
     }
 
     public void addPlayer(uint playerId) {
@@ -28,7 +49,7 @@ public class GameCommandSyncServer : MonoBehaviour {
         msg.MCreatePlayer = new MsgPB.GameCommand_CreatePlayer();
         msg.MCreatePlayer.MPlayerInfo = new MsgPB.GameRoomPlayerInfo();
         msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
-        m_gameCommandS2C.MLstGameCommandInfo.Add(msg);
+        m_currCommandS2C.MLstGameCommandInfo.Add(msg);
     }
     private int m_sendRemaining = 0;
     private void FixedUpdate() {
@@ -37,7 +58,10 @@ public class GameCommandSyncServer : MonoBehaviour {
             return;
         }
         m_sendRemaining = GameRoomConfig.Instance.FrameScale;
-        ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_gameCommandS2C);
-        m_gameCommandS2C = new MsgPB.GameCommandS2C();
+        ++m_frameIndex;
+        m_currCommandS2C.MFrameIndex = m_frameIndex;
+        ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_currCommandS2C);
+        m_listCacheGameRoomandS2C.Add(m_currCommandS2C);
+        m_currCommandS2C = new MsgPB.GameCommandS2C();
     }
 }

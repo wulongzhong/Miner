@@ -29,14 +29,14 @@ namespace MsgPB {
             "aGUSLwoMbV9wbGF5ZXJJbmZvGAEgASgLMhkuTXNnUEIuR2FtZVJvb21QbGF5",
             "ZXJJbmZvEiEKCW1fbGFzdFBvcxgCIAEoCzIOLk1zZ1BCLlZlY3RvcjISJgoO",
             "bV9sYXN0VmVsb2NpdHkYAyABKAsyDi5Nc2dQQi5WZWN0b3IyEhEKCW1fZGly",
-            "TGVmdBgEIAEoCCJICg1HYW1lUm9vbUNhY2hlEjcKEG1fbHN0Q2FjaGVQbGF5",
-            "ZXIYAiADKAsyHS5Nc2dQQi5HYW1lUm9vbU9uZVBsYXllckNhY2hlYgZwcm90",
-            "bzM="));
+            "TGVmdBgEIAEoCCJeCg1HYW1lUm9vbUNhY2hlEhQKDG1fZnJhbWVJbmRleBgB",
+            "IAEoDRI3ChBtX2xzdENhY2hlUGxheWVyGAIgAygLMh0uTXNnUEIuR2FtZVJv",
+            "b21PbmVQbGF5ZXJDYWNoZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameDefReflection.Descriptor, global::MsgPB.GameRoomPlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomOnePlayerCache), global::MsgPB.GameRoomOnePlayerCache.Parser, new[]{ "MPlayerInfo", "MLastPos", "MLastVelocity", "MDirLeft" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomCache), global::MsgPB.GameRoomCache.Parser, new[]{ "MLstCachePlayer" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomCache), global::MsgPB.GameRoomCache.Parser, new[]{ "MFrameIndex", "MLstCachePlayer" }, null, null, null)
           }));
     }
     #endregion
@@ -299,6 +299,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameRoomCache(GameRoomCache other) : this() {
+      mFrameIndex_ = other.mFrameIndex_;
       mLstCachePlayer_ = other.mLstCachePlayer_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -306,6 +307,17 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameRoomCache Clone() {
       return new GameRoomCache(this);
+    }
+
+    /// <summary>Field number for the "m_frameIndex" field.</summary>
+    public const int MFrameIndexFieldNumber = 1;
+    private uint mFrameIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MFrameIndex {
+      get { return mFrameIndex_; }
+      set {
+        mFrameIndex_ = value;
+      }
     }
 
     /// <summary>Field number for the "m_lstCachePlayer" field.</summary>
@@ -331,6 +343,7 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MFrameIndex != other.MFrameIndex) return false;
       if(!mLstCachePlayer_.Equals(other.mLstCachePlayer_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -338,6 +351,7 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MFrameIndex != 0) hash ^= MFrameIndex.GetHashCode();
       hash ^= mLstCachePlayer_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -352,6 +366,10 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MFrameIndex != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MFrameIndex);
+      }
       mLstCachePlayer_.WriteTo(output, _repeated_mLstCachePlayer_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -361,6 +379,9 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MFrameIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MFrameIndex);
+      }
       size += mLstCachePlayer_.CalculateSize(_repeated_mLstCachePlayer_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -372,6 +393,9 @@ namespace MsgPB {
     public void MergeFrom(GameRoomCache other) {
       if (other == null) {
         return;
+      }
+      if (other.MFrameIndex != 0) {
+        MFrameIndex = other.MFrameIndex;
       }
       mLstCachePlayer_.Add(other.mLstCachePlayer_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -385,6 +409,10 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            MFrameIndex = input.ReadUInt32();
+            break;
+          }
           case 18: {
             mLstCachePlayer_.AddEntriesFrom(input, _repeated_mLstCachePlayer_codec);
             break;
