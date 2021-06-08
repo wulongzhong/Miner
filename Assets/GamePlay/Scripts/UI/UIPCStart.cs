@@ -26,7 +26,7 @@ public class UIPCStart : UIBevBase {
     private void onBtnStartLocalPlayClick() {
         onHide();
         Instantiate(m_gameServerPrefab);
-        ClientRoomDataCache.Instance.initCache();
+        RoomClient.RoomDataCache.Instance.initCache();
         ClientMsgReceiver.Instance.startUdp();
         PlayerMgr.Instance.joinGameRoom();
     }
