@@ -1,13 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCommandExecute : MonoBehaviour {
-    private List<MsgPB.GameCommandS2C> m_listGameCommand;
+    public static GameCommandExecute Instance;
 
+    private List<MsgPB.GameCommandS2C> m_listGameCommand;
     private int m_updateIndex;
     private int m_frameLastCount = 0;
+
+    private System.Action m_onCommandFrameExecuteEnd;
+    public Action OnCommandFrameExecuteEnd { get => m_onCommandFrameExecuteEnd; set => m_onCommandFrameExecuteEnd = value; }
+
     private void Awake() {
+        Instance = this;
         Physics2D.simulationMode = SimulationMode2D.Script;
         m_listGameCommand = new List<MsgPB.GameCommandS2C>();
     }
@@ -20,6 +27,7 @@ public class GameCommandExecute : MonoBehaviour {
     }
 
     private void executeCommand(MsgPB.GameCommandS2C currCommandS2C) {
+        OnCommandFrameExecuteEnd?.Invoke();
         //excute
         m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
         foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {

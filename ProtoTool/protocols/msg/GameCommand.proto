@@ -27,5 +27,6 @@ message GameCommandInfo{
 }
 
 message GameCommandS2C{
-    repeated GameCommandInfo m_lstGameCommandInfo = 1;
+    uint32 m_frameIndex = 1;
+    repeated GameCommandInfo m_lstGameCommandInfo = 2;
 }

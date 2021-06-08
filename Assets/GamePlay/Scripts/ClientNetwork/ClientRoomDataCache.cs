@@ -16,6 +16,9 @@ public class ClientRoomDataCache : MonoBehaviour {
 
     private void Start() {
         ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomCache), onGameRoomCache);
+        GameCommandExecute.Instance.OnCommandFrameExecuteEnd = () => {
+
+        };
     }
 
     public MsgPB.GameRoomCache getGameRoomCache() {

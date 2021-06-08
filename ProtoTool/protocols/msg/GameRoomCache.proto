@@ -11,5 +11,6 @@ message GameRoomOnePlayerCache{
 }
 
 message GameRoomCache{
+    uint32 m_frameIndex = 1;
     repeated GameRoomOnePlayerCache m_lstCachePlayer = 2;
 }
