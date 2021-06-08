@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,6 +82,27 @@ namespace RoomClient {
         public void onGameCommandS2C(byte[] protobytes) {
             MsgPB.GameCommandS2C msg = MsgPB.GameCommandS2C.Parser.ParseFrom(protobytes);
             m_listGameCommand.Add(msg);
+        }
+
+        private void addGameCommand(MsgPB.GameCommandS2C command) {
+            if (command.MFrameIndex <= m_listGameCommand[0].MFrameIndex) {
+                //丢弃
+                return;
+            }
+            if (command.MFrameIndex > m_listGameCommand[m_listGameCommand.Count - 1].MFrameIndex) {
+                m_listGameCommand.Add(command);
+                return;
+            }
+            for(int i = 0; i < (m_listGameCommand.Count - 1); ++i) {
+                if(command.MFrameIndex <= m_listGameCommand[i].MFrameIndex) {
+                    continue;
+                }
+                if(command.MFrameIndex >= m_listGameCommand[i + 1].MFrameIndex) {
+                    continue;
+                }
+                m_listGameCommand.Insert(i + 1, command);
+                return;
+            }
         }
     }
 }

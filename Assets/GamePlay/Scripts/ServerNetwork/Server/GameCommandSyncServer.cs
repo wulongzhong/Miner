@@ -62,6 +62,9 @@ public class GameCommandSyncServer : MonoBehaviour {
         m_currCommandS2C.MFrameIndex = m_frameIndex;
         ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_currCommandS2C);
         m_listCacheGameRoomandS2C.Add(m_currCommandS2C);
+        if(m_listCacheGameRoomandS2C.Count > 200) {
+            m_listCacheGameRoomandS2C.RemoveAt(0);
+        }
         m_currCommandS2C = new MsgPB.GameCommandS2C();
     }
 }

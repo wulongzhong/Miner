@@ -128,6 +128,7 @@ public class ClientMsgReceiver : MonoBehaviour {
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
         byte[] sendByte = new byte[msgByte.Length + 2];
+        Debug.Log("sendByte length : " + sendByte.Length);
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
         sendMsg2Server(sendByte);
