@@ -6,13 +6,13 @@ public class GameCommandSyncServer : MonoBehaviour {
     public static GameCommandSyncServer Instance;
     private const int m_maxFrameCommandCacheCount = 200;
     uint m_frameIndex = 0;
-    MsgPB.GameFrameAllCommandInfo m_currCommandS2C;
+    Dictionary<uint/*playerId*/, MsgPB.GameCommandInfo> m_dicPlayerCommandInfo;
     List<MsgPB.GameFrameAllCommandInfo> m_listCacheGameRoomandS2C;
 
     private void Awake() {
         Instance = this;
-        m_currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
         m_listCacheGameRoomandS2C = new List<MsgPB.GameFrameAllCommandInfo>();
+        m_dicPlayerCommandInfo = new Dictionary<uint, MsgPB.GameCommandInfo>();
     }
 
     private void Start() {
@@ -23,7 +23,7 @@ public class GameCommandSyncServer : MonoBehaviour {
     public void onGameCommandC2S(byte[] protobytes, uint playerId) {
         MsgPB.GameCommandInfo msg = MsgPB.GameCommandInfo.Parser.ParseFrom(protobytes);
         msg.MPlayerId = playerId;
-        m_currCommandS2C.MLstGameCommandInfo.Add(msg);
+        m_dicPlayerCommandInfo[playerId] = msg;
     }
 
     public void onGameCommandRetrieveC2S(byte[] protobytes, uint playerId) {
@@ -52,7 +52,7 @@ public class GameCommandSyncServer : MonoBehaviour {
         msg.MCreatePlayer = new MsgPB.GameCommand_CreatePlayer();
         msg.MCreatePlayer.MPlayerInfo = new MsgPB.GameRoomPlayerInfo();
         msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
-        m_currCommandS2C.MLstGameCommandInfo.Add(msg);
+        m_dicPlayerCommandInfo[playerId] = msg;
     }
 
     public void syncCacheCommandToNewPlayer(uint playerId, uint roomCahceIndex) {
@@ -73,13 +73,15 @@ public class GameCommandSyncServer : MonoBehaviour {
         }
         m_sendRemaining = GameRoomConfig.Instance.FrameScale;
         ++m_frameIndex;
-        m_currCommandS2C.MFrameIndex = m_frameIndex;
+        MsgPB.GameFrameAllCommandInfo currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
+        currCommandS2C.MFrameIndex = m_frameIndex;
+        currCommandS2C.MLstGameCommandInfo.Add(m_dicPlayerCommandInfo.Values);
+        m_dicPlayerCommandInfo.Clear();
 
-        m_listCacheGameRoomandS2C.Add(m_currCommandS2C);
+        m_listCacheGameRoomandS2C.Add(currCommandS2C);
         if (m_listCacheGameRoomandS2C.Count > m_maxFrameCommandCacheCount) {
             m_listCacheGameRoomandS2C.RemoveAt(0);
         }
-        m_currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
 
         MsgPB.GameCommandS2C msg = new MsgPB.GameCommandS2C();
         for (int i = m_listCacheGameRoomandS2C.Count - 1; (i >= 0) && (i >= m_listCacheGameRoomandS2C.Count - 3); --i) {
