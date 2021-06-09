@@ -10,6 +10,8 @@ public static class MsgType {
         typeof(MsgPB.GameCommandS2C),
         typeof(MsgPB.GameRoomPlayerLogin),
         typeof(MsgPB.GameRoomCache),
+        typeof(MsgPB.GameRoomHeartBeatC2S),
+        typeof(MsgPB.GameRoomHeartBeatS2C),
     };
 
     public static ushort getTypeId(Type type) {

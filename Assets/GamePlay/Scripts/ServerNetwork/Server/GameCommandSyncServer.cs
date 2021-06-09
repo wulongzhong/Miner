@@ -35,6 +35,11 @@ public class GameCommandSyncServer : MonoBehaviour {
         foreach(uint retrieveFrameIndex in msg.MFrameIndex) {
             if (m_listCacheGameRoomandS2C[0].MFrameIndex <= retrieveFrameIndex) {
                 int offset = (int)(retrieveFrameIndex - m_listCacheGameRoomandS2C[0].MFrameIndex);
+                if(offset < 0) {
+                    MsgPB.GameCommandRetrieveErrorS2C errorMsg = new MsgPB.GameCommandRetrieveErrorS2C();
+                    ServerMsgReceiver.Instance.sendMsg(playerId, errorMsg);
+                    return;
+                }
                 if (offset < m_listCacheGameRoomandS2C.Count) {
                     ServerMsgReceiver.Instance.sendMsg(playerId, m_listCacheGameRoomandS2C[offset]);
                 } else {
