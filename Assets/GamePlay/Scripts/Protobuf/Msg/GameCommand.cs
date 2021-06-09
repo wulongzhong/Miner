@@ -37,8 +37,9 @@ namespace MsgPB {
             "AiADKAsyFi5Nc2dQQi5HYW1lQ29tbWFuZEluZm8iUgoOR2FtZUNvbW1hbmRT",
             "MkMSQAoYbV9sc3RGcmFtZUFsbENvbW1hbmRJbmZvGAEgAygLMh4uTXNnUEIu",
             "R2FtZUZyYW1lQWxsQ29tbWFuZEluZm8iLgoWR2FtZUNvbW1hbmRSZXRyaWV2",
-            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASADKA0qLwoOUGxheWVyTW92ZVR5cGUS",
-            "CAoEU1RPUBAAEggKBExFRlQQARIJCgVSSUdIVBACYgZwcm90bzM="));
+            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASADKA0iHQobR2FtZUNvbW1hbmRSZXRy",
+            "aWV2ZUVycm9yUzJDKi8KDlBsYXllck1vdmVUeXBlEggKBFNUT1AQABIICgRM",
+            "RUZUEAESCQoFUklHSFQQAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, global::MsgPB.GameDefReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
@@ -47,7 +48,8 @@ namespace MsgPB {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameFrameAllCommandInfo), global::MsgPB.GameFrameAllCommandInfo.Parser, new[]{ "MFrameIndex", "MLstGameCommandInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MLstFrameAllCommandInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandRetrieveC2S), global::MsgPB.GameCommandRetrieveC2S.Parser, new[]{ "MFrameIndex" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandRetrieveC2S), global::MsgPB.GameCommandRetrieveC2S.Parser, new[]{ "MFrameIndex" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandRetrieveErrorS2C), global::MsgPB.GameCommandRetrieveErrorS2C.Parser, null, null, null, null)
           }));
     }
     #endregion
@@ -944,6 +946,107 @@ namespace MsgPB {
             mFrameIndex_.AddEntriesFrom(input, _repeated_mFrameIndex_codec);
             break;
           }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GameCommandRetrieveErrorS2C : pb::IMessage<GameCommandRetrieveErrorS2C> {
+    private static readonly pb::MessageParser<GameCommandRetrieveErrorS2C> _parser = new pb::MessageParser<GameCommandRetrieveErrorS2C>(() => new GameCommandRetrieveErrorS2C());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GameCommandRetrieveErrorS2C> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandRetrieveErrorS2C() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandRetrieveErrorS2C(GameCommandRetrieveErrorS2C other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommandRetrieveErrorS2C Clone() {
+      return new GameCommandRetrieveErrorS2C(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GameCommandRetrieveErrorS2C);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameCommandRetrieveErrorS2C other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GameCommandRetrieveErrorS2C other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
         }
       }
     }

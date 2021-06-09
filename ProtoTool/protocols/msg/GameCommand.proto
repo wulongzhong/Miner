@@ -38,3 +38,7 @@ message GameCommandS2C{
 message GameCommandRetrieveC2S{
     repeated uint32 m_frameIndex = 1;
 }
+
+message GameCommandRetrieveErrorS2C{
+    
+}
