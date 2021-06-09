@@ -23,7 +23,17 @@ public class GameCommandSyncServer : MonoBehaviour {
     public void onGameCommandC2S(byte[] protobytes, uint playerId) {
         MsgPB.GameCommandInfo msg = MsgPB.GameCommandInfo.Parser.ParseFrom(protobytes);
         msg.MPlayerId = playerId;
-        m_dicPlayerCommandInfo[playerId] = msg;
+        if (m_dicPlayerCommandInfo.ContainsKey(playerId)) {
+            MsgPB.GameCommandInfo lastMsg = m_dicPlayerCommandInfo[playerId];
+            if(msg.MPlayerMove != null) {
+                lastMsg.MPlayerMove = msg.MPlayerMove;
+            }
+            if(msg.MPlayerJump != null) {
+                lastMsg.MPlayerJump = msg.MPlayerJump;
+            }
+        } else {
+            m_dicPlayerCommandInfo[playerId] = msg;
+        }
     }
 
     public void onGameCommandRetrieveC2S(byte[] protobytes, uint playerId) {
