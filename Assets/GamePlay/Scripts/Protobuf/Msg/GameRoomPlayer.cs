@@ -26,14 +26,18 @@ namespace MsgPB {
           string.Concat(
             "ChRHYW1lUm9vbVBsYXllci5wcm90bxIFTXNnUEIiUAoSR2FtZVJvb21QbGF5",
             "ZXJJbmZvEhIKCm1fcGxheWVySWQYASABKA0SDgoGbV9uYW1lGAIgASgJEhYK",
-            "Dm1fYm9keVZpZXdEYXRhGAMgASgFIikKE0dhbWVSb29tUGxheWVyTG9naW4S",
-            "EgoKbV9wbGF5ZXJJZBgBIAEoDSotChdHYW1lUm9vbVBsYXllckxvZ2luVHlw",
-            "ZRIICgRQTEFZEAASCAoEVklFVxABYgZwcm90bzM="));
+            "Dm1fYm9keVZpZXdEYXRhGAMgASgFImEKFkdhbWVSb29tUGxheWVyTG9naW5D",
+            "MlMSEgoKbV9wbGF5ZXJJZBgBIAEoDRIzCgttX2xvZ2luVHlwZRgCIAEoDjIe",
+            "Lk1zZ1BCLkdhbWVSb29tUGxheWVyTG9naW5UeXBlIlMKFkdhbWVSb29tUGxh",
+            "eWVyTG9naW5TMkMSFgoObV9sb2dpblN1Y2Nlc3MYASABKAgSEgoKbV9wbGF5",
+            "ZXJJZBgCIAEoDRINCgVtX2tleRgDIAEoAyotChdHYW1lUm9vbVBsYXllckxv",
+            "Z2luVHlwZRIICgRQTEFZEAASCAoEVklFVxABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.GameRoomPlayerLoginType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerInfo), global::MsgPB.GameRoomPlayerInfo.Parser, new[]{ "MPlayerId", "MName", "MBodyViewData" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerLogin), global::MsgPB.GameRoomPlayerLogin.Parser, new[]{ "MPlayerId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerLoginC2S), global::MsgPB.GameRoomPlayerLoginC2S.Parser, new[]{ "MPlayerId", "MLoginType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameRoomPlayerLoginS2C), global::MsgPB.GameRoomPlayerLoginS2C.Parser, new[]{ "MLoginSuccess", "MPlayerId", "MKey" }, null, null, null)
           }));
     }
     #endregion
@@ -233,11 +237,11 @@ namespace MsgPB {
 
   }
 
-  public sealed partial class GameRoomPlayerLogin : pb::IMessage<GameRoomPlayerLogin> {
-    private static readonly pb::MessageParser<GameRoomPlayerLogin> _parser = new pb::MessageParser<GameRoomPlayerLogin>(() => new GameRoomPlayerLogin());
+  public sealed partial class GameRoomPlayerLoginC2S : pb::IMessage<GameRoomPlayerLoginC2S> {
+    private static readonly pb::MessageParser<GameRoomPlayerLoginC2S> _parser = new pb::MessageParser<GameRoomPlayerLoginC2S>(() => new GameRoomPlayerLoginC2S());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GameRoomPlayerLogin> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameRoomPlayerLoginC2S> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -250,21 +254,22 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomPlayerLogin() {
+    public GameRoomPlayerLoginC2S() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomPlayerLogin(GameRoomPlayerLogin other) : this() {
+    public GameRoomPlayerLoginC2S(GameRoomPlayerLoginC2S other) : this() {
       mPlayerId_ = other.mPlayerId_;
+      mLoginType_ = other.mLoginType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameRoomPlayerLogin Clone() {
-      return new GameRoomPlayerLogin(this);
+    public GameRoomPlayerLoginC2S Clone() {
+      return new GameRoomPlayerLoginC2S(this);
     }
 
     /// <summary>Field number for the "m_playerId" field.</summary>
@@ -278,13 +283,24 @@ namespace MsgPB {
       }
     }
 
+    /// <summary>Field number for the "m_loginType" field.</summary>
+    public const int MLoginTypeFieldNumber = 2;
+    private global::MsgPB.GameRoomPlayerLoginType mLoginType_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GameRoomPlayerLogin);
+    public global::MsgPB.GameRoomPlayerLoginType MLoginType {
+      get { return mLoginType_; }
+      set {
+        mLoginType_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GameRoomPlayerLogin other) {
+    public override bool Equals(object other) {
+      return Equals(other as GameRoomPlayerLoginC2S);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameRoomPlayerLoginC2S other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -292,6 +308,7 @@ namespace MsgPB {
         return true;
       }
       if (MPlayerId != other.MPlayerId) return false;
+      if (MLoginType != other.MLoginType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -299,6 +316,7 @@ namespace MsgPB {
     public override int GetHashCode() {
       int hash = 1;
       if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
+      if (MLoginType != 0) hash ^= MLoginType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -316,6 +334,10 @@ namespace MsgPB {
         output.WriteRawTag(8);
         output.WriteUInt32(MPlayerId);
       }
+      if (MLoginType != 0) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) MLoginType);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -327,6 +349,9 @@ namespace MsgPB {
       if (MPlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
       }
+      if (MLoginType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MLoginType);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -334,12 +359,15 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GameRoomPlayerLogin other) {
+    public void MergeFrom(GameRoomPlayerLoginC2S other) {
       if (other == null) {
         return;
       }
       if (other.MPlayerId != 0) {
         MPlayerId = other.MPlayerId;
+      }
+      if (other.MLoginType != 0) {
+        MLoginType = other.MLoginType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -354,6 +382,195 @@ namespace MsgPB {
             break;
           case 8: {
             MPlayerId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            MLoginType = (global::MsgPB.GameRoomPlayerLoginType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GameRoomPlayerLoginS2C : pb::IMessage<GameRoomPlayerLoginS2C> {
+    private static readonly pb::MessageParser<GameRoomPlayerLoginS2C> _parser = new pb::MessageParser<GameRoomPlayerLoginS2C>(() => new GameRoomPlayerLoginS2C());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GameRoomPlayerLoginS2C> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.GameRoomPlayerReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameRoomPlayerLoginS2C() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameRoomPlayerLoginS2C(GameRoomPlayerLoginS2C other) : this() {
+      mLoginSuccess_ = other.mLoginSuccess_;
+      mPlayerId_ = other.mPlayerId_;
+      mKey_ = other.mKey_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameRoomPlayerLoginS2C Clone() {
+      return new GameRoomPlayerLoginS2C(this);
+    }
+
+    /// <summary>Field number for the "m_loginSuccess" field.</summary>
+    public const int MLoginSuccessFieldNumber = 1;
+    private bool mLoginSuccess_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool MLoginSuccess {
+      get { return mLoginSuccess_; }
+      set {
+        mLoginSuccess_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_playerId" field.</summary>
+    public const int MPlayerIdFieldNumber = 2;
+    private uint mPlayerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MPlayerId {
+      get { return mPlayerId_; }
+      set {
+        mPlayerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_key" field.</summary>
+    public const int MKeyFieldNumber = 3;
+    private long mKey_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long MKey {
+      get { return mKey_; }
+      set {
+        mKey_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GameRoomPlayerLoginS2C);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameRoomPlayerLoginS2C other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MLoginSuccess != other.MLoginSuccess) return false;
+      if (MPlayerId != other.MPlayerId) return false;
+      if (MKey != other.MKey) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MLoginSuccess != false) hash ^= MLoginSuccess.GetHashCode();
+      if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
+      if (MKey != 0L) hash ^= MKey.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MLoginSuccess != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(MLoginSuccess);
+      }
+      if (MPlayerId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(MPlayerId);
+      }
+      if (MKey != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(MKey);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MLoginSuccess != false) {
+        size += 1 + 1;
+      }
+      if (MPlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
+      }
+      if (MKey != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MKey);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GameRoomPlayerLoginS2C other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MLoginSuccess != false) {
+        MLoginSuccess = other.MLoginSuccess;
+      }
+      if (other.MPlayerId != 0) {
+        MPlayerId = other.MPlayerId;
+      }
+      if (other.MKey != 0L) {
+        MKey = other.MKey;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MLoginSuccess = input.ReadBool();
+            break;
+          }
+          case 16: {
+            MPlayerId = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            MKey = input.ReadInt64();
             break;
           }
         }

@@ -26,7 +26,7 @@ namespace MsgPB {
           string.Concat(
             "ChdHYW1lUm9vbUhlYXJ0QmVhdC5wcm90bxIFTXNnUEIiOQoUR2FtZVJvb21I",
             "ZWFydEJlYXRDMlMSEgoKbV9wbGF5ZXJJZBgBIAEoDRINCgVtX2tleRgCIAEo",
-            "BCIWChRHYW1lUm9vbUhlYXJ0QmVhdFMyQ2IGcHJvdG8z"));
+            "AyIWChRHYW1lUm9vbUhlYXJ0QmVhdFMyQ2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -86,9 +86,9 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_key" field.</summary>
     public const int MKeyFieldNumber = 2;
-    private ulong mKey_;
+    private long mKey_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong MKey {
+    public long MKey {
       get { return mKey_; }
       set {
         mKey_ = value;
@@ -117,7 +117,7 @@ namespace MsgPB {
     public override int GetHashCode() {
       int hash = 1;
       if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
-      if (MKey != 0UL) hash ^= MKey.GetHashCode();
+      if (MKey != 0L) hash ^= MKey.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -135,9 +135,9 @@ namespace MsgPB {
         output.WriteRawTag(8);
         output.WriteUInt32(MPlayerId);
       }
-      if (MKey != 0UL) {
+      if (MKey != 0L) {
         output.WriteRawTag(16);
-        output.WriteUInt64(MKey);
+        output.WriteInt64(MKey);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -150,8 +150,8 @@ namespace MsgPB {
       if (MPlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
       }
-      if (MKey != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MKey);
+      if (MKey != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MKey);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -167,7 +167,7 @@ namespace MsgPB {
       if (other.MPlayerId != 0) {
         MPlayerId = other.MPlayerId;
       }
-      if (other.MKey != 0UL) {
+      if (other.MKey != 0L) {
         MKey = other.MKey;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -186,7 +186,7 @@ namespace MsgPB {
             break;
           }
           case 16: {
-            MKey = input.ReadUInt64();
+            MKey = input.ReadInt64();
             break;
           }
         }

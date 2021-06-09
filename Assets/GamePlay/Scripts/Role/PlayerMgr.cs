@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +7,11 @@ public class PlayerMgr : MonoBehaviour {
     public GameObject m_playerPrefab;
 
     private uint m_selfPlayerId = 1;
-    private ulong m_key;
+    private long m_key;
     private Dictionary<uint, PlayerBev> m_dicId2PlayerBec;
 
     public uint SelfPlayerId { get => m_selfPlayerId; set => m_selfPlayerId = value; }
-    public ulong Key { get => m_key; set => m_key = value; }
+    public long Key { get => m_key; set => m_key = value; }
 
     private void Awake() {
         Instance = this;
@@ -19,7 +19,7 @@ public class PlayerMgr : MonoBehaviour {
     }
 
     private void Start() {
-
+        ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomPlayerLoginS2C), onGameRoomPlayerLoginS2C);
     }
 
     public PlayerBev getPlayerBevById(uint playerId) {
@@ -45,7 +45,7 @@ public class PlayerMgr : MonoBehaviour {
     }
 
     public void joinGameRoom() {
-        MsgPB.GameRoomPlayerLogin msg = new MsgPB.GameRoomPlayerLogin();
+        MsgPB.GameRoomPlayerLoginC2S msg = new MsgPB.GameRoomPlayerLoginC2S();
         msg.MPlayerId = SelfPlayerId;
         ClientMsgReceiver.Instance.sendMsg(msg);
     }
@@ -63,6 +63,16 @@ public class PlayerMgr : MonoBehaviour {
             PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
             playerBev.initPlayer(playerCache);
             m_dicId2PlayerBec[playerCache.MPlayerInfo.MPlayerId] = playerBev;
+        }
+    }
+
+    public void onGameRoomPlayerLoginS2C(byte[] protobytes) {
+        MsgPB.GameRoomPlayerLoginS2C msg = MsgPB.GameRoomPlayerLoginS2C.Parser.ParseFrom(protobytes);
+        if (msg.MLoginSuccess) {
+            m_selfPlayerId = msg.MPlayerId;
+            m_key = msg.MKey;
+        } else {
+            //登录失败
         }
     }
 }

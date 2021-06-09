@@ -11,6 +11,14 @@ enum GameRoomPlayerLoginType{
     PLAY = 0;
     VIEW = 1;
 }
-message GameRoomPlayerLogin{
+message GameRoomPlayerLoginC2S{
     uint32 m_playerId = 1;
+    GameRoomPlayerLoginType m_loginType = 2;
+}
+
+
+message GameRoomPlayerLoginS2C{
+    bool m_loginSuccess = 1;
+    uint32 m_playerId = 2;
+    int64 m_key = 3;
 }
