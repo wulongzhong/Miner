@@ -3,7 +3,7 @@ package MsgPB;
 
 message GameRoomHeartBeatC2S{
     uint32 m_playerId = 1;
-    string m_key = 2;
+    uint64 m_key = 2;
 }
 
 message GameRoomHeartBeatS2C{

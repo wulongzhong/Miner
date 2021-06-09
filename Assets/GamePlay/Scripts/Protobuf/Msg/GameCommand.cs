@@ -27,25 +27,28 @@ namespace MsgPB {
             "ChFHYW1lQ29tbWFuZC5wcm90bxIFTXNnUEIaFEdhbWVSb29tUGxheWVyLnBy",
             "b3RvGg1HYW1lRGVmLnByb3RvIksKGEdhbWVDb21tYW5kX0NyZWF0ZVBsYXll",
             "chIvCgxtX3BsYXllckluZm8YASABKAsyGS5Nc2dQQi5HYW1lUm9vbVBsYXll",
-            "ckluZm8iVAoWR2FtZUNvbW1hbmRfUGxheWVyTW92ZRIpCgptX21vdmVUeXBl",
-            "GAEgASgOMhUuTXNnUEIuUGxheWVyTW92ZVR5cGUSDwoHbV9iSnVtcBgCIAEo",
-            "CCKTAQoPR2FtZUNvbW1hbmRJbmZvEhIKCm1fcGxheWVySWQYASABKA0SNwoO",
-            "bV9jcmVhdGVQbGF5ZXIYAiABKAsyHy5Nc2dQQi5HYW1lQ29tbWFuZF9DcmVh",
-            "dGVQbGF5ZXISMwoMbV9wbGF5ZXJNb3ZlGAMgASgLMh0uTXNnUEIuR2FtZUNv",
-            "bW1hbmRfUGxheWVyTW92ZSJlChdHYW1lRnJhbWVBbGxDb21tYW5kSW5mbxIU",
-            "CgxtX2ZyYW1lSW5kZXgYASABKA0SNAoUbV9sc3RHYW1lQ29tbWFuZEluZm8Y",
-            "AiADKAsyFi5Nc2dQQi5HYW1lQ29tbWFuZEluZm8iUgoOR2FtZUNvbW1hbmRT",
-            "MkMSQAoYbV9sc3RGcmFtZUFsbENvbW1hbmRJbmZvGAEgAygLMh4uTXNnUEIu",
-            "R2FtZUZyYW1lQWxsQ29tbWFuZEluZm8iLgoWR2FtZUNvbW1hbmRSZXRyaWV2",
-            "ZUMyUxIUCgxtX2ZyYW1lSW5kZXgYASADKA0iHQobR2FtZUNvbW1hbmRSZXRy",
-            "aWV2ZUVycm9yUzJDKi8KDlBsYXllck1vdmVUeXBlEggKBFNUT1AQABIICgRM",
-            "RUZUEAESCQoFUklHSFQQAmIGcHJvdG8z"));
+            "ckluZm8iQwoWR2FtZUNvbW1hbmRfUGxheWVyTW92ZRIpCgptX21vdmVUeXBl",
+            "GAEgASgOMhUuTXNnUEIuUGxheWVyTW92ZVR5cGUiKQoWR2FtZUNvbW1hbmRf",
+            "UGxheWVySnVtcBIPCgdtX2JKdW1wGAEgASgIIsgBCg9HYW1lQ29tbWFuZElu",
+            "Zm8SEgoKbV9wbGF5ZXJJZBgBIAEoDRI3Cg5tX2NyZWF0ZVBsYXllchgCIAEo",
+            "CzIfLk1zZ1BCLkdhbWVDb21tYW5kX0NyZWF0ZVBsYXllchIzCgxtX3BsYXll",
+            "ck1vdmUYAyABKAsyHS5Nc2dQQi5HYW1lQ29tbWFuZF9QbGF5ZXJNb3ZlEjMK",
+            "DG1fcGxheWVySnVtcBgEIAEoCzIdLk1zZ1BCLkdhbWVDb21tYW5kX1BsYXll",
+            "ckp1bXAiZQoXR2FtZUZyYW1lQWxsQ29tbWFuZEluZm8SFAoMbV9mcmFtZUlu",
+            "ZGV4GAEgASgNEjQKFG1fbHN0R2FtZUNvbW1hbmRJbmZvGAIgAygLMhYuTXNn",
+            "UEIuR2FtZUNvbW1hbmRJbmZvIlIKDkdhbWVDb21tYW5kUzJDEkAKGG1fbHN0",
+            "RnJhbWVBbGxDb21tYW5kSW5mbxgBIAMoCzIeLk1zZ1BCLkdhbWVGcmFtZUFs",
+            "bENvbW1hbmRJbmZvIi4KFkdhbWVDb21tYW5kUmV0cmlldmVDMlMSFAoMbV9m",
+            "cmFtZUluZGV4GAEgAygNIh0KG0dhbWVDb21tYW5kUmV0cmlldmVFcnJvclMy",
+            "QyovCg5QbGF5ZXJNb3ZlVHlwZRIICgRTVE9QEAASCAoETEVGVBABEgkKBVJJ",
+            "R0hUEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MsgPB.GameRoomPlayerReflection.Descriptor, global::MsgPB.GameDefReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.PlayerMoveType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_CreatePlayer), global::MsgPB.GameCommand_CreatePlayer.Parser, new[]{ "MPlayerInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType", "MBJump" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerMove), global::MsgPB.GameCommand_PlayerMove.Parser, new[]{ "MMoveType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommand_PlayerJump), global::MsgPB.GameCommand_PlayerJump.Parser, new[]{ "MBJump" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandInfo), global::MsgPB.GameCommandInfo.Parser, new[]{ "MPlayerId", "MCreatePlayer", "MPlayerMove", "MPlayerJump" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameFrameAllCommandInfo), global::MsgPB.GameFrameAllCommandInfo.Parser, new[]{ "MFrameIndex", "MLstGameCommandInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandS2C), global::MsgPB.GameCommandS2C.Parser, new[]{ "MLstFrameAllCommandInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.GameCommandRetrieveC2S), global::MsgPB.GameCommandRetrieveC2S.Parser, new[]{ "MFrameIndex" }, null, null, null),
@@ -232,7 +235,6 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GameCommand_PlayerMove(GameCommand_PlayerMove other) : this() {
       mMoveType_ = other.mMoveType_;
-      mBJump_ = other.mBJump_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -252,17 +254,6 @@ namespace MsgPB {
       }
     }
 
-    /// <summary>Field number for the "m_bJump" field.</summary>
-    public const int MBJumpFieldNumber = 2;
-    private bool mBJump_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool MBJump {
-      get { return mBJump_; }
-      set {
-        mBJump_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GameCommand_PlayerMove);
@@ -277,7 +268,6 @@ namespace MsgPB {
         return true;
       }
       if (MMoveType != other.MMoveType) return false;
-      if (MBJump != other.MBJump) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -285,7 +275,6 @@ namespace MsgPB {
     public override int GetHashCode() {
       int hash = 1;
       if (MMoveType != 0) hash ^= MMoveType.GetHashCode();
-      if (MBJump != false) hash ^= MBJump.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -303,10 +292,6 @@ namespace MsgPB {
         output.WriteRawTag(8);
         output.WriteEnum((int) MMoveType);
       }
-      if (MBJump != false) {
-        output.WriteRawTag(16);
-        output.WriteBool(MBJump);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -317,9 +302,6 @@ namespace MsgPB {
       int size = 0;
       if (MMoveType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MMoveType);
-      }
-      if (MBJump != false) {
-        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -334,9 +316,6 @@ namespace MsgPB {
       }
       if (other.MMoveType != 0) {
         MMoveType = other.MMoveType;
-      }
-      if (other.MBJump != false) {
-        MBJump = other.MBJump;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -353,7 +332,135 @@ namespace MsgPB {
             MMoveType = (global::MsgPB.PlayerMoveType) input.ReadEnum();
             break;
           }
-          case 16: {
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家跳跃
+  /// </summary>
+  public sealed partial class GameCommand_PlayerJump : pb::IMessage<GameCommand_PlayerJump> {
+    private static readonly pb::MessageParser<GameCommand_PlayerJump> _parser = new pb::MessageParser<GameCommand_PlayerJump>(() => new GameCommand_PlayerJump());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GameCommand_PlayerJump> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_PlayerJump() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_PlayerJump(GameCommand_PlayerJump other) : this() {
+      mBJump_ = other.mBJump_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GameCommand_PlayerJump Clone() {
+      return new GameCommand_PlayerJump(this);
+    }
+
+    /// <summary>Field number for the "m_bJump" field.</summary>
+    public const int MBJumpFieldNumber = 1;
+    private bool mBJump_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool MBJump {
+      get { return mBJump_; }
+      set {
+        mBJump_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GameCommand_PlayerJump);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GameCommand_PlayerJump other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MBJump != other.MBJump) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MBJump != false) hash ^= MBJump.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MBJump != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(MBJump);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MBJump != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GameCommand_PlayerJump other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MBJump != false) {
+        MBJump = other.MBJump;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
             MBJump = input.ReadBool();
             break;
           }
@@ -371,7 +478,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -391,6 +498,7 @@ namespace MsgPB {
       mPlayerId_ = other.mPlayerId_;
       mCreatePlayer_ = other.mCreatePlayer_ != null ? other.mCreatePlayer_.Clone() : null;
       mPlayerMove_ = other.mPlayerMove_ != null ? other.mPlayerMove_.Clone() : null;
+      mPlayerJump_ = other.mPlayerJump_ != null ? other.mPlayerJump_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -432,6 +540,17 @@ namespace MsgPB {
       }
     }
 
+    /// <summary>Field number for the "m_playerJump" field.</summary>
+    public const int MPlayerJumpFieldNumber = 4;
+    private global::MsgPB.GameCommand_PlayerJump mPlayerJump_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.GameCommand_PlayerJump MPlayerJump {
+      get { return mPlayerJump_; }
+      set {
+        mPlayerJump_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GameCommandInfo);
@@ -448,6 +567,7 @@ namespace MsgPB {
       if (MPlayerId != other.MPlayerId) return false;
       if (!object.Equals(MCreatePlayer, other.MCreatePlayer)) return false;
       if (!object.Equals(MPlayerMove, other.MPlayerMove)) return false;
+      if (!object.Equals(MPlayerJump, other.MPlayerJump)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -457,6 +577,7 @@ namespace MsgPB {
       if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
       if (mCreatePlayer_ != null) hash ^= MCreatePlayer.GetHashCode();
       if (mPlayerMove_ != null) hash ^= MPlayerMove.GetHashCode();
+      if (mPlayerJump_ != null) hash ^= MPlayerJump.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -482,6 +603,10 @@ namespace MsgPB {
         output.WriteRawTag(26);
         output.WriteMessage(MPlayerMove);
       }
+      if (mPlayerJump_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(MPlayerJump);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -498,6 +623,9 @@ namespace MsgPB {
       }
       if (mPlayerMove_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MPlayerMove);
+      }
+      if (mPlayerJump_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MPlayerJump);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -524,6 +652,12 @@ namespace MsgPB {
           MPlayerMove = new global::MsgPB.GameCommand_PlayerMove();
         }
         MPlayerMove.MergeFrom(other.MPlayerMove);
+      }
+      if (other.mPlayerJump_ != null) {
+        if (mPlayerJump_ == null) {
+          MPlayerJump = new global::MsgPB.GameCommand_PlayerJump();
+        }
+        MPlayerJump.MergeFrom(other.MPlayerJump);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -554,6 +688,13 @@ namespace MsgPB {
             input.ReadMessage(MPlayerMove);
             break;
           }
+          case 34: {
+            if (mPlayerJump_ == null) {
+              MPlayerJump = new global::MsgPB.GameCommand_PlayerJump();
+            }
+            input.ReadMessage(MPlayerJump);
+            break;
+          }
         }
       }
     }
@@ -568,7 +709,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -717,7 +858,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[4]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -838,7 +979,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[5]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -960,7 +1101,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[6]; }
+      get { return global::MsgPB.GameCommandReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

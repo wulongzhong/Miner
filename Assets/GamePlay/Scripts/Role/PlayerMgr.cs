@@ -7,9 +7,11 @@ public class PlayerMgr : MonoBehaviour {
     public GameObject m_playerPrefab;
 
     private uint m_selfPlayerId = 1;
+    private ulong m_key;
     private Dictionary<uint, PlayerBev> m_dicId2PlayerBec;
 
     public uint SelfPlayerId { get => m_selfPlayerId; set => m_selfPlayerId = value; }
+    public ulong Key { get => m_key; set => m_key = value; }
 
     private void Awake() {
         Instance = this;

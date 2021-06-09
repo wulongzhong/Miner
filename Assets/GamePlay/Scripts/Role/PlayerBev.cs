@@ -42,20 +42,27 @@ public class PlayerBev : MonoBehaviour {
                 break;
         }
 
-        if (cmd.MBJump && (Mathf.Abs(velocity.y) < 0.01f)) {
-            velocity.y += 10;
-        }
-
         if(velocity.x > 3.0f) {
             velocity.x = 3;
         } else if(velocity.x < -3.0f) {
             velocity.x = -3;
         }
 
-        if(velocity.x > 10.0f) {
+        gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
+    }
+
+    public void doJump(MsgPB.GameCommand_PlayerJump cmd) {
+        Vector2 velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+        if (!cmd.MBJump) {
+            return;
+        }
+
+        if(!gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers()) {
+            return;
+        }
+        velocity.y += 10;
+        if (velocity.x > 10.0f) {
             velocity.x = 10;
-        } else if(velocity.x < -10.0f) {
-            velocity.x = -10;
         }
         gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
     }

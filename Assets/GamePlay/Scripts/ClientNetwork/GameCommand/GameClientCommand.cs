@@ -22,10 +22,10 @@ namespace RoomClient {
 
         public void makePlayerJump() {
             m_bHasCmd = true;
-            if (m_waitSendCmdInfo.MPlayerMove == null) {
-                m_waitSendCmdInfo.MPlayerMove = new MsgPB.GameCommand_PlayerMove();
+            if (m_waitSendCmdInfo.MPlayerJump == null) {
+                m_waitSendCmdInfo.MPlayerJump = new MsgPB.GameCommand_PlayerJump();
             }
-            m_waitSendCmdInfo.MPlayerMove.MBJump = true;
+            m_waitSendCmdInfo.MPlayerJump.MBJump = true;
         }
 
         public void FixedUpdate() {

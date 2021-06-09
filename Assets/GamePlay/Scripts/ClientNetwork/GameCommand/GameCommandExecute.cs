@@ -29,47 +29,6 @@ namespace RoomClient {
             m_updateIndex = index;
         }
 
-        private bool executeNextCommand() {
-            if (m_listGameCommand.Count == 0) {
-                return false;
-            }
-            //excute
-            MsgPB.GameFrameAllCommandInfo currCommandS2C = m_listGameCommand[0];
-            if(currCommandS2C.MFrameIndex > (m_updateIndex + 1)) {
-                if (m_bCanRetrieving) {
-                    m_bCanRetrieving = false;
-                    MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
-                    for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
-                        msg.MFrameIndex.Add(i);
-                    }
-                    ClientMsgReceiver.Instance.sendMsg(msg);
-                }
-                return false;
-            }
-
-            m_bCanRetrieving = true;
-            m_listGameCommand.RemoveAt(0);
-
-            m_updateIndex = currCommandS2C.MFrameIndex;
-            m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
-            foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
-                if (commandInfo.MCreatePlayer != null) {
-                    PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
-                }
-                PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
-                if (playerBev == null) {
-                    Debug.LogError("playerBev == null");
-                    continue;
-                }
-                if (commandInfo.MPlayerMove != null) {
-                    playerBev.doMove(commandInfo.MPlayerMove);
-                }
-            }
-
-            Physics2D.Simulate(Time.fixedDeltaTime);
-            return true;
-        }
-
         private void updateCommand() {
             if (m_frameLastCount > 0) {
                 m_frameLastCount--;
@@ -144,5 +103,51 @@ namespace RoomClient {
                 return;
             }
         }
+
+
+        private bool executeNextCommand() {
+            if (m_listGameCommand.Count == 0) {
+                return false;
+            }
+            //excute
+            MsgPB.GameFrameAllCommandInfo currCommandS2C = m_listGameCommand[0];
+            if (currCommandS2C.MFrameIndex > (m_updateIndex + 1)) {
+                if (m_bCanRetrieving) {
+                    m_bCanRetrieving = false;
+                    MsgPB.GameCommandRetrieveC2S msg = new MsgPB.GameCommandRetrieveC2S();
+                    for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
+                        msg.MFrameIndex.Add(i);
+                    }
+                    ClientMsgReceiver.Instance.sendMsg(msg);
+                }
+                return false;
+            }
+
+            m_bCanRetrieving = true;
+            m_listGameCommand.RemoveAt(0);
+
+            m_updateIndex = currCommandS2C.MFrameIndex;
+            m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
+            foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
+                if (commandInfo.MCreatePlayer != null) {
+                    PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+                }
+                PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
+                if (playerBev == null) {
+                    Debug.LogError("playerBev == null");
+                    continue;
+                }
+                if (commandInfo.MPlayerMove != null) {
+                    playerBev.doMove(commandInfo.MPlayerMove);
+                }
+                if(commandInfo.MPlayerJump != null) {
+                    playerBev.doJump(commandInfo.MPlayerJump);
+                }
+            }
+
+            Physics2D.Simulate(Time.fixedDeltaTime);
+            return true;
+        }
+
     }
 }

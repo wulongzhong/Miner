@@ -3,6 +3,8 @@ package MsgPB;
 import "GameRoomPlayer.proto";
 import "GameDef.proto";
 
+//每条指令应该都是独立的，不会互相影响，如果会互相影响，则应该放在同一条里
+
 //创建玩家
 message GameCommand_CreatePlayer{
     GameRoomPlayerInfo m_playerInfo = 1;
@@ -16,14 +18,19 @@ enum PlayerMoveType{
 }
 message GameCommand_PlayerMove{
     PlayerMoveType m_moveType = 1;
-    bool m_bJump = 2;
 }
 //
+
+//玩家跳跃
+message GameCommand_PlayerJump{
+    bool m_bJump = 1;
+}
 
 message GameCommandInfo{
     uint32 m_playerId = 1;
     GameCommand_CreatePlayer m_createPlayer = 2;
     GameCommand_PlayerMove m_playerMove = 3;
+    GameCommand_PlayerJump m_playerJump = 4;
 }
 
 message GameFrameAllCommandInfo{
