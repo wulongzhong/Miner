@@ -19,6 +19,7 @@ public class GameClientHeartBeat : MonoBehaviour {
 
     public void onGameRoomHeartBeatS2C(byte[] protobytes) {
         MsgPB.GameRoomHeartBeatS2C msg = MsgPB.GameRoomHeartBeatS2C.Parser.ParseFrom(protobytes);
+        m_lastReceiveServerTime = Time.time;
     }
 
     private void Update() {

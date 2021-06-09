@@ -96,6 +96,7 @@ public class PlayerServer : MonoBehaviour {
         return 0;
     }
 
+    float m_lastHeartBeatTime;
     private void Update() {
         List<uint> lstOfflinePlayerId = new List<uint>();
         foreach(var keyValue in m_dicPlayerId2HeartBeat) {
@@ -108,6 +109,12 @@ public class PlayerServer : MonoBehaviour {
             m_dicPlayerId2HeartBeat.Remove(offlinePlayerId);
             m_dicIPEndPoint2PlayerId.Remove(m_dicPlayerId2IPEndPoint[offlinePlayerId]);
             m_dicPlayerId2IPEndPoint.Remove(offlinePlayerId);
+        }
+
+        if((Time.time - m_lastHeartBeatTime) > 3.0f) {
+            m_lastHeartBeatTime = Time.time;
+            MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
+            ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);
         }
     }
 }
