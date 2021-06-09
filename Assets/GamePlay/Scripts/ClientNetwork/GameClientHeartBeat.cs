@@ -22,12 +22,17 @@ public class GameClientHeartBeat : MonoBehaviour {
     }
 
     private void Update() {
+        if (PlayerMgr.Instance.getSelf() == null) {
+            return;
+        }
+
         //掉线了
-        if((Time.time - m_lastReceiveServerTime) > 10.0f) {
+        if ((Time.time - m_lastReceiveServerTime) > 10.0f) {
             Debug.Log("掉线了");
         }
 
         if((Time.time - m_lastSendTime) > 3.0f) {
+            m_lastSendTime = Time.time;
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
             msg.MPlayerId = PlayerMgr.Instance.SelfPlayerId;
             msg.MKey = PlayerMgr.Instance.Key;
