@@ -68,6 +68,7 @@ public class GameCommandSyncServer : MonoBehaviour {
         msg.MCreatePlayer.MPlayerInfo = new MsgPB.GameRoomPlayerInfo();
         msg.MCreatePlayer.MPlayerInfo.MPlayerId = playerId;
         m_dicPlayerCommandInfo[playerId] = msg;
+        Debug.LogFormat("GameCommandSyncServer add player id:{0}, frameIndex:{1}", playerId, m_frameIndex + 1);
     }
 
     public void syncCacheCommandToNewPlayer(uint playerId, uint roomCahceIndex) {

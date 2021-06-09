@@ -74,7 +74,6 @@ public class ClientMsgReceiver : MonoBehaviour {
             try {
                 ushort msgId = BitConverter.ToUInt16(bytes.Skip(0).Take(2).ToArray(), 0);
                 byte[] msgInfo = bytes.Skip(2).Take(bytes.Length - 2).ToArray();
-                Debug.Log("rev msgId :" + msgId);
                 if (m_onRevDic.ContainsKey(msgId)) {
                     try {
                         m_onRevDic[msgId](msgInfo);
@@ -127,7 +126,6 @@ public class ClientMsgReceiver : MonoBehaviour {
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
         byte[] sendByte = new byte[msgByte.Length + 2];
-        Debug.Log("send msgId :" + MsgType.getTypeId(msg.GetType()));
         Debug.Log("sendByte length : " + sendByte.Length);
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);

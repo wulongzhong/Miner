@@ -41,7 +41,7 @@ public class PlayerServer : MonoBehaviour {
             m_listPlayerIds.Add(msg.MPlayerId);
         }
         m_dicPlayerId2Key[msg.MPlayerId] = Random.Range(int.MinValue, int.MaxValue) * Random.Range(int.MinValue, int.MaxValue);
-
+        m_dicPlayerId2HeartBeat[msg.MPlayerId] = Time.time;
         //告知登录成功
         MsgPB.GameRoomPlayerLoginS2C loginMsg = new MsgPB.GameRoomPlayerLoginS2C();
         loginMsg.MLoginSuccess = true;

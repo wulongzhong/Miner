@@ -19,6 +19,7 @@ namespace RoomClient {
         }
         private void Start() {
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameCommandS2C), onGameCommandS2C);
+            ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameFrameAllCommandInfo), onGameFrameAllCommandInfo);
         }
 
         private void FixedUpdate() {
@@ -27,6 +28,7 @@ namespace RoomClient {
 
         public void initUpdateIndex(uint index) {
             m_updateIndex = index;
+            Debug.LogFormat("initUpdateIndex : {0}", index);
         }
 
         private void updateCommand() {
@@ -72,6 +74,11 @@ namespace RoomClient {
             foreach(var command in msg.MLstFrameAllCommandInfo) {
                 addGameCommand(command);
             }
+        }
+
+        public void onGameFrameAllCommandInfo(byte[] protobytes) {
+            MsgPB.GameFrameAllCommandInfo msg = MsgPB.GameFrameAllCommandInfo.Parser.ParseFrom(protobytes);
+            addGameCommand(msg);
         }
 
         private void addGameCommand(MsgPB.GameFrameAllCommandInfo command) {
@@ -130,6 +137,7 @@ namespace RoomClient {
             m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
             foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
                 if (commandInfo.MCreatePlayer != null) {
+                    Debug.LogFormat("executeNextCommand add player id:{0}", commandInfo.MPlayerId);
                     PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
                 }
                 PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
