@@ -43,4 +43,9 @@ public class UIPCStart : UIBevBase {
 
         PlayerMgr.Instance.joinGameRoom();
     }
+
+    public override void onHide() {
+        base.onHide();
+        UIMgr.Instance.showUI("UITestOperate");
+    }
 }
