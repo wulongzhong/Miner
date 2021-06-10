@@ -43,6 +43,9 @@ public class ServerMsgReceiver : MonoBehaviour
         m_listener = new UdpClient(m_listenPort);
         m_udpListenThread = new Thread(UdpListenUpdate);
         m_udpListenThread.Start();
+        byte[] netTest = BitConverter.GetBytes(99);
+
+        m_listener.SendAsync(netTest, netTest.Length, new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981));
     }
 
     public void UdpListenUpdate() {

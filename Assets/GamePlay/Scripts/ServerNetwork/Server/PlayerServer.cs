@@ -111,7 +111,7 @@ public class PlayerServer : MonoBehaviour {
             m_dicPlayerId2IPEndPoint.Remove(offlinePlayerId);
         }
 
-        if((Time.time - m_lastHeartBeatTime) > 3.0f) {
+        if((Time.time - m_lastHeartBeatTime) > 2.0f) {
             m_lastHeartBeatTime = Time.time;
             MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
             ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);

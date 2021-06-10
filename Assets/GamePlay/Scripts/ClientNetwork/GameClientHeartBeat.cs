@@ -22,6 +22,7 @@ public class GameClientHeartBeat : MonoBehaviour {
         m_lastReceiveServerTime = Time.time;
     }
 
+    bool m_bViewOffline = true;
     private void Update() {
         if (PlayerMgr.Instance.getSelf() == null) {
             return;
@@ -29,10 +30,13 @@ public class GameClientHeartBeat : MonoBehaviour {
 
         //掉线了
         if ((Time.time - m_lastReceiveServerTime) > 10.0f) {
-            Debug.Log("掉线了");
+            if (m_bViewOffline) {
+                Debug.Log("掉线了");
+                m_bViewOffline = false;
+            }
         }
 
-        if((Time.time - m_lastSendTime) > 3.0f) {
+        if((Time.time - m_lastSendTime) > 2.0f) {
             m_lastSendTime = Time.time;
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
             msg.MPlayerId = PlayerMgr.Instance.SelfPlayerId;

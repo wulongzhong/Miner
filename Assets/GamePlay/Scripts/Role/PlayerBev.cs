@@ -61,8 +61,8 @@ public class PlayerBev : MonoBehaviour {
             return;
         }
         velocity.y += 10;
-        if (velocity.x > 10.0f) {
-            velocity.x = 10;
+        if (velocity.y > 10.0f) {
+            velocity.y = 10;
         }
         gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
     }

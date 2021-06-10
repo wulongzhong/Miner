@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameCommandSyncServer : MonoBehaviour {
     public static GameCommandSyncServer Instance;
-    private const int m_maxFrameCommandCacheCount = 200;
     uint m_frameIndex = 0;
     Dictionary<uint/*playerId*/, MsgPB.GameCommandInfo> m_dicPlayerCommandInfo;
     List<MsgPB.GameFrameAllCommandInfo> m_listCacheGameRoomandS2C;
@@ -95,7 +94,7 @@ public class GameCommandSyncServer : MonoBehaviour {
         m_dicPlayerCommandInfo.Clear();
 
         m_listCacheGameRoomandS2C.Add(currCommandS2C);
-        if (m_listCacheGameRoomandS2C.Count > m_maxFrameCommandCacheCount) {
+        if (m_listCacheGameRoomandS2C.Count > GameRoomConfig.Instance.CacheFrameCommandCount) {
             m_listCacheGameRoomandS2C.RemoveAt(0);
         }
 
