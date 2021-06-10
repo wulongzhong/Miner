@@ -60,8 +60,6 @@ public class ClientMsgReceiver : MonoBehaviour {
         } catch (SocketException e) {
             ServerLog.log(e.Message);
             ServerLog.log("Client Connect Server Fail");
-        } finally {
-            terminate();
         }
     }
 
