@@ -57,7 +57,7 @@ namespace RoomClient {
         }
 
         private void chaseFrame() {
-            while (m_listGameCommand.Count > 2) {
+            while (m_listGameCommand.Count > GameRoomConfig.Instance.ChaseFrameCount) {
                 while (m_frameLastCount > 0) {
                     m_frameLastCount--;
                     Physics2D.Simulate(Time.fixedDeltaTime);

@@ -8,8 +8,11 @@ public class GameRoomConfig : MonoBehaviour {
         Instance = this;
     }
 
-    private int m_frameScale = 3;
+    private int m_chaseFrameCount = 2;
+    private int m_frameScale = 2;
+    private int m_frameCommandCount = 1;
+
     public int FrameScale { get => m_frameScale; set => m_frameScale = value; }
     public int FrameCommandCount { get => m_frameCommandCount; set => m_frameCommandCount = value; }
-    private int m_frameCommandCount = 1;
+    public int ChaseFrameCount { get => m_chaseFrameCount; set => m_chaseFrameCount = value; }
 }
