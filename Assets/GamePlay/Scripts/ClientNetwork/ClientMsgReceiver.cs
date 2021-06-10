@@ -43,7 +43,7 @@ public class ClientMsgReceiver : MonoBehaviour {
         m_listener = new UdpClient();
         //IPAddress broadcast = IPAddress.Parse("47.98.39.254");
         IPAddress broadcast = IPAddress.Parse(m_serverIpAddr);
-        m_listener.Connect(broadcast, 19981);
+        m_listener.Connect(broadcast, GamePlay.Instance.ServerPort);
         //开启新线程接收新消息
         m_udpListenThread = new Thread(UdpListenUpdate);
         m_udpListenThread.Start();
