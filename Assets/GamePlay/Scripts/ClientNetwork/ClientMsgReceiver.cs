@@ -61,7 +61,7 @@ public class ClientMsgReceiver : MonoBehaviour {
             ServerLog.log(e.Message);
             ServerLog.log("Client Connect Server Fail");
         } finally {
-            startUdp();
+            terminate();
         }
     }
 

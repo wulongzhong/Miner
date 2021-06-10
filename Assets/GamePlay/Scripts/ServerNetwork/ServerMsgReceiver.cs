@@ -61,6 +61,8 @@ public class ServerMsgReceiver : MonoBehaviour
                 mutex.ReleaseMutex();
             } catch (SocketException e) {
                 ServerLog.log(e.Message);
+            } finally {
+                terminate();
             }
         }
     }
