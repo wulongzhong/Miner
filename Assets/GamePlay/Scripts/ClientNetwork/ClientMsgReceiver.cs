@@ -61,7 +61,7 @@ public class ClientMsgReceiver : MonoBehaviour {
             ServerLog.log(e.Message);
             ServerLog.log("Client Connect Server Fail");
         } finally {
-            m_listener.Close();
+            startUdp();
         }
     }
 
@@ -137,6 +137,13 @@ public class ClientMsgReceiver : MonoBehaviour {
             ServerLog.log("Client Connect Server Fail");
             return;
         }
-        m_listener.SendAsync(sendbuf, sendbuf.Length);
+        try {
+            m_listener.SendAsync(sendbuf, sendbuf.Length);
+        } catch (SocketException e) {
+            ServerLog.log(e.Message);
+            if(e.ErrorCode == (int)SocketError.NotConnected) {
+                startUdp();
+            }
+        }
     }
 }
