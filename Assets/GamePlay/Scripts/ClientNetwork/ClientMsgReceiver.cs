@@ -40,7 +40,7 @@ public class ClientMsgReceiver : MonoBehaviour {
         terminate();
         m_serverIsRuning = true;
         m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
-        m_listener = new UdpClient();
+        m_listener = new UdpClient(AddressFamily.InterNetwork);
         //IPAddress broadcast = IPAddress.Parse("47.98.39.254");
         IPAddress broadcast = IPAddress.Parse(m_serverIpAddr);
         m_listener.Connect(broadcast, GamePlay.Instance.ServerPort);
