@@ -27,7 +27,12 @@ namespace RoomClient {
             return m_gameRoomCache;
         }
 
+        private float m_lastCacheTime;
         public void doSaveCache(uint frameIndex) {
+            if((Time.time - m_lastCacheTime) <= 2) {
+                return;
+            }
+            m_lastCacheTime = Time.time;
             updateGameRoomCache();
             m_gameRoomCache.MFrameIndex = frameIndex;
         }

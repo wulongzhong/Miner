@@ -52,7 +52,7 @@ namespace RoomClient {
             if (!executeNextCommand()) {
                 return;
             }
-
+            Debug.LogFormat("m_listGameCommand.Count : {0}", m_listGameCommand.Count);
             chaseFrame();
         }
 
