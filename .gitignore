@@ -59,3 +59,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 /Win32
+/GameUserServer/obj/Debug
+/GameUserServer/bin/Debug
