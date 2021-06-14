@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class PlayerServer : MonoBehaviour {
+public class PlayerServer : WF.SimpleComponent {
 
     public static PlayerServer Instance;
 
@@ -13,7 +13,8 @@ public class PlayerServer : MonoBehaviour {
     private Dictionary<uint, long> m_dicPlayerId2Key;
     private Dictionary<uint, float> m_dicPlayerId2HeartBeat;
 
-    private void Awake() {
+    public override bool initialize() {
+        base.initialize();
         Instance = this;
         m_listPlayerIds = new List<uint>();
 
@@ -21,11 +22,11 @@ public class PlayerServer : MonoBehaviour {
         m_dicIPEndPoint2PlayerId = new Dictionary<IPEndPoint, uint>();
         m_dicPlayerId2Key = new Dictionary<uint, long>();
         m_dicPlayerId2HeartBeat = new Dictionary<uint, float>();
-    }
 
-    private void Start() {
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomPlayerLoginC2S), onGameRoomPlayerLoginC2S);
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomHeartBeatC2S), onGameRoomHeartBeatC2S);
+
+        return true;
     }
 
 
@@ -97,7 +98,8 @@ public class PlayerServer : MonoBehaviour {
     }
 
     float m_lastHeartBeatTime;
-    private void Update() {
+    public override void update() {
+        base.update();
         List<uint> lstOfflinePlayerId = new List<uint>();
         foreach(var keyValue in m_dicPlayerId2HeartBeat) {
             if((Time.time - keyValue.Value) > 10.0f) {

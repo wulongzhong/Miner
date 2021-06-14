@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameCommandSyncServer : MonoBehaviour {
+public class GameCommandSyncServer : WF.SimpleComponent {
     public static GameCommandSyncServer Instance;
     uint m_frameIndex = 0;
     Dictionary<uint/*playerId*/, MsgPB.GameCommandInfo> m_dicPlayerCommandInfo;
     List<MsgPB.GameFrameAllCommandInfo> m_listCacheGameRoomandS2C;
 
-    private void Awake() {
+    public override bool initialize() {
+        base.initialize();
         Instance = this;
         m_listCacheGameRoomandS2C = new List<MsgPB.GameFrameAllCommandInfo>();
         m_dicPlayerCommandInfo = new Dictionary<uint, MsgPB.GameCommandInfo>();
-    }
 
-    private void Start() {
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameCommandInfo), onGameCommandC2S);
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameCommandRetrieveC2S), onGameCommandRetrieveC2S);
+        return true;
     }
 
     public void onGameCommandC2S(byte[] protobytes, uint playerId) {
@@ -81,7 +81,9 @@ public class GameCommandSyncServer : MonoBehaviour {
     }
 
     private int m_sendRemaining = 0;
-    private void FixedUpdate() {
+    public override void update() {
+        base.update();
+
         m_sendRemaining--;
         if (m_sendRemaining > 0) {
             return;

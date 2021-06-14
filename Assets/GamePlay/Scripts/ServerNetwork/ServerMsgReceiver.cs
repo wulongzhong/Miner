@@ -8,8 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
 
-public class ServerMsgReceiver : MonoBehaviour
-{
+public class ServerMsgReceiver : WF.SimpleComponent {
     public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
     public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
 
@@ -31,13 +30,15 @@ public class ServerMsgReceiver : MonoBehaviour
     private List<WaitHandler> m_waitHandleSyncList;
     private List<WaitHandler> m_waitHandleMasterList;
 
-    private void Awake() {
+    public override bool initialize() {
+        base.initialize();
         Instance = this;
         m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
         m_onPlayerRevDic = new Dictionary<ushort, OnPlayerRev>();
         m_waitHandleSyncList = new List<WaitHandler>();
         m_waitHandleMasterList = new List<WaitHandler>();
         startUdpListen();
+        return true;
     }
     public void startUdpListen() {
         m_listener = new UdpClient(m_listenPort);
@@ -98,7 +99,8 @@ public class ServerMsgReceiver : MonoBehaviour
         }
     }
 
-    private void Update() {
+    public override void update() {
+        base.update();
         mutex.WaitOne();
         m_waitHandleMasterList = new List<WaitHandler>(m_waitHandleSyncList);
         m_waitHandleSyncList.Clear();
@@ -154,17 +156,8 @@ public class ServerMsgReceiver : MonoBehaviour
             m_onPlayerRevDic.Add(msgId, onPlayerRev);
         }
     }
-    private void OnDestroy() {
-        Debug.Log("OnDestroy");
-        terminate();
-    }
 
-    private void OnApplicationQuit() {
-        Debug.Log("OnApplicationQuit");
-        terminate();
-    }
-
-    public void terminate() {
+    public override void terminate() {
         if (m_udpListenThread != null) {
             m_udpListenThread.Abort();
             m_udpListenThread = null;
