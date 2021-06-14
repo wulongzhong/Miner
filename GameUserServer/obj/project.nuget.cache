@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+rjIfuWu3SEwbRaMkTHJC5ZSTzShJvCJz471jG+IDJetrfs0LiJjndToxWNO0qsuKPtiNsaStUdgNXBpKOq6xA==",
+  "dgSpecHash": "Iw7D6ea1xzWWADD8lJUPCKdFS5bu+XFVW0DjeUl9G9sQsC5YEL05uvwgC8Rb+n6A4J4uW7+tLmdtjklFlnmWWQ==",
   "success": true,
   "projectFilePath": "C:\\UnityProject\\Miner\\GameUserServer\\GameUserServer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\longzhongwu\\.nuget\\packages\\google.protobuf\\3.17.3\\google.protobuf.3.17.3.nupkg.sha512"
+  ],
   "logs": []
 }
