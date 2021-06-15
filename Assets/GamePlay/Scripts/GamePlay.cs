@@ -5,6 +5,8 @@ using UnityEngine;
 public class GamePlay : MonoBehaviour {
     public static GamePlay Instance;
 
+    private ServerMgr m_serverMgr;
+
     private void Awake() {
         Instance = this;
     }
@@ -16,4 +18,25 @@ public class GamePlay : MonoBehaviour {
     public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
     public int GameRoomSeed { get => m_gameRoomSeed; set => m_gameRoomSeed = value; }
     public int ServerPort { get => m_serverPort; set => m_serverPort = value; }
+
+    private void Update() {
+        if(m_serverMgr != null) {
+            m_serverMgr.update();
+        }
+    }
+
+    public void openLocalServer() {
+        m_serverMgr = new ServerMgr();
+        m_serverMgr.initialize();
+    }
+
+    public void closeLocalServer() {
+        m_serverMgr.terminate();
+    }
+
+    private void OnDestroy() {
+        if(m_serverMgr != null) {
+            m_serverMgr.terminate();
+        }
+    }
 }

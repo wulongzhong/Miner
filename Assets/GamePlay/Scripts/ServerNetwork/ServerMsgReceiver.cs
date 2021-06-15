@@ -100,7 +100,6 @@ public class ServerMsgReceiver : WF.SimpleComponent {
     }
 
     public override void update() {
-        base.update();
         mutex.WaitOne();
         m_waitHandleMasterList = new List<WaitHandler>(m_waitHandleSyncList);
         m_waitHandleSyncList.Clear();

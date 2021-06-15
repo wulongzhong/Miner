@@ -10,8 +10,6 @@ public class UIPCStart : UIBevBase {
     public Button m_btnStartLocalPlay;
     public Button m_btnJoinPlay;
 
-    public GameObject m_gameServerPrefab;
-
     private string m_keyLastIP = "last_ip";
     private string m_keyLastPort = "last_port";
     private string m_keyLastPlayerID = "last_player_id";
@@ -28,7 +26,7 @@ public class UIPCStart : UIBevBase {
 
     private void onBtnStartLocalPlayClick() {
         onHide();
-        Instantiate(m_gameServerPrefab);
+        GamePlay.Instance.openLocalServer();
         RoomClient.RoomDataCache.Instance.initCache();
         ClientMsgReceiver.Instance.startUdp();
         PlayerMgr.Instance.joinGameRoom();

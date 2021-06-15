@@ -82,8 +82,6 @@ public class GameCommandSyncServer : WF.SimpleComponent {
 
     private int m_sendRemaining = 0;
     public override void update() {
-        base.update();
-
         m_sendRemaining--;
         if (m_sendRemaining > 0) {
             return;

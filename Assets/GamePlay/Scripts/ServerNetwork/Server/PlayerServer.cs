@@ -99,7 +99,6 @@ public class PlayerServer : WF.SimpleComponent {
 
     float m_lastHeartBeatTime;
     public override void update() {
-        base.update();
         List<uint> lstOfflinePlayerId = new List<uint>();
         foreach(var keyValue in m_dicPlayerId2HeartBeat) {
             if((Time.time - keyValue.Value) > 10.0f) {
