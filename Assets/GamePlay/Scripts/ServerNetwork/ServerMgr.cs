@@ -1,10 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class ServerMgr : WF.SimpleComponent {
+    public static ServerMgr Instance;
+
+    private bool m_bStart = false;
+    private bool m_bPause = false;
+    private Thread m_updateThread;
+    private int m_frameMilliseconds;
+    private long m_lastUpdateTime;
+    private long m_nowTime;
+    private List<string> m_timeLog;
+
+    public long LastUpdateTime { get => m_lastUpdateTime; }
+    public long NowTime { get => m_nowTime; }
+
     public override bool initialize() {
         base.initialize();
+        Instance = this;
+
+        m_timeLog = new List<string>();
 
         ServerMsgReceiver serverMsgReceiver = new ServerMsgReceiver();
         serverMsgReceiver.initialize();
@@ -19,5 +37,59 @@ public class ServerMgr : WF.SimpleComponent {
         addComponent(gameCommandSyncServer);
 
         return true;
+    }
+
+    public override void terminate() {
+        base.terminate();
+        stopServer();
+        foreach(var log in m_timeLog) {
+            Debug.Log(log);
+        }
+    }
+
+
+    public void startServer(int frameMilliseconds) {
+        m_bStart = true;
+        m_frameMilliseconds = frameMilliseconds;
+        m_updateThread = new Thread(serverUpdate);
+        m_updateThread.Start();
+    }
+
+    public void pauseServer() {
+        m_bPause = true;
+    }
+
+    public void continueServer() {
+        m_bPause = false;
+    }
+
+    public void stopServer() {
+        m_bStart = false;
+        m_updateThread.Abort();
+    }
+
+
+    private void serverUpdate() {
+        while (m_bStart) {
+            if (m_bPause) {
+                Thread.Sleep(1);
+                continue;
+            }
+            m_nowTime = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalMilliseconds;
+            long offsetTime = (m_lastUpdateTime + m_frameMilliseconds) - m_nowTime;
+            if (offsetTime <= 0) {
+                m_timeLog.Add(string.Format("time{0} update", m_nowTime));
+                update();
+                m_lastUpdateTime = m_nowTime;
+            } else {
+                if(offsetTime > 1) {
+                    m_timeLog.Add(string.Format("time{0} sleep offsetTime - 1: {1}", m_nowTime, (int)(offsetTime - 1)));
+                    Thread.Sleep((int)(offsetTime - 1));
+                } else {
+                    m_timeLog.Add(string.Format("time{0} sleep 1", m_nowTime));
+                    Thread.Sleep(1);
+                }
+            }
+        }
     }
 }

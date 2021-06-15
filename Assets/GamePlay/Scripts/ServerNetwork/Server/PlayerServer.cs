@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net;
-using UnityEngine;
 
 public class PlayerServer : WF.SimpleComponent {
 
@@ -11,17 +10,21 @@ public class PlayerServer : WF.SimpleComponent {
     private Dictionary<uint, IPEndPoint> m_dicPlayerId2IPEndPoint;
     private Dictionary<IPEndPoint, uint> m_dicIPEndPoint2PlayerId;
     private Dictionary<uint, long> m_dicPlayerId2Key;
-    private Dictionary<uint, float> m_dicPlayerId2HeartBeat;
+    private Dictionary<uint, long> m_dicPlayerId2HeartBeat;
+    private System.Random m_random;
 
     public override bool initialize() {
         base.initialize();
         Instance = this;
+
+        m_random = new System.Random((int)ServerMgr.Instance.NowTime);
+
         m_listPlayerIds = new List<uint>();
 
         m_dicPlayerId2IPEndPoint = new Dictionary<uint, IPEndPoint>();
         m_dicIPEndPoint2PlayerId = new Dictionary<IPEndPoint, uint>();
         m_dicPlayerId2Key = new Dictionary<uint, long>();
-        m_dicPlayerId2HeartBeat = new Dictionary<uint, float>();
+        m_dicPlayerId2HeartBeat = new Dictionary<uint, long>();
 
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomPlayerLoginC2S), onGameRoomPlayerLoginC2S);
         ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomHeartBeatC2S), onGameRoomHeartBeatC2S);
@@ -41,8 +44,8 @@ public class PlayerServer : WF.SimpleComponent {
         if(!(m_listPlayerIds.Contains(msg.MPlayerId))){
             m_listPlayerIds.Add(msg.MPlayerId);
         }
-        m_dicPlayerId2Key[msg.MPlayerId] = Random.Range(int.MinValue, int.MaxValue) * Random.Range(int.MinValue, int.MaxValue);
-        m_dicPlayerId2HeartBeat[msg.MPlayerId] = Time.time;
+        m_dicPlayerId2Key[msg.MPlayerId] = m_random.Next(int.MinValue, int.MaxValue);
+        m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
         //告知登录成功
         MsgPB.GameRoomPlayerLoginS2C loginMsg = new MsgPB.GameRoomPlayerLoginS2C();
         loginMsg.MLoginSuccess = true;
@@ -65,9 +68,9 @@ public class PlayerServer : WF.SimpleComponent {
         MsgPB.GameRoomHeartBeatC2S msg = MsgPB.GameRoomHeartBeatC2S.Parser.ParseFrom(protobytes);
         if (m_dicPlayerId2Key.ContainsKey(msg.MPlayerId)) {
             if(msg.MKey == m_dicPlayerId2Key[msg.MPlayerId]) {
-                m_dicPlayerId2HeartBeat[msg.MPlayerId] = Time.time;
+                m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
 
-                if(m_dicPlayerId2IPEndPoint[msg.MPlayerId] != iPEndPoint) {
+                if (m_dicPlayerId2IPEndPoint[msg.MPlayerId] != iPEndPoint) {
                     m_dicIPEndPoint2PlayerId.Remove(m_dicPlayerId2IPEndPoint[msg.MPlayerId]);
                     m_dicIPEndPoint2PlayerId[iPEndPoint] = msg.MPlayerId;
                     m_dicPlayerId2IPEndPoint[msg.MPlayerId] = iPEndPoint;
@@ -97,11 +100,11 @@ public class PlayerServer : WF.SimpleComponent {
         return 0;
     }
 
-    float m_lastHeartBeatTime;
+    long m_lastHeartBeatTime;
     public override void update() {
         List<uint> lstOfflinePlayerId = new List<uint>();
         foreach(var keyValue in m_dicPlayerId2HeartBeat) {
-            if((Time.time - keyValue.Value) > 10.0f) {
+            if((ServerMgr.Instance.NowTime - keyValue.Value) > 10000) {
                 lstOfflinePlayerId.Add(keyValue.Key);
             }
         }
@@ -112,8 +115,8 @@ public class PlayerServer : WF.SimpleComponent {
             m_dicPlayerId2IPEndPoint.Remove(offlinePlayerId);
         }
 
-        if((Time.time - m_lastHeartBeatTime) > 2.0f) {
-            m_lastHeartBeatTime = Time.time;
+        if((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > 2000) {
+            m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
             MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
             ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);
         }

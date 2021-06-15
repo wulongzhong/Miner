@@ -20,14 +20,13 @@ public class GamePlay : MonoBehaviour {
     public int ServerPort { get => m_serverPort; set => m_serverPort = value; }
 
     private void Update() {
-        if(m_serverMgr != null) {
-            m_serverMgr.update();
-        }
+
     }
 
     public void openLocalServer() {
         m_serverMgr = new ServerMgr();
         m_serverMgr.initialize();
+        m_serverMgr.startServer(16);
     }
 
     public void closeLocalServer() {

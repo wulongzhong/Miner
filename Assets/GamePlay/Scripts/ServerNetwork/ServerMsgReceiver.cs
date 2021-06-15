@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using UnityEngine;
 
 public class ServerMsgReceiver : WF.SimpleComponent {
     public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
@@ -126,15 +125,15 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         }
         m_waitHandleMasterList.Clear();
 
-        if((Time.time - m_lastNatTime) > 1.0f) {
-            m_lastNatTime = Time.time;
+        if((ServerMgr.Instance.NowTime - m_lastNatTime) > 1000) {
+            m_lastNatTime = ServerMgr.Instance.NowTime;
             byte[] netTest = BitConverter.GetBytes(99);
             m_listener.SendAsync(netTest, netTest.Length, new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981));
             m_listener.SendAsync(netTest, netTest.Length, new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19982));
         }
     }
 
-    float m_lastNatTime;
+    long m_lastNatTime;
 
     //此为登录流程专用
     public void registerC2S(Type type, OnIpRev onRev) {
