@@ -26,7 +26,7 @@ public class GamePlay : MonoBehaviour {
     public void openLocalServer() {
         m_serverMgr = new ServerMgr();
         m_serverMgr.initialize();
-        m_serverMgr.startServer(16);
+        m_serverMgr.startServer(10);
     }
 
     public void closeLocalServer() {

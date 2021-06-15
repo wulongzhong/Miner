@@ -9,7 +9,7 @@ public class GameRoomConfig : MonoBehaviour {
     }
 
     private const int m_chaseFrameCount = 2;
-    private const int m_frameScale = 2;
+    private const int m_frameScale = 4;
     private const int m_frameCommandCount = 1;
     private const int m_cacheFrameCommandCount = 60 / m_frameScale * 10;
 

@@ -13,7 +13,12 @@ public class ServerMgr : WF.SimpleComponent {
     private int m_frameMilliseconds;
     private long m_lastUpdateTime;
     private long m_nowTime;
-    private List<string> m_timeLog;
+    private int m_lastOffsetTime;
+
+    //log
+    private long m_startTime;
+    private int m_updateCount;
+    Dictionary<int/*time offset*/, int/*count*/> m_dicLog;
 
     public long LastUpdateTime { get => m_lastUpdateTime; }
     public long NowTime { get => m_nowTime; }
@@ -22,7 +27,7 @@ public class ServerMgr : WF.SimpleComponent {
         base.initialize();
         Instance = this;
 
-        m_timeLog = new List<string>();
+        m_dicLog = new Dictionary<int, int>();
 
         ServerMsgReceiver serverMsgReceiver = new ServerMsgReceiver();
         serverMsgReceiver.initialize();
@@ -42,8 +47,9 @@ public class ServerMgr : WF.SimpleComponent {
     public override void terminate() {
         base.terminate();
         stopServer();
-        foreach(var log in m_timeLog) {
-            Debug.Log(log);
+        Debug.LogFormat("average update Time : {0}", (m_lastUpdateTime - m_startTime) / m_updateCount);
+        foreach (var keyValue in m_dicLog) {
+            Debug.LogFormat("offsetTime:{0}, count:{1}", keyValue.Key, keyValue.Value);
         }
     }
 
@@ -70,25 +76,33 @@ public class ServerMgr : WF.SimpleComponent {
 
 
     private void serverUpdate() {
+        m_startTime = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalMilliseconds;
+        m_lastUpdateTime = m_startTime;
+
         while (m_bStart) {
             if (m_bPause) {
                 Thread.Sleep(1);
                 continue;
             }
             m_nowTime = (long)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalMilliseconds;
-            long offsetTime = (m_lastUpdateTime + m_frameMilliseconds) - m_nowTime;
+            int offsetTime = (int)((m_lastUpdateTime + m_frameMilliseconds + m_lastOffsetTime) - m_nowTime);
             if (offsetTime <= 0) {
-                m_timeLog.Add(string.Format("time{0} update", m_nowTime));
+                m_lastOffsetTime = offsetTime;
                 update();
+                m_updateCount++;
+                if (m_dicLog.ContainsKey(offsetTime)) {
+                    m_dicLog[offsetTime] += 1;
+                } else {
+                    m_dicLog[offsetTime] = 1;
+                }
                 m_lastUpdateTime = m_nowTime;
             } else {
-                if(offsetTime > 1) {
-                    m_timeLog.Add(string.Format("time{0} sleep offsetTime - 1: {1}", m_nowTime, (int)(offsetTime - 1)));
-                    Thread.Sleep((int)(offsetTime - 1));
-                } else {
-                    m_timeLog.Add(string.Format("time{0} sleep 1", m_nowTime));
-                    Thread.Sleep(1);
-                }
+                //if(offsetTime > 1) {
+                //    Thread.Sleep(offsetTime - 1);
+                //} else {
+                //    Thread.Sleep(1);
+                //}
+                Thread.Sleep(1);
             }
         }
     }
