@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 namespace GameUserServer {
     public class PlayerServer : WF.SimpleComponent {
 
+        private class PlayerLoginInfo {
+            uint m_playerId;
+            string m_userName;
+            string m_password;
+            string m_cacheLoginID;
+        }
+
         public static PlayerServer Instance;
 
         List<uint> m_listPlayerIds;
@@ -30,8 +37,8 @@ namespace GameUserServer {
             m_dicPlayerId2Key = new Dictionary<uint, long>();
             m_dicPlayerId2HeartBeat = new Dictionary<uint, long>();
 
-            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomPlayerLoginC2S), onGameRoomPlayerLoginC2S);
-            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.GameRoomHeartBeatC2S), onGameRoomHeartBeatC2S);
+            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerPlayerLoginC2S), onUserServerPlayerLoginC2S);
+            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerHeartBeatC2S), onUserServerHeartBeatC2S);
 
             return true;
         }
@@ -41,8 +48,8 @@ namespace GameUserServer {
             return new List<uint>(m_listPlayerIds);
         }
 
-        public void onGameRoomPlayerLoginC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
-            MsgPB.GameRoomPlayerLoginC2S msg = MsgPB.GameRoomPlayerLoginC2S.Parser.ParseFrom(protobytes);
+        public void onUserServerPlayerLoginC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
+            MsgPB.UserServerPlayerLoginC2S msg = MsgPB.UserServerPlayerLoginC2S.Parser.ParseFrom(protobytes);
             addIpEndPoint(msg.MPlayerId, iPEndPoint);
 
             if (!(m_listPlayerIds.Contains(msg.MPlayerId))) {
@@ -50,26 +57,17 @@ namespace GameUserServer {
             }
             m_dicPlayerId2Key[msg.MPlayerId] = m_random.Next(int.MinValue, int.MaxValue);
             m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
+
             //告知登录成功
-            MsgPB.GameRoomPlayerLoginS2C loginMsg = new MsgPB.GameRoomPlayerLoginS2C();
+            MsgPB.UserServerPlayerLoginS2C loginMsg = new MsgPB.UserServerPlayerLoginS2C();
             loginMsg.MLoginSuccess = true;
             loginMsg.MPlayerId = msg.MPlayerId;
             loginMsg.MKey = m_dicPlayerId2Key[msg.MPlayerId];
             ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, loginMsg);
-
-            //发送缓存数据
-            MsgPB.GameRoomCache roomCache = RoomClient.RoomDataCache.Instance.getGameRoomCache();
-            ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, roomCache);
-
-            //发送缓存数据之后的指令
-            GameCommandSyncServer.Instance.syncCacheCommandToNewPlayer(msg.MPlayerId, roomCache.MFrameIndex);
-
-            //在帧里加入添加玩家的指令
-            GameCommandSyncServer.Instance.addPlayer(msg.MPlayerId);
         }
 
-        public void onGameRoomHeartBeatC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
-            MsgPB.GameRoomHeartBeatC2S msg = MsgPB.GameRoomHeartBeatC2S.Parser.ParseFrom(protobytes);
+        public void onUserServerHeartBeatC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
+            MsgPB.UserServerHeartBeatC2S msg = MsgPB.UserServerHeartBeatC2S.Parser.ParseFrom(protobytes);
             if (m_dicPlayerId2Key.ContainsKey(msg.MPlayerId)) {
                 if (msg.MKey == m_dicPlayerId2Key[msg.MPlayerId]) {
                     m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
@@ -121,7 +119,7 @@ namespace GameUserServer {
 
             if ((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > 2000) {
                 m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
-                MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
+                MsgPB.UserServerHeartBeatS2C msg = new MsgPB.UserServerHeartBeatS2C();
                 ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);
             }
         }
