@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
 public class ServerMgr : WF.SimpleComponent {
     public static ServerMgr Instance;
@@ -47,9 +46,9 @@ public class ServerMgr : WF.SimpleComponent {
     public override void terminate() {
         base.terminate();
         stopServer();
-        Debug.LogFormat("average update Time : {0}", (m_lastUpdateTime - m_startTime) / m_updateCount);
+        ServerLog.log(string.Format("average update Time : {0}", (m_lastUpdateTime - m_startTime) / m_updateCount));
         foreach (var keyValue in m_dicLog) {
-            Debug.LogFormat("offsetTime:{0}, count:{1}", keyValue.Key, keyValue.Value);
+            ServerLog.log(string.Format("offsetTime:{0}, count:{1}", keyValue.Key, keyValue.Value));
         }
     }
 
