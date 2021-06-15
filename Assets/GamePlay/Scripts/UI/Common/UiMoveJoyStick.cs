@@ -21,9 +21,9 @@ public class UiMoveJoyStick : Joystick {
     private void Update() {
         if (m_bTouch) {
             if(Direction.x < 0) {
-                GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
+                HandlerRoomCommandFactory.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
             } else {
-                GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
+                HandlerRoomCommandFactory.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
             }
         }
     }

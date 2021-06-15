@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace RoomClient {
-    public class GameClientCommand : MonoBehaviour {
-        public static GameClientCommand Instance;
+    public class HandlerRoomCommandFactory : MonoBehaviour {
+        public static HandlerRoomCommandFactory Instance;
         MsgPB.GameCommandInfo m_waitSendCmdInfo;
         bool m_bHasCmd = false;
         private void Awake() {

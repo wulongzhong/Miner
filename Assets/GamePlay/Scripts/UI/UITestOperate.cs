@@ -13,6 +13,6 @@ public class UITestOperate : UIBevBase {
     }
 
     private void onBtnJumpClick() {
-        GameClientCommand.Instance.makePlayerJump();
+        HandlerRoomCommandFactory.Instance.makePlayerJump();
     }
 }

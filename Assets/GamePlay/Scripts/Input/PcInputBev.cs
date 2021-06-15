@@ -9,12 +9,12 @@ public class PcInputBev : MonoBehaviour {
             return;
         }
         if (Input.GetKey(KeyCode.A)) {
-            GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
+            HandlerRoomCommandFactory.Instance.makePlayerMove(MsgPB.PlayerMoveType.Left);
         } else if (Input.GetKey(KeyCode.D)) {
-            GameClientCommand.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
+            HandlerRoomCommandFactory.Instance.makePlayerMove(MsgPB.PlayerMoveType.Right);
         }
         if (Input.GetKey(KeyCode.Space)) {
-            GameClientCommand.Instance.makePlayerJump();
+            HandlerRoomCommandFactory.Instance.makePlayerJump();
         }
     }
 }

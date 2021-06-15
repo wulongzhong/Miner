@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RoomClient {
-    public class GameCommandExecute : MonoBehaviour {
-        public static GameCommandExecute Instance;
+    public class HandlerRoomCommandExecute : MonoBehaviour {
+        public static HandlerRoomCommandExecute Instance;
 
         private List<MsgPB.GameFrameAllCommandInfo> m_listGameCommand;
         private uint m_updateIndex;
@@ -38,8 +38,8 @@ namespace RoomClient {
 
                 //execute end
                 if(m_frameLastCount == 0) {
-                    if(RoomDataCache.Instance != null) {
-                        RoomDataCache.Instance.doSaveCache(m_updateIndex);
+                    if(HandlerRoomDataCache.Instance != null) {
+                        HandlerRoomDataCache.Instance.doSaveCache(m_updateIndex);
                     }
                 }
                 return;

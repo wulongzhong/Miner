@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace RoomClient {
-    public class RoomDataCache : MonoBehaviour {
-        public static RoomDataCache Instance;
+    public class HandlerRoomDataCache : MonoBehaviour {
+        public static HandlerRoomDataCache Instance;
 
         private string m_roomDataCacheKey;
         private string m_gameRoomName;
@@ -40,7 +40,7 @@ namespace RoomClient {
         public void onGameRoomCache(byte[] protobytes) {
             m_gameRoomCache = MsgPB.GameRoomCache.Parser.ParseFrom(protobytes);
             PlayerMgr.Instance.setCache(m_gameRoomCache);
-            GameCommandExecute.Instance.initUpdateIndex(m_gameRoomCache.MFrameIndex);
+            HandlerRoomCommandExecute.Instance.initUpdateIndex(m_gameRoomCache.MFrameIndex);
         }
 
         public void initCache() {

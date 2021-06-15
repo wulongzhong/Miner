@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameClientHeartBeat : MonoBehaviour {
-    public static GameClientHeartBeat Instance;
+public class HandlerRoomHeartBeat : MonoBehaviour {
+    public static HandlerRoomHeartBeat Instance;
     private float m_lastReceiveServerTime;
     private float m_lastSendTime;
     private void Awake() {
