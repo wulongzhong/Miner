@@ -12,7 +12,7 @@ using System.Threading;
 namespace GameUserServer {
     class ServerMsgReceiver :WF.SimpleComponent {
         public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
-        public delegate void OnUserRev(byte[] protobytes, uint roleId);
+        public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
 
         private const int m_listenPort = 19981;
         private UdpClient m_listener;
@@ -22,7 +22,7 @@ namespace GameUserServer {
         public static ServerMsgReceiver Instance;
 
         private Dictionary<ushort, OnIpRev> m_onIpRevDic;
-        private Dictionary<ushort, OnUserRev> m_onUserRevDic;
+        private Dictionary<ushort, OnPlayerRev> m_onPlayerRevDic;
 
         public static Mutex mutex = new Mutex();
         class WaitHandler {
@@ -36,7 +36,7 @@ namespace GameUserServer {
             base.initialize();
             Instance = this;
             m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
-            m_onUserRevDic = new Dictionary<ushort, OnUserRev>();
+            m_onPlayerRevDic = new Dictionary<ushort, OnPlayerRev>();
             m_waitHandleSyncList = new List<WaitHandler>();
             m_waitHandleMasterList = new List<WaitHandler>();
             startUdpListen();
@@ -66,8 +66,8 @@ namespace GameUserServer {
         }
 
         //对单个玩家发送消息
-        public void sendMsg<T>(uint userId, T msg) {
-            IPEndPoint pGroupEp = UserServer.Instance.getIpEndPointByUserId(userId);
+        public void sendMsg<T>(uint playerId, T msg) {
+            IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
             if (pGroupEp == null) {
                 return;
             }
@@ -80,8 +80,8 @@ namespace GameUserServer {
             sendMsg2Client(pGroupEp, sendByte);
         }
         //对多个玩家发送消息
-        public void sendMsg<T>(List<uint> listUserId, T msg) {
-            if (listUserId.Count == 0) {
+        public void sendMsg<T>(List<uint> listPlayerId, T msg) {
+            if (listPlayerId.Count == 0) {
                 return;
             }
 
@@ -92,8 +92,8 @@ namespace GameUserServer {
             msgIdByte.CopyTo(sendByte, 0);
             msgByte.CopyTo(sendByte, 2);
 
-            foreach (uint userId in listUserId) {
-                IPEndPoint pGroupEp = UserServer.Instance.getIpEndPointByUserId(userId);
+            foreach (uint playerId in listPlayerId) {
+                IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
                 if (pGroupEp == null) {
                     return;
                 }
@@ -114,10 +114,10 @@ namespace GameUserServer {
                     if (m_onIpRevDic.ContainsKey(msgId)) {
                         m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
                     }
-                    if (m_onUserRevDic.ContainsKey(msgId)) {
-                        uint userId = UserServer.Instance.getUserIdByIPEndPoint(waitHandler.m_groupEP);
+                    if (m_onPlayerRevDic.ContainsKey(msgId)) {
+                        uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
                         try {
-                            m_onUserRevDic[msgId](msgInfo, userId);
+                            m_onPlayerRevDic[msgId](msgInfo, playerId);
                         } catch (InvalidProtocolBufferException e) {
                             ServerLog.log(e.Message);
                         }
@@ -142,12 +142,12 @@ namespace GameUserServer {
         }
 
         //此为正常的服务端消息注册
-        public void registerC2S(Type type, OnUserRev onUserRev) {
+        public void registerC2S(Type type, OnPlayerRev onPlayerRev) {
             ushort msgId = MsgType.getTypeId(type);
-            if (m_onUserRevDic.ContainsKey(msgId)) {
-                m_onUserRevDic[msgId] = onUserRev;
+            if (m_onPlayerRevDic.ContainsKey(msgId)) {
+                m_onPlayerRevDic[msgId] = onPlayerRev;
             } else {
-                m_onUserRevDic.Add(msgId, onUserRev);
+                m_onPlayerRevDic.Add(msgId, onPlayerRev);
             }
         }
 
