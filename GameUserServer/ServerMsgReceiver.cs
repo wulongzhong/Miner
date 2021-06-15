@@ -14,7 +14,7 @@ namespace GameUserServer {
         public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
         public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
 
-        private const int m_listenPort = 19981;
+        private const int m_listenPort = 19982;
         private UdpClient m_listener;
         private Thread m_udpListenThread;
         private bool m_serverIsRuning;

@@ -9,20 +9,23 @@ namespace GameUserServer {
     public class PlayerServer : WF.SimpleComponent {
 
         private class PlayerLoginInfo {
-            uint m_playerId;
-            string m_userName;
-            string m_password;
-            string m_cacheLoginID;
+            public uint m_playerId;
+            public string m_userName;
+            public string m_password;
+            public string m_cacheLoginID;
         }
 
         public static PlayerServer Instance;
 
         List<uint> m_listPlayerIds;
+        private Dictionary<uint, PlayerLoginInfo> m_dicPlayerLoginInfo;
         private Dictionary<uint, IPEndPoint> m_dicPlayerId2IPEndPoint;
         private Dictionary<IPEndPoint, uint> m_dicIPEndPoint2PlayerId;
         private Dictionary<uint, long> m_dicPlayerId2Key;
         private Dictionary<uint, long> m_dicPlayerId2HeartBeat;
         private System.Random m_random;
+
+        private uint testPlayerId = 1;
 
         public override bool initialize() {
             base.initialize();
@@ -32,6 +35,7 @@ namespace GameUserServer {
 
             m_listPlayerIds = new List<uint>();
 
+            m_dicPlayerLoginInfo = new Dictionary<uint, PlayerLoginInfo>();
             m_dicPlayerId2IPEndPoint = new Dictionary<uint, IPEndPoint>();
             m_dicIPEndPoint2PlayerId = new Dictionary<IPEndPoint, uint>();
             m_dicPlayerId2Key = new Dictionary<uint, long>();
@@ -50,20 +54,27 @@ namespace GameUserServer {
 
         public void onUserServerPlayerLoginC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
             MsgPB.UserServerPlayerLoginC2S msg = MsgPB.UserServerPlayerLoginC2S.Parser.ParseFrom(protobytes);
-            addIpEndPoint(msg.MPlayerId, iPEndPoint);
 
-            if (!(m_listPlayerIds.Contains(msg.MPlayerId))) {
-                m_listPlayerIds.Add(msg.MPlayerId);
+            //ToDo login password check
+
+            PlayerLoginInfo playerLoginInfo = new PlayerLoginInfo();
+            playerLoginInfo.m_playerId = ++testPlayerId;
+            m_dicPlayerLoginInfo[playerLoginInfo.m_playerId] = playerLoginInfo;
+
+            addIpEndPoint(playerLoginInfo.m_playerId, iPEndPoint);
+
+            if (!(m_listPlayerIds.Contains(playerLoginInfo.m_playerId))) {
+                m_listPlayerIds.Add(playerLoginInfo.m_playerId);
             }
-            m_dicPlayerId2Key[msg.MPlayerId] = m_random.Next(int.MinValue, int.MaxValue);
-            m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
+            m_dicPlayerId2Key[playerLoginInfo.m_playerId] = m_random.Next(int.MinValue, int.MaxValue);
+            m_dicPlayerId2HeartBeat[playerLoginInfo.m_playerId] = ServerMgr.Instance.NowTime;
 
             //告知登录成功
             MsgPB.UserServerPlayerLoginS2C loginMsg = new MsgPB.UserServerPlayerLoginS2C();
             loginMsg.MLoginSuccess = true;
-            loginMsg.MPlayerId = msg.MPlayerId;
-            loginMsg.MKey = m_dicPlayerId2Key[msg.MPlayerId];
-            ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, loginMsg);
+            loginMsg.MPlayerId = playerLoginInfo.m_playerId;
+            loginMsg.MKey = m_dicPlayerId2Key[playerLoginInfo.m_playerId];
+            ServerMsgReceiver.Instance.sendMsg(playerLoginInfo.m_playerId, loginMsg);
         }
 
         public void onUserServerHeartBeatC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
