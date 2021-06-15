@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public static class MsgType {
     private static List<Type> m_lstMsgType = new List<Type>() {
+
+#if !USER_SERVER
         typeof(MsgPB.GameRoomPlayerLoginC2S),
         typeof(MsgPB.GameRoomPlayerLoginS2C),
         
@@ -17,6 +19,7 @@ public static class MsgType {
         typeof(MsgPB.GameCommandRetrieveErrorS2C),
         typeof(MsgPB.GameCommandS2C),
         typeof(MsgPB.GameFrameAllCommandInfo),
+#endif
     };
 
     public static ushort getTypeId(Type type) {
