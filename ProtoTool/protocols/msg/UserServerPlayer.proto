@@ -1,0 +1,15 @@
+syntax = "proto3";
+package MsgPB;
+
+message UserServerPlayerLoginC2S{
+    string m_userName = 1;
+    string m_email = 2;
+    string m_password = 3;
+    string m_cacheLoginID = 4;
+}
+
+message UserServerPlayerLoginS2C{
+    bool m_loginSuccess = 1;
+    uint32 m_playerId = 2;
+    int64 m_key = 3;
+}

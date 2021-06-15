@@ -1,0 +1,29 @@
+syntax = "proto3";
+package MsgPB;
+
+message UserServerRegisterRoomC2S{
+
+}
+message UserServerRegisterRoomS2C{
+
+}
+
+message UserServerFindRoomC2S{
+
+}
+
+message UserServerFindRoomS2C{
+
+}
+
+message UserServerJoinRoomC2S{
+
+}
+
+message UserServerJoinRoomS2C{
+
+}
+
+message UserServerJoinRoomS2SC{
+
+}
