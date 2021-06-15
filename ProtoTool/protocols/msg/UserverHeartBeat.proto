@@ -1,10 +1,11 @@
 syntax = "proto3";
 package MsgPB;
 
-message GameRoomHeartBeatC2S{
+message UserServerHeartBeatC2S{
     uint32 m_playerId = 1;
     int64 m_key = 2;
 }
 
-message GameRoomHeartBeatS2C{
+message UserServerHeartBeatS2C{
+
 }
