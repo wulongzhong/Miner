@@ -10,7 +10,7 @@ using System.Threading;
 
 
 namespace GameUserServer {
-    class ServerMsgReceiver {
+    class ServerMsgReceiver :WF.SimpleComponent {
         public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
         public delegate void OnUserRev(byte[] protobytes, uint roleId);
 
@@ -32,13 +32,15 @@ namespace GameUserServer {
         private List<WaitHandler> m_waitHandleSyncList;
         private List<WaitHandler> m_waitHandleMasterList;
 
-        private void Awake() {
+        public override bool initialize() {
+            base.initialize();
             Instance = this;
             m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
             m_onUserRevDic = new Dictionary<ushort, OnUserRev>();
             m_waitHandleSyncList = new List<WaitHandler>();
             m_waitHandleMasterList = new List<WaitHandler>();
             startUdpListen();
+            return true;
         }
         public void startUdpListen() {
             m_listener = new UdpClient(m_listenPort);
@@ -99,7 +101,7 @@ namespace GameUserServer {
             }
         }
 
-        private void Update() {
+        public override void update() {
             mutex.WaitOne();
             m_waitHandleMasterList = new List<WaitHandler>(m_waitHandleSyncList);
             m_waitHandleSyncList.Clear();
@@ -148,17 +150,8 @@ namespace GameUserServer {
                 m_onUserRevDic.Add(msgId, onUserRev);
             }
         }
-        private void OnDestroy() {
-            ServerLog.log("OnDestroy");
-            terminate();
-        }
 
-        private void OnApplicationQuit() {
-            ServerLog.log("OnApplicationQuit");
-            terminate();
-        }
-
-        public void terminate() {
+        public override void terminate() {
             if (m_udpListenThread != null) {
                 m_udpListenThread.Abort();
                 m_udpListenThread = null;

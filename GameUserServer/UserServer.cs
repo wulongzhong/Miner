@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GameUserServer {
-    class UserServer {
+    class UserServer : WF.SimpleComponent {
         public static UserServer Instance;
 
-        public UserServer() {
+        public override bool initialize() {
+            base.initialize();
             Instance = this;
+            return true;
         }
 
         public IPEndPoint getIpEndPointByUserId(uint userId) {
