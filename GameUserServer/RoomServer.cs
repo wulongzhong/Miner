@@ -15,7 +15,5 @@ namespace GameUserServer {
 
     class RoomServer : WF.SimpleComponent {
         public static RoomServer Instance;
-
-
     }
 }
