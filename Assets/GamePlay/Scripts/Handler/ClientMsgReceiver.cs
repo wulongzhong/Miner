@@ -65,7 +65,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         }
     }
 
-    private void Update() {
+    public override void update() {
         mutex.WaitOne();
         m_waitHandleMasterList = new List<byte[]>(m_waitHandleSyncList);
         m_waitHandleSyncList.Clear();
