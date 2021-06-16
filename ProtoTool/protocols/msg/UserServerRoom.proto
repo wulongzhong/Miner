@@ -2,26 +2,36 @@ syntax = "proto3";
 package MsgPB;
 
 message UserServerRegisterRoomC2S{
-
+    string m_roomName = 1;
+    string m_password = 2;
+    //ToDo more info
 }
 message UserServerRegisterRoomS2C{
-
+    uint32 m_roomID = 1;
 }
 
 message UserServerFindRoomC2S{
 
 }
 
+message RoomInfo{
+    uint32 m_roomID = 1;
+    string m_roomName = 2;
+    bool m_needPassword = 3;
+}
 message UserServerFindRoomS2C{
-
+    repeated RoomInfo m_lstRoomInfo;
 }
 
 message UserServerJoinRoomC2S{
-
+    uint32 m_roomID;
+    string m_password;
 }
 
 message UserServerJoinRoomS2C{
-
+    uint32 m_roomID;
+    string m_ip;
+    uint16 m_port;
 }
 
 message UserServerJoinRoomS2SC{
