@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
 
-public class ClientMsgReceiver : MonoBehaviour {
+public class ClientMsgReceiver : WF.SimpleComponent {
     public static ClientMsgReceiver Instance;
 
     public delegate void OnRev(byte[] protobytes);
@@ -27,13 +27,15 @@ public class ClientMsgReceiver : MonoBehaviour {
 
     //public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
 
-    private void Awake() {
+    public override bool initialize() {
+        base.initialize();
         Instance = this;
         //实例化成员变量
-        gameObject.SetActive(true);
         m_onRevDic = new Dictionary<ushort, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
+
+        return true;
     }
 
     public void startUdp() {
@@ -86,15 +88,7 @@ public class ClientMsgReceiver : MonoBehaviour {
         m_waitHandleMasterList.Clear();
     }
 
-    private void OnDestroy() {
-        terminate();
-    }
-
-    private void OnApplicationQuit() {
-        terminate();
-    }
-
-    private void terminate() {
+    public override void terminate() {
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
 
@@ -124,7 +118,6 @@ public class ClientMsgReceiver : MonoBehaviour {
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();
         byte[] sendByte = new byte[msgByte.Length + 2];
-        Debug.Log("sendByte length : " + sendByte.Length);
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
         sendMsg2Server(sendByte);

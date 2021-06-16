@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RoomClient {
-    public class HandlerRoomCommandExecute : MonoBehaviour {
+    public class HandlerRoomCommandExecute : WF.SimpleComponent {
         public static HandlerRoomCommandExecute Instance;
 
         private List<MsgPB.GameFrameAllCommandInfo> m_listGameCommand;
@@ -12,17 +12,19 @@ namespace RoomClient {
         private int m_frameLastCount = 0;
         bool m_bCanRetrieving = true;
 
-        private void Awake() {
+        public override bool initialize() {
+            base.initialize();
             Instance = this;
             Physics2D.simulationMode = SimulationMode2D.Script;
             m_listGameCommand = new List<MsgPB.GameFrameAllCommandInfo>();
-        }
-        private void Start() {
+
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameCommandS2C), onGameCommandS2C);
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameFrameAllCommandInfo), onGameFrameAllCommandInfo);
+
+            return true;
         }
 
-        private void FixedUpdate() {
+        public override void update () {
             updateCommand();
         }
 

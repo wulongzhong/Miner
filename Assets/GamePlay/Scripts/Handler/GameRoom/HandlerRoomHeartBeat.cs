@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandlerRoomHeartBeat : MonoBehaviour {
+public class HandlerRoomHeartBeat : WF.SimpleComponent {
     public static HandlerRoomHeartBeat Instance;
     private float m_lastReceiveServerTime;
     private float m_lastSendTime;
-    private void Awake() {
-        Instance = this;
-    }
 
-    private void Start() {
+    public override bool initialize() {
+        base.initialize();
+        Instance = this;
+
         m_lastReceiveServerTime = Time.time;
         m_lastSendTime = Time.time;
 
         ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomHeartBeatS2C), onGameRoomHeartBeatS2C);
+        return true;
     }
 
     public void onGameRoomHeartBeatS2C(byte[] protobytes) {

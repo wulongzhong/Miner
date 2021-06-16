@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace RoomClient {
-    public class HandlerRoomCommandFactory : MonoBehaviour {
+    public class HandlerRoomCommandFactory : WF.SimpleComponent {
         public static HandlerRoomCommandFactory Instance;
         MsgPB.GameCommandInfo m_waitSendCmdInfo;
         bool m_bHasCmd = false;
-        private void Awake() {
+
+        public override bool initialize() {
+            base.initialize();
             Instance = this;
             m_waitSendCmdInfo = new MsgPB.GameCommandInfo();
+            return true;
         }
 
 
@@ -28,7 +31,7 @@ namespace RoomClient {
             m_waitSendCmdInfo.MPlayerJump.MBJump = true;
         }
 
-        public void FixedUpdate() {
+        public override void update() {
             if (!m_bHasCmd) {
                 return;
             }

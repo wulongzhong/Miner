@@ -3,19 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace RoomClient {
-    public class HandlerRoomDataCache : MonoBehaviour {
+    public class HandlerRoomDataCache : WF.SimpleComponent {
         public static HandlerRoomDataCache Instance;
 
         private string m_roomDataCacheKey;
         private string m_gameRoomName;
         private MsgPB.GameRoomCache m_gameRoomCache;
 
-        private void Awake() {
+        public override bool initialize() {
+            base.initialize();
             Instance = this;
-        }
-
-        private void Start() {
             ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomCache), onGameRoomCache);
+            return true;
         }
 
         public MsgPB.GameRoomCache getGameRoomCache() {
