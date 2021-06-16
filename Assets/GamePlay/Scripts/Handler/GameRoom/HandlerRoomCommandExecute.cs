@@ -15,6 +15,7 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
     public override bool initialize() {
         base.initialize();
         Instance = this;
+        Physics2D.autoSyncTransforms = false;
         Physics2D.simulationMode = SimulationMode2D.Script;
         m_listGameCommand = new List<MsgPB.GameFrameAllCommandInfo>();
 
