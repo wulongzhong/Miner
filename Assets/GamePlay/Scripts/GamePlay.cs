@@ -10,6 +10,7 @@ public class GamePlay : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
+        new GameRoomConfig();
         m_handlerMgr = new HandlerMgr();
         m_handlerMgr.initialize();
     }
