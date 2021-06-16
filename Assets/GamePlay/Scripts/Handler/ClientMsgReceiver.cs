@@ -18,7 +18,8 @@ public class ClientMsgReceiver : WF.SimpleComponent {
     private List<byte[]> m_waitHandleSyncList;
     private List<byte[]> m_waitHandleMasterList;
 
-    private string m_serverIpAddr = "127.0.0.1";
+    private IPEndPoint m_userServerIpEndPoint;
+    private IPEndPoint m_roomServerIpEndPoint;
 
     private UdpClient m_listener;
     private IPEndPoint m_groupEP;
@@ -35,17 +36,15 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
 
+        m_userServerIpEndPoint = new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981);
+
         return true;
     }
 
     public void startUdp() {
         terminate();
         m_serverIsRuning = true;
-        m_serverIpAddr = GamePlay.Instance.ServerIpAddr;
         m_listener = new UdpClient();
-        //IPAddress broadcast = IPAddress.Parse("47.98.39.254");
-        IPAddress broadcast = IPAddress.Parse(m_serverIpAddr);
-        m_listener.Connect(broadcast, GamePlay.Instance.ServerPort);
         //开启新线程接收新消息
         m_udpListenThread = new Thread(UdpListenUpdate);
         m_udpListenThread.Start();
@@ -113,7 +112,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         }
     }
 
-    public void sendMsg<T>(T msg) {
+    public void sendMsg2RoomServer<T>(T msg) {
         IMessage data = (IMessage)(object)msg;
         byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
         byte[] msgByte = data.ToByteArray();

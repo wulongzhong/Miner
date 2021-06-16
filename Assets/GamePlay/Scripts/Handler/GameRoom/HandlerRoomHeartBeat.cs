@@ -43,7 +43,7 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
             msg.MPlayerId = HandlerRoomPlayer.Instance.SelfPlayerId;
             msg.MKey = HandlerRoomPlayer.Instance.Key;
-            ClientMsgReceiver.Instance.sendMsg(msg);
+            ClientMsgReceiver.Instance.sendMsg2RoomServer(msg);
         }
     }
 }

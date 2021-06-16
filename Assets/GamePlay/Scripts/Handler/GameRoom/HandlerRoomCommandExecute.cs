@@ -128,7 +128,7 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
                 for (uint i = m_updateIndex + 1; i < currCommandS2C.MFrameIndex; ++i) {
                     msg.MFrameIndex.Add(i);
                 }
-                ClientMsgReceiver.Instance.sendMsg(msg);
+                ClientMsgReceiver.Instance.sendMsg2RoomServer(msg);
             }
             return false;
         }

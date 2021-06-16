@@ -44,7 +44,7 @@ public class HandlerRoomPlayer : WF.SimpleComponent {
     public void joinGameRoom() {
         MsgPB.GameRoomPlayerLoginC2S msg = new MsgPB.GameRoomPlayerLoginC2S();
         msg.MPlayerId = SelfPlayerId;
-        ClientMsgReceiver.Instance.sendMsg(msg);
+        ClientMsgReceiver.Instance.sendMsg2RoomServer(msg);
     }
 
     public void getCache(MsgPB.GameRoomCache roomCache) {

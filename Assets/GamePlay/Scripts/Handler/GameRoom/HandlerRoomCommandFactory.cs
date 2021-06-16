@@ -35,7 +35,7 @@ public class HandlerRoomCommandFactory : WF.SimpleComponent {
         if (!m_bHasCmd) {
             return;
         }
-        ClientMsgReceiver.Instance.sendMsg(m_waitSendCmdInfo);
+        ClientMsgReceiver.Instance.sendMsg2RoomServer(m_waitSendCmdInfo);
 
         m_waitSendCmdInfo = new MsgPB.GameCommandInfo();
         m_bHasCmd = false;
