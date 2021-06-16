@@ -1,10 +1,17 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public static class MsgType {
     private static List<Type> m_lstMsgType = new List<Type>() {
+        //user server包含的
+        typeof(MsgPB.UserServerPlayerLoginC2S),
+        typeof(MsgPB.UserServerPlayerLoginS2C),
 
+        typeof(MsgPB.UserServerHeartBeatC2S),
+        typeof(MsgPB.UserServerHeartBeatS2C),
+
+        //user server不包含的
 #if !USER_SERVER
         typeof(MsgPB.GameRoomPlayerLoginC2S),
         typeof(MsgPB.GameRoomPlayerLoginS2C),

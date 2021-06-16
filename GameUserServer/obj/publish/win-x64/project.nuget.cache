@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "5hSH+iwIHamswfvu2fo1NckQc3BdtZt3VN3BLQ9vbDv4kNoV2xvBrNnjUwFNoAFKs4KE9GBoQ+nHAGCZ77p/PA==",
+  "success": true,
+  "projectFilePath": "C:\\UnityProject\\Miner\\GameUserServer\\GameUserServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\longzhongwu\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.7\\microsoft.netcore.app.runtime.win-x64.5.0.7.nupkg.sha512",
+    "C:\\Users\\longzhongwu\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.7\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.7.nupkg.sha512",
+    "C:\\Users\\longzhongwu\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\5.0.7\\microsoft.aspnetcore.app.runtime.win-x64.5.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}
