@@ -28,7 +28,6 @@ public class UIPCStart : UIBevBase {
         onHide();
         GamePlay.Instance.openLocalServer();
         HandlerRoomDataCache.Instance.initCache();
-        ClientMsgReceiver.Instance.startUdp();
         HandlerRoomPlayer.Instance.joinGameRoom();
     }
 
@@ -39,7 +38,6 @@ public class UIPCStart : UIBevBase {
         PlayerPrefs.SetString(m_keyLastIP, m_inputIP.text);
         PlayerPrefs.SetString(m_keyLastPort, m_inputPort.text);
         PlayerPrefs.SetString(m_keyLastPlayerID, m_inputPlayerId.text);
-        ClientMsgReceiver.Instance.startUdp();
 
         HandlerRoomPlayer.Instance.joinGameRoom();
     }

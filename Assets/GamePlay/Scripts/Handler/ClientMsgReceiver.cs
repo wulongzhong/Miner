@@ -30,6 +30,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         m_onRevDic = new Dictionary<ushort, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
+        startUdp();
         return true;
     }
 
@@ -37,10 +38,10 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         m_roomServerIpEndPoint = iPEndPoint;
     }
 
-    public void startUdp() {
+    private void startUdp() {
         terminate();
         m_serverIsRuning = true;
-        m_listener = new UdpClient();
+        m_listener = new UdpClient(19983);
         //开启新线程接收新消息
         m_udpListenThread = new Thread(UdpListenUpdate);
         m_udpListenThread.Start();

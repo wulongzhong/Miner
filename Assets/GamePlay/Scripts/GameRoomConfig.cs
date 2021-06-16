@@ -14,7 +14,8 @@ public class GameRoomConfig {
     private const int m_frameScale = 2;
     private const int m_frameCommandCount = 1;
     private const int m_cacheFrameCommandCount = 60 / m_frameScale * 10;
-    private IPEndPoint m_userServerIpendPoint = new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19982);
+    //private IPEndPoint m_userServerIpendPoint = new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19982);
+    private IPEndPoint m_userServerIpendPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 19982);
 
     public int FrameScale { get => m_frameScale; }
     public int FrameCommandCount { get => m_frameCommandCount; }
