@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HandlerRoomPlayer : WF.SimpleComponent {
     public static HandlerRoomPlayer Instance;
-    public GameObject m_playerPrefab;
 
     private uint m_selfPlayerId = 1;
     private long m_key;
@@ -36,8 +35,7 @@ public class HandlerRoomPlayer : WF.SimpleComponent {
     }
 
     public PlayerBev createPlayer(uint playerId, MsgPB.GameRoomPlayerInfo playerInfo) {
-        GameObject playerGameObj = Object.Instantiate(m_playerPrefab);
-        PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
+        PlayerBev playerBev = GameObjFactory.Instance.createPlayer();
         playerBev.initPlayer(playerInfo);
         m_dicId2PlayerBec[playerId] = playerBev;
         return m_dicId2PlayerBec[playerId];
@@ -58,8 +56,7 @@ public class HandlerRoomPlayer : WF.SimpleComponent {
 
     public void setCache(MsgPB.GameRoomCache roomCache) {
         foreach(var playerCache in roomCache.MLstCachePlayer) {
-            GameObject playerGameObj = Object.Instantiate(m_playerPrefab);
-            PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
+            PlayerBev playerBev = GameObjFactory.Instance.createPlayer();
             playerBev.initPlayer(playerCache);
             m_dicId2PlayerBec[playerCache.MPlayerInfo.MPlayerId] = playerBev;
         }

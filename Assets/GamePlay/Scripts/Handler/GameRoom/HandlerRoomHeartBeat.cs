@@ -24,7 +24,8 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
     }
 
     bool m_bViewOffline = true;
-    private void Update() {
+
+    public override void update() {
         if (HandlerRoomPlayer.Instance.getSelf() == null) {
             return;
         }
