@@ -69,7 +69,6 @@ namespace GameUserServer {
 
         public void stopServer() {
             m_bStart = false;
-            m_updateThread.Abort();
         }
 
 

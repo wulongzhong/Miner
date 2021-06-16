@@ -154,7 +154,6 @@ namespace GameUserServer {
 
         public override void terminate() {
             if (m_udpListenThread != null) {
-                m_udpListenThread.Abort();
                 m_udpListenThread = null;
             }
             if (m_listener != null) {
