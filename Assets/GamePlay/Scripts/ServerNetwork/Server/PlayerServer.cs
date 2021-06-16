@@ -54,7 +54,7 @@ public class PlayerServer : WF.SimpleComponent {
         ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, loginMsg);
 
         //发送缓存数据
-        MsgPB.GameRoomCache roomCache = RoomClient.HandlerRoomDataCache.Instance.getGameRoomCache();
+        MsgPB.GameRoomCache roomCache = HandlerRoomDataCache.Instance.getGameRoomCache();
         ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, roomCache);
 
         //发送缓存数据之后的指令

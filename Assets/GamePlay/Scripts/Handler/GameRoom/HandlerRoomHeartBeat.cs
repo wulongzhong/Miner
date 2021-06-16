@@ -37,7 +37,7 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
             }
         }
 
-        if((Time.time - m_lastSendTime) > 2.0f) {
+        if ((Time.time - m_lastSendTime) > 2.0f) {
             m_lastSendTime = Time.time;
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
             msg.MPlayerId = PlayerMgr.Instance.SelfPlayerId;
