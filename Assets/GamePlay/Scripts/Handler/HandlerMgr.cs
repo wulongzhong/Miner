@@ -8,6 +8,10 @@ public class HandlerMgr : WF.SimpleComponent {
         clientMsgReceiver.initialize();
         addComponent(clientMsgReceiver);
 
+        HandlerHallPlayer handlerHallPlayer = new HandlerHallPlayer();
+        handlerHallPlayer.initialize();
+        addComponent(handlerHallPlayer);
+
         HandlerRoomCommandExecute handlerRoomCommandExecute = new HandlerRoomCommandExecute();
         handlerRoomCommandExecute.initialize();
         addComponent(handlerRoomCommandExecute);
@@ -23,6 +27,10 @@ public class HandlerMgr : WF.SimpleComponent {
         HandlerRoomHeartBeat handlerRoomHeartBeat = new HandlerRoomHeartBeat();
         handlerRoomHeartBeat.initialize();
         addComponent(handlerRoomHeartBeat);
+
+        HandlerRoomPlayer handlerRoomPlayer = new HandlerRoomPlayer();
+        handlerRoomPlayer.initialize();
+        addComponent(handlerRoomPlayer);
 
         return true;
     }

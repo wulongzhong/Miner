@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PcInputBev : MonoBehaviour {
     private void Update() {
-        if(PlayerMgr.Instance.getSelf() == null) {
+        if(HandlerRoomPlayer.Instance.getSelf() == null) {
             return;
         }
         if (Input.GetKey(KeyCode.A)) {

@@ -140,9 +140,9 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
         foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
             if (commandInfo.MCreatePlayer != null) {
                 Debug.LogFormat("executeNextCommand add player id:{0}", commandInfo.MPlayerId);
-                PlayerMgr.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
+                HandlerRoomPlayer.Instance.createPlayer(commandInfo.MPlayerId, commandInfo.MCreatePlayer.MPlayerInfo);
             }
-            PlayerBev playerBev = PlayerMgr.Instance.getPlayerBevById(commandInfo.MPlayerId);
+            PlayerBev playerBev = HandlerRoomPlayer.Instance.getPlayerBevById(commandInfo.MPlayerId);
             if (playerBev == null) {
                 Debug.LogError("playerBev == null");
                 continue;

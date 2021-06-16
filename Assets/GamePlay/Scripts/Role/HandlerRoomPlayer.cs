@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMgr : MonoBehaviour {
-    public static PlayerMgr Instance;
+public class HandlerRoomPlayer : WF.SimpleComponent {
+    public static HandlerRoomPlayer Instance;
     public GameObject m_playerPrefab;
 
     private uint m_selfPlayerId = 1;
@@ -13,13 +13,12 @@ public class PlayerMgr : MonoBehaviour {
     public uint SelfPlayerId { get => m_selfPlayerId; set => m_selfPlayerId = value; }
     public long Key { get => m_key; set => m_key = value; }
 
-    private void Awake() {
+    public override bool initialize() {
+        base.initialize();
         Instance = this;
         m_dicId2PlayerBec = new Dictionary<uint, PlayerBev>();
-    }
-
-    private void Start() {
         ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.GameRoomPlayerLoginS2C), onGameRoomPlayerLoginS2C);
+        return true;
     }
 
     public PlayerBev getPlayerBevById(uint playerId) {
@@ -37,7 +36,7 @@ public class PlayerMgr : MonoBehaviour {
     }
 
     public PlayerBev createPlayer(uint playerId, MsgPB.GameRoomPlayerInfo playerInfo) {
-        GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
+        GameObject playerGameObj = Object.Instantiate(m_playerPrefab);
         PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
         playerBev.initPlayer(playerInfo);
         m_dicId2PlayerBec[playerId] = playerBev;
@@ -59,7 +58,7 @@ public class PlayerMgr : MonoBehaviour {
 
     public void setCache(MsgPB.GameRoomCache roomCache) {
         foreach(var playerCache in roomCache.MLstCachePlayer) {
-            GameObject playerGameObj = Instantiate(m_playerPrefab, gameObject.transform);
+            GameObject playerGameObj = Object.Instantiate(m_playerPrefab);
             PlayerBev playerBev = playerGameObj.GetComponent<PlayerBev>();
             playerBev.initPlayer(playerCache);
             m_dicId2PlayerBec[playerCache.MPlayerInfo.MPlayerId] = playerBev;

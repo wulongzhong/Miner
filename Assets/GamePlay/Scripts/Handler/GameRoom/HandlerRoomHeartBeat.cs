@@ -25,7 +25,7 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
 
     bool m_bViewOffline = true;
     private void Update() {
-        if (PlayerMgr.Instance.getSelf() == null) {
+        if (HandlerRoomPlayer.Instance.getSelf() == null) {
             return;
         }
 
@@ -40,8 +40,8 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
         if ((Time.time - m_lastSendTime) > 2.0f) {
             m_lastSendTime = Time.time;
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
-            msg.MPlayerId = PlayerMgr.Instance.SelfPlayerId;
-            msg.MKey = PlayerMgr.Instance.Key;
+            msg.MPlayerId = HandlerRoomPlayer.Instance.SelfPlayerId;
+            msg.MKey = HandlerRoomPlayer.Instance.Key;
             ClientMsgReceiver.Instance.sendMsg(msg);
         }
     }

@@ -6,9 +6,12 @@ public class GamePlay : MonoBehaviour {
     public static GamePlay Instance;
 
     private ServerMgr m_serverMgr;
+    private HandlerMgr m_handlerMgr;
 
     private void Awake() {
         Instance = this;
+        m_handlerMgr = new HandlerMgr();
+        m_handlerMgr.initialize();
     }
 
     private int m_gameRoomSeed;
@@ -19,8 +22,8 @@ public class GamePlay : MonoBehaviour {
     public int GameRoomSeed { get => m_gameRoomSeed; set => m_gameRoomSeed = value; }
     public int ServerPort { get => m_serverPort; set => m_serverPort = value; }
 
-    private void Update() {
-
+    private void FixedUpdate() {
+        m_handlerMgr.update();
     }
 
     public void openLocalServer() {
@@ -36,6 +39,9 @@ public class GamePlay : MonoBehaviour {
     private void OnDestroy() {
         if(m_serverMgr != null) {
             m_serverMgr.terminate();
+        }
+        if(m_handlerMgr != null) {
+            m_handlerMgr.terminate();
         }
     }
 }

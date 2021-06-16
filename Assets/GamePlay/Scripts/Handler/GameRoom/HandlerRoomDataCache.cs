@@ -22,7 +22,7 @@ public class HandlerRoomDataCache : WF.SimpleComponent {
     }
 
     public MsgPB.GameRoomCache updateGameRoomCache() {
-        PlayerMgr.Instance.getCache(m_gameRoomCache);
+        HandlerRoomPlayer.Instance.getCache(m_gameRoomCache);
         return m_gameRoomCache;
     }
 
@@ -38,7 +38,7 @@ public class HandlerRoomDataCache : WF.SimpleComponent {
 
     public void onGameRoomCache(byte[] protobytes) {
         m_gameRoomCache = MsgPB.GameRoomCache.Parser.ParseFrom(protobytes);
-        PlayerMgr.Instance.setCache(m_gameRoomCache);
+        HandlerRoomPlayer.Instance.setCache(m_gameRoomCache);
         HandlerRoomCommandExecute.Instance.initUpdateIndex(m_gameRoomCache.MFrameIndex);
     }
 
