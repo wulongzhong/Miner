@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using UnityEngine;
 
 public class ClientMsgReceiver : WF.SimpleComponent {
     public static ClientMsgReceiver Instance;
@@ -26,8 +25,6 @@ public class ClientMsgReceiver : WF.SimpleComponent {
     private Thread m_udpListenThread;
     private bool m_serverIsRuning;
 
-    //public string ServerIpAddr { get => m_serverIpAddr; set => m_serverIpAddr = value; }
-
     public override bool initialize() {
         base.initialize();
         Instance = this;
@@ -39,6 +36,10 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         m_userServerIpEndPoint = new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981);
 
         return true;
+    }
+
+    public void updateRoomServerIpPoint(IPEndPoint iPEndPoint) {
+        m_roomServerIpEndPoint = iPEndPoint;
     }
 
     public void startUdp() {
@@ -105,6 +106,9 @@ public class ClientMsgReceiver : WF.SimpleComponent {
 
     public void registerS2C(Type type, OnRev onRev) {
         ushort msgId = MsgType.getTypeId(type);
+        if(msgId == 0) {
+            ServerLog.log("msgId == 0");
+        }
         if (m_onRevDic.ContainsKey(msgId)) {
             m_onRevDic[msgId] = onRev;
         } else {
@@ -119,16 +123,26 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
-        sendMsg2Server(sendByte);
+        sendMsg2Server(sendByte, m_roomServerIpEndPoint);
     }
 
-    private void sendMsg2Server(byte[] sendbuf) {
+    public void sendMsg2UserServer<T>(T msg) {
+        IMessage data = (IMessage)(object)msg;
+        byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
+        byte[] msgByte = data.ToByteArray();
+        byte[] sendByte = new byte[msgByte.Length + 2];
+        msgIdByte.CopyTo(sendByte, 0);
+        msgByte.CopyTo(sendByte, 2);
+        sendMsg2Server(sendByte, m_userServerIpEndPoint);
+    }
+
+    private void sendMsg2Server(byte[] sendbuf, IPEndPoint iPEndPoint) {
         if (m_listener == null) {
             ServerLog.log("Client Connect Server Fail");
             return;
         }
         try {
-            m_listener.SendAsync(sendbuf, sendbuf.Length);
+            m_listener.SendAsync(sendbuf, sendbuf.Length, iPEndPoint);
         } catch (SocketException e) {
             ServerLog.log(e.Message);
             if(e.ErrorCode == (int)SocketError.NotConnected) {

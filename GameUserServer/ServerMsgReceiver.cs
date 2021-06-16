@@ -129,11 +129,12 @@ namespace GameUserServer {
             m_waitHandleMasterList.Clear();
         }
 
-        float m_lastNatTime;
-
         //此为登录流程专用
         public void registerC2S(Type type, OnIpRev onRev) {
             ushort msgId = MsgType.getTypeId(type);
+            if (msgId == 0) {
+                ServerLog.log("msgId == 0");
+            }
             if (m_onIpRevDic.ContainsKey(msgId)) {
                 m_onIpRevDic[msgId] = onRev;
             } else {

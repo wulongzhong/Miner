@@ -34,9 +34,6 @@ public class UIPCStart : UIBevBase {
 
     private void onBtnJoinPlayClick() {
         onHide();
-
-        GamePlay.Instance.ServerIpAddr = m_inputIP.text;
-        GamePlay.Instance.ServerPort = int.Parse(m_inputPort.text);
         HandlerRoomPlayer.Instance.SelfPlayerId = uint.Parse(m_inputPlayerId.text);
 
         PlayerPrefs.SetString(m_keyLastIP, m_inputIP.text);

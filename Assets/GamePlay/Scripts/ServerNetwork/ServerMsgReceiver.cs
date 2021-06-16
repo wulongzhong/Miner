@@ -124,20 +124,14 @@ public class ServerMsgReceiver : WF.SimpleComponent {
             }
         }
         m_waitHandleMasterList.Clear();
-
-        if((ServerMgr.Instance.NowTime - m_lastNatTime) > 1000) {
-            m_lastNatTime = ServerMgr.Instance.NowTime;
-            byte[] netTest = BitConverter.GetBytes(99);
-            m_listener.SendAsync(netTest, netTest.Length, new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981));
-            m_listener.SendAsync(netTest, netTest.Length, new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19982));
-        }
     }
-
-    long m_lastNatTime;
 
     //此为登录流程专用
     public void registerC2S(Type type, OnIpRev onRev) {
         ushort msgId = MsgType.getTypeId(type);
+        if (msgId == 0) {
+            ServerLog.log("msgId == 0");
+        }
         if (m_onIpRevDic.ContainsKey(msgId)) {
             m_onIpRevDic[msgId] = onRev;
         } else {
@@ -148,6 +142,9 @@ public class ServerMsgReceiver : WF.SimpleComponent {
     //此为正常的服务端消息注册
     public void registerC2S(Type type, OnPlayerRev onPlayerRev) {
         ushort msgId = MsgType.getTypeId(type);
+        if (msgId == 0) {
+            ServerLog.log("msgId == 0");
+        }
         if (m_onPlayerRevDic.ContainsKey(msgId)) {
             m_onPlayerRevDic[msgId] = onPlayerRev;
         } else {
