@@ -16,8 +16,6 @@ public class ClientMsgReceiver : WF.SimpleComponent {
     public static Mutex mutex = new Mutex();
     private List<byte[]> m_waitHandleSyncList;
     private List<byte[]> m_waitHandleMasterList;
-
-    private IPEndPoint m_userServerIpEndPoint;
     private IPEndPoint m_roomServerIpEndPoint;
 
     private UdpClient m_listener;
@@ -32,9 +30,6 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         m_onRevDic = new Dictionary<ushort, OnRev>();
         m_waitHandleSyncList = new List<byte[]>();
         m_waitHandleMasterList = new List<byte[]>();
-
-        m_userServerIpEndPoint = new IPEndPoint(IPAddress.Parse("47.98.39.254"), 19981);
-
         return true;
     }
 
@@ -133,7 +128,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
-        sendMsg2Server(sendByte, m_userServerIpEndPoint);
+        sendMsg2Server(sendByte, GameRoomConfig.Instance.UserServerIpendPoint);
     }
 
     private void sendMsg2Server(byte[] sendbuf, IPEndPoint iPEndPoint) {
