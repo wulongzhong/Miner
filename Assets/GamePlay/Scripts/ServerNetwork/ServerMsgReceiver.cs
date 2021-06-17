@@ -92,7 +92,7 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         foreach(uint playerId in listPlayerId) {
             IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
             if (pGroupEp == null) {
-                return;
+                continue;
             }
             sendMsg2Client(pGroupEp, sendByte);
         }

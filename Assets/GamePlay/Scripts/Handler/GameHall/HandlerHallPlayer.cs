@@ -32,5 +32,7 @@ public class HandlerHallPlayer : WF.SimpleComponent {
         HandlerRoomPlayer.Instance.SelfPlayerId = msg.MPlayerId;
         m_selfPlayerId = msg.MPlayerId;
         m_key = msg.MKey;
+
+        Debug.Log(string.Format("self Player Id : {0}", m_selfPlayerId));
     }
 }

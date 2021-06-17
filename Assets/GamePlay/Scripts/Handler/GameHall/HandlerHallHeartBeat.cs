@@ -21,6 +21,7 @@ public class HandlerHallHeartBeat : WF.SimpleComponent {
     public void onUserServerHeartBeatS2C(byte[] protobytes) {
         MsgPB.UserServerHeartBeatS2C msg = MsgPB.UserServerHeartBeatS2C.Parser.ParseFrom(protobytes);
         m_lastReceiveServerTime = Time.time;
+        Debug.Log("收到服务器心跳包 Time : " + Time.time);
     }
 
     bool m_bViewOffline = true;
