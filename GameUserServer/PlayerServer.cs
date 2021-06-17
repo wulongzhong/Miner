@@ -120,7 +120,9 @@ namespace GameUserServer {
         public override void update() {
             List<uint> lstOfflinePlayerId = new List<uint>();
             foreach (var keyValue in m_dicPlayerId2HeartBeat) {
-                if ((ServerMgr.Instance.NowTime - keyValue.Value) > GameConfig.Instance.HeartBeatWaitTime) {
+                long offsetTime = ServerMgr.Instance.NowTime - keyValue.Value;
+                if (offsetTime > GameConfig.Instance.HeartBeatWaitTime) {
+                    ServerLog.log("heart beat remove palyer id:" + keyValue.Key + ", offset Time : " + offsetTime);
                     lstOfflinePlayerId.Add(keyValue.Key);
                 }
             }
