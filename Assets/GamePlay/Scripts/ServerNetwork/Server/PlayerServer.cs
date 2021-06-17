@@ -104,7 +104,7 @@ public class PlayerServer : WF.SimpleComponent {
     public override void update() {
         List<uint> lstOfflinePlayerId = new List<uint>();
         foreach(var keyValue in m_dicPlayerId2HeartBeat) {
-            if((ServerMgr.Instance.NowTime - keyValue.Value) > 10000) {
+            if((ServerMgr.Instance.NowTime - keyValue.Value) > GameConfig.Instance.HeartBeatWaitTime) {
                 lstOfflinePlayerId.Add(keyValue.Key);
             }
         }
@@ -115,7 +115,7 @@ public class PlayerServer : WF.SimpleComponent {
             m_dicPlayerId2IPEndPoint.Remove(offlinePlayerId);
         }
 
-        if((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > 2000) {
+        if((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatIntervalTime) {
             m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
             MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
             ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);

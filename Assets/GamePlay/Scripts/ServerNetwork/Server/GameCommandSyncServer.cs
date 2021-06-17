@@ -86,7 +86,7 @@ public class GameCommandSyncServer : WF.SimpleComponent {
         if (m_sendRemaining > 0) {
             return;
         }
-        m_sendRemaining = GameRoomConfig.Instance.FrameScale;
+        m_sendRemaining = GameConfig.Instance.FrameScale;
         ++m_frameIndex;
         MsgPB.GameFrameAllCommandInfo currCommandS2C = new MsgPB.GameFrameAllCommandInfo();
         currCommandS2C.MFrameIndex = m_frameIndex;
@@ -94,15 +94,15 @@ public class GameCommandSyncServer : WF.SimpleComponent {
         m_dicPlayerCommandInfo.Clear();
 
         m_listCacheGameRoomandS2C.Add(currCommandS2C);
-        if (m_listCacheGameRoomandS2C.Count > GameRoomConfig.Instance.CacheFrameCommandCount) {
+        if (m_listCacheGameRoomandS2C.Count > GameConfig.Instance.CacheFrameCommandCount) {
             m_listCacheGameRoomandS2C.RemoveAt(0);
         }
 
-        if(GameRoomConfig.Instance.FrameCommandCount == 1) {
+        if(GameConfig.Instance.FrameCommandCount == 1) {
             ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_listCacheGameRoomandS2C[m_listCacheGameRoomandS2C.Count - 1]);
         } else {
             MsgPB.GameCommandS2C msg = new MsgPB.GameCommandS2C();
-            for (int i = m_listCacheGameRoomandS2C.Count - 1; (i >= 0) && (i >= (m_listCacheGameRoomandS2C.Count - GameRoomConfig.Instance.FrameCommandCount)); --i) {
+            for (int i = m_listCacheGameRoomandS2C.Count - 1; (i >= 0) && (i >= (m_listCacheGameRoomandS2C.Count - GameConfig.Instance.FrameCommandCount)); --i) {
                 msg.MLstFrameAllCommandInfo.Add(m_listCacheGameRoomandS2C[i]);
             }
             ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), msg);

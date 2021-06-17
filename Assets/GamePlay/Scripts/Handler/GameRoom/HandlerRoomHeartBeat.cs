@@ -31,14 +31,14 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
         }
 
         //掉线了
-        if ((Time.time - m_lastReceiveServerTime) > 10.0f) {
+        if ((Time.time - m_lastReceiveServerTime) > (GameConfig.Instance.HeartBeatWaitTime * 0.001f)) {
             if (m_bViewOffline) {
                 Debug.Log("掉线了");
                 m_bViewOffline = false;
             }
         }
 
-        if ((Time.time - m_lastSendTime) > 2.0f) {
+        if ((Time.time - m_lastSendTime) > (GameConfig.Instance.HeartBeatIntervalTime * 0.001f)) {
             m_lastSendTime = Time.time;
             MsgPB.GameRoomHeartBeatC2S msg = new MsgPB.GameRoomHeartBeatC2S();
             msg.MPlayerId = HandlerRoomPlayer.Instance.SelfPlayerId;

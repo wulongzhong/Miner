@@ -129,7 +129,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
-        sendMsg2Server(sendByte, GameRoomConfig.Instance.UserServerIpendPoint);
+        sendMsg2Server(sendByte, GameConfig.Instance.UserServerIpendPoint);
     }
 
     private void sendMsg2Server(byte[] sendbuf, IPEndPoint iPEndPoint) {

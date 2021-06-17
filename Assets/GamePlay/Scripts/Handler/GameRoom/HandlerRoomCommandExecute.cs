@@ -60,7 +60,7 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
     }
 
     private void chaseFrame() {
-        while (m_listGameCommand.Count > GameRoomConfig.Instance.ChaseFrameCount) {
+        while (m_listGameCommand.Count > GameConfig.Instance.ChaseFrameCount) {
             while (m_frameLastCount > 0) {
                 m_frameLastCount--;
                 Physics2D.Simulate(Time.fixedDeltaTime);
@@ -137,7 +137,7 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
         m_listGameCommand.RemoveAt(0);
 
         m_updateIndex = currCommandS2C.MFrameIndex;
-        m_frameLastCount = GameRoomConfig.Instance.FrameScale - 1;
+        m_frameLastCount = GameConfig.Instance.FrameScale - 1;
         foreach (MsgPB.GameCommandInfo commandInfo in currCommandS2C.MLstGameCommandInfo) {
             if (commandInfo.MCreatePlayer != null) {
                 Debug.LogFormat("executeNextCommand add player id:{0}", commandInfo.MPlayerId);
