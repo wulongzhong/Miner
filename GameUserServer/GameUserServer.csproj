@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;USER_SERVER</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;USER_SERVER</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\Assets\Protobuf\Plugins\Google.Protobuf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\UserServerPlayer.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\UserServerRoom.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\UserverHeartBeat.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\MsgType.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\GameConfig.cs" />
+  </ItemGroup>
+
+</Project>
