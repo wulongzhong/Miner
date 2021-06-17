@@ -11,6 +11,16 @@ public static class MsgType {
         typeof(MsgPB.UserServerHeartBeatC2S),
         typeof(MsgPB.UserServerHeartBeatS2C),
 
+        typeof(MsgPB.UserServerRegisterRoomC2S),
+        typeof(MsgPB.UserServerRegisterRoomS2C),
+
+        typeof(MsgPB.UserServerFindRoomC2S),
+        typeof(MsgPB.UserServerFindRoomS2C),
+
+        typeof(MsgPB.UserServerJoinRoomC2S),
+        typeof(MsgPB.UserServerJoinRoomS2C),
+        typeof(MsgPB.UserServerJoinRoomS2SC),
+
         //user server不包含的
 #if !USER_SERVER
         typeof(MsgPB.GameRoomPlayerLoginC2S),

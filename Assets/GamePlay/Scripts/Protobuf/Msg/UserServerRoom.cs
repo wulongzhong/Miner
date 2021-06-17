@@ -24,26 +24,44 @@ namespace MsgPB {
     static UserServerRoomReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRVc2VyU2VydmVyUm9vbS5wcm90bxIFTXNnUEIiGwoZVXNlclNlcnZlclJl",
-            "Z2lzdGVyUm9vbUMyUyIbChlVc2VyU2VydmVyUmVnaXN0ZXJSb29tUzJDIhcK",
-            "FVVzZXJTZXJ2ZXJGaW5kUm9vbUMyUyIXChVVc2VyU2VydmVyRmluZFJvb21T",
-            "MkMiFwoVVXNlclNlcnZlckpvaW5Sb29tQzJTIhcKFVVzZXJTZXJ2ZXJKb2lu",
-            "Um9vbVMyQyIYChZVc2VyU2VydmVySm9pblJvb21TMlNDYgZwcm90bzM="));
+            "ChRVc2VyU2VydmVyUm9vbS5wcm90bxIFTXNnUEIiQwoZVXNlclNlcnZlclJl",
+            "Z2lzdGVyUm9vbUMyUxISCgptX3Jvb21OYW1lGAEgASgJEhIKCm1fcGFzc3dv",
+            "cmQYAiABKAkiLQoZVXNlclNlcnZlclJlZ2lzdGVyUm9vbVMyQxIQCghtX3Jv",
+            "b21JRBgBIAEoDSI8ChVVc2VyU2VydmVyRmluZFJvb21DMlMSIwoKbV9yb29t",
+            "VHlwZRgBIAEoDjIPLk1zZ1BCLlJvb21UeXBlIkgKCFJvb21JbmZvEhAKCG1f",
+            "cm9vbUlEGAEgASgNEhIKCm1fcm9vbU5hbWUYAiABKAkSFgoObV9uZWVkUGFz",
+            "c3dvcmQYAyABKAgiPwoVVXNlclNlcnZlckZpbmRSb29tUzJDEiYKDW1fbHN0",
+            "Um9vbUluZm8YASADKAsyDy5Nc2dQQi5Sb29tSW5mbyI9ChVVc2VyU2VydmVy",
+            "Sm9pblJvb21DMlMSEAoIbV9yb29tSUQYASABKA0SEgoKbV9wYXNzd29yZBgC",
+            "IAEoCSJdChVVc2VyU2VydmVySm9pblJvb21TMkMSEAoIbV9yb29tSUQYASAB",
+            "KA0SDAoEbV9pcBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoMbV9jb25uZW50",
+            "a2V5GAQgASgJImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyU0MSEgoKbV9wbGF5",
+            "ZXJJZBgBIAEoCRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxt",
+            "X2Nvbm5lbnRrZXkYBCABKAkqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomC2S), global::MsgPB.UserServerRegisterRoomC2S.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomS2C), global::MsgPB.UserServerRegisterRoomS2C.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomC2S), global::MsgPB.UserServerFindRoomC2S.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomS2C), global::MsgPB.UserServerFindRoomS2C.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomC2S), global::MsgPB.UserServerJoinRoomC2S.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2C), global::MsgPB.UserServerJoinRoomS2C.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2SC), global::MsgPB.UserServerJoinRoomS2SC.Parser, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.RoomType), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomC2S), global::MsgPB.UserServerRegisterRoomC2S.Parser, new[]{ "MRoomName", "MPassword" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomS2C), global::MsgPB.UserServerRegisterRoomS2C.Parser, new[]{ "MRoomID" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomC2S), global::MsgPB.UserServerFindRoomC2S.Parser, new[]{ "MRoomType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.RoomInfo), global::MsgPB.RoomInfo.Parser, new[]{ "MRoomID", "MRoomName", "MNeedPassword" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomS2C), global::MsgPB.UserServerFindRoomS2C.Parser, new[]{ "MLstRoomInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomC2S), global::MsgPB.UserServerJoinRoomC2S.Parser, new[]{ "MRoomID", "MPassword" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2C), global::MsgPB.UserServerJoinRoomS2C.Parser, new[]{ "MRoomID", "MIp", "MPort", "MConnentkey" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2SC), global::MsgPB.UserServerJoinRoomS2SC.Parser, new[]{ "MPlayerId", "MIp", "MPort", "MConnentkey" }, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum RoomType {
+    [pbr::OriginalName("NORMAL")] Normal = 0,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class UserServerRegisterRoomC2S : pb::IMessage<UserServerRegisterRoomC2S> {
     private static readonly pb::MessageParser<UserServerRegisterRoomC2S> _parser = new pb::MessageParser<UserServerRegisterRoomC2S>(() => new UserServerRegisterRoomC2S());
@@ -70,12 +88,39 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerRegisterRoomC2S(UserServerRegisterRoomC2S other) : this() {
+      mRoomName_ = other.mRoomName_;
+      mPassword_ = other.mPassword_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerRegisterRoomC2S Clone() {
       return new UserServerRegisterRoomC2S(this);
+    }
+
+    /// <summary>Field number for the "m_roomName" field.</summary>
+    public const int MRoomNameFieldNumber = 1;
+    private string mRoomName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MRoomName {
+      get { return mRoomName_; }
+      set {
+        mRoomName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_password" field.</summary>
+    public const int MPasswordFieldNumber = 2;
+    private string mPassword_ = "";
+    /// <summary>
+    ///ToDo more info
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MPassword {
+      get { return mPassword_; }
+      set {
+        mPassword_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -91,12 +136,16 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MRoomName != other.MRoomName) return false;
+      if (MPassword != other.MPassword) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MRoomName.Length != 0) hash ^= MRoomName.GetHashCode();
+      if (MPassword.Length != 0) hash ^= MPassword.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -110,6 +159,14 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(MRoomName);
+      }
+      if (MPassword.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MPassword);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -118,6 +175,12 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MRoomName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MRoomName);
+      }
+      if (MPassword.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MPassword);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -128,6 +191,12 @@ namespace MsgPB {
     public void MergeFrom(UserServerRegisterRoomC2S other) {
       if (other == null) {
         return;
+      }
+      if (other.MRoomName.Length != 0) {
+        MRoomName = other.MRoomName;
+      }
+      if (other.MPassword.Length != 0) {
+        MPassword = other.MPassword;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -140,6 +209,14 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            MRoomName = input.ReadString();
+            break;
+          }
+          case 18: {
+            MPassword = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -171,12 +248,24 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerRegisterRoomS2C(UserServerRegisterRoomS2C other) : this() {
+      mRoomID_ = other.mRoomID_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerRegisterRoomS2C Clone() {
       return new UserServerRegisterRoomS2C(this);
+    }
+
+    /// <summary>Field number for the "m_roomID" field.</summary>
+    public const int MRoomIDFieldNumber = 1;
+    private uint mRoomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MRoomID {
+      get { return mRoomID_; }
+      set {
+        mRoomID_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -192,12 +281,14 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MRoomID != other.MRoomID) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MRoomID != 0) hash ^= MRoomID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -211,6 +302,10 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MRoomID);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -219,6 +314,9 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MRoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MRoomID);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -229,6 +327,9 @@ namespace MsgPB {
     public void MergeFrom(UserServerRegisterRoomS2C other) {
       if (other == null) {
         return;
+      }
+      if (other.MRoomID != 0) {
+        MRoomID = other.MRoomID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -241,6 +342,10 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            MRoomID = input.ReadUInt32();
+            break;
+          }
         }
       }
     }
@@ -272,12 +377,24 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerFindRoomC2S(UserServerFindRoomC2S other) : this() {
+      mRoomType_ = other.mRoomType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerFindRoomC2S Clone() {
       return new UserServerFindRoomC2S(this);
+    }
+
+    /// <summary>Field number for the "m_roomType" field.</summary>
+    public const int MRoomTypeFieldNumber = 1;
+    private global::MsgPB.RoomType mRoomType_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MsgPB.RoomType MRoomType {
+      get { return mRoomType_; }
+      set {
+        mRoomType_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -293,12 +410,14 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MRoomType != other.MRoomType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MRoomType != 0) hash ^= MRoomType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -312,6 +431,10 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomType != 0) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MRoomType);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -320,6 +443,9 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MRoomType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MRoomType);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -330,6 +456,9 @@ namespace MsgPB {
     public void MergeFrom(UserServerFindRoomC2S other) {
       if (other == null) {
         return;
+      }
+      if (other.MRoomType != 0) {
+        MRoomType = other.MRoomType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -342,6 +471,195 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            MRoomType = (global::MsgPB.RoomType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class RoomInfo : pb::IMessage<RoomInfo> {
+    private static readonly pb::MessageParser<RoomInfo> _parser = new pb::MessageParser<RoomInfo>(() => new RoomInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<RoomInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo(RoomInfo other) : this() {
+      mRoomID_ = other.mRoomID_;
+      mRoomName_ = other.mRoomName_;
+      mNeedPassword_ = other.mNeedPassword_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RoomInfo Clone() {
+      return new RoomInfo(this);
+    }
+
+    /// <summary>Field number for the "m_roomID" field.</summary>
+    public const int MRoomIDFieldNumber = 1;
+    private uint mRoomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MRoomID {
+      get { return mRoomID_; }
+      set {
+        mRoomID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_roomName" field.</summary>
+    public const int MRoomNameFieldNumber = 2;
+    private string mRoomName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MRoomName {
+      get { return mRoomName_; }
+      set {
+        mRoomName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_needPassword" field.</summary>
+    public const int MNeedPasswordFieldNumber = 3;
+    private bool mNeedPassword_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool MNeedPassword {
+      get { return mNeedPassword_; }
+      set {
+        mNeedPassword_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as RoomInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(RoomInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MRoomID != other.MRoomID) return false;
+      if (MRoomName != other.MRoomName) return false;
+      if (MNeedPassword != other.MNeedPassword) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MRoomID != 0) hash ^= MRoomID.GetHashCode();
+      if (MRoomName.Length != 0) hash ^= MRoomName.GetHashCode();
+      if (MNeedPassword != false) hash ^= MNeedPassword.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MRoomID);
+      }
+      if (MRoomName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MRoomName);
+      }
+      if (MNeedPassword != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(MNeedPassword);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MRoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MRoomID);
+      }
+      if (MRoomName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MRoomName);
+      }
+      if (MNeedPassword != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(RoomInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MRoomID != 0) {
+        MRoomID = other.MRoomID;
+      }
+      if (other.MRoomName.Length != 0) {
+        MRoomName = other.MRoomName;
+      }
+      if (other.MNeedPassword != false) {
+        MNeedPassword = other.MNeedPassword;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MRoomID = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            MRoomName = input.ReadString();
+            break;
+          }
+          case 24: {
+            MNeedPassword = input.ReadBool();
+            break;
+          }
         }
       }
     }
@@ -356,7 +674,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -373,12 +691,23 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerFindRoomS2C(UserServerFindRoomS2C other) : this() {
+      mLstRoomInfo_ = other.mLstRoomInfo_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerFindRoomS2C Clone() {
       return new UserServerFindRoomS2C(this);
+    }
+
+    /// <summary>Field number for the "m_lstRoomInfo" field.</summary>
+    public const int MLstRoomInfoFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::MsgPB.RoomInfo> _repeated_mLstRoomInfo_codec
+        = pb::FieldCodec.ForMessage(10, global::MsgPB.RoomInfo.Parser);
+    private readonly pbc::RepeatedField<global::MsgPB.RoomInfo> mLstRoomInfo_ = new pbc::RepeatedField<global::MsgPB.RoomInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::MsgPB.RoomInfo> MLstRoomInfo {
+      get { return mLstRoomInfo_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -394,12 +723,14 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if(!mLstRoomInfo_.Equals(other.mLstRoomInfo_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      hash ^= mLstRoomInfo_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -413,6 +744,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      mLstRoomInfo_.WriteTo(output, _repeated_mLstRoomInfo_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -421,6 +753,7 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      size += mLstRoomInfo_.CalculateSize(_repeated_mLstRoomInfo_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -432,6 +765,7 @@ namespace MsgPB {
       if (other == null) {
         return;
       }
+      mLstRoomInfo_.Add(other.mLstRoomInfo_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -443,6 +777,10 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            mLstRoomInfo_.AddEntriesFrom(input, _repeated_mLstRoomInfo_codec);
+            break;
+          }
         }
       }
     }
@@ -457,7 +795,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[4]; }
+      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -474,12 +812,36 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomC2S(UserServerJoinRoomC2S other) : this() {
+      mRoomID_ = other.mRoomID_;
+      mPassword_ = other.mPassword_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomC2S Clone() {
       return new UserServerJoinRoomC2S(this);
+    }
+
+    /// <summary>Field number for the "m_roomID" field.</summary>
+    public const int MRoomIDFieldNumber = 1;
+    private uint mRoomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MRoomID {
+      get { return mRoomID_; }
+      set {
+        mRoomID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_password" field.</summary>
+    public const int MPasswordFieldNumber = 2;
+    private string mPassword_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MPassword {
+      get { return mPassword_; }
+      set {
+        mPassword_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -495,12 +857,16 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MRoomID != other.MRoomID) return false;
+      if (MPassword != other.MPassword) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MRoomID != 0) hash ^= MRoomID.GetHashCode();
+      if (MPassword.Length != 0) hash ^= MPassword.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -514,6 +880,14 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MRoomID);
+      }
+      if (MPassword.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MPassword);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -522,6 +896,12 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MRoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MRoomID);
+      }
+      if (MPassword.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MPassword);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -532,6 +912,12 @@ namespace MsgPB {
     public void MergeFrom(UserServerJoinRoomC2S other) {
       if (other == null) {
         return;
+      }
+      if (other.MRoomID != 0) {
+        MRoomID = other.MRoomID;
+      }
+      if (other.MPassword.Length != 0) {
+        MPassword = other.MPassword;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -544,6 +930,14 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            MRoomID = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            MPassword = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -558,7 +952,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[5]; }
+      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -575,12 +969,60 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomS2C(UserServerJoinRoomS2C other) : this() {
+      mRoomID_ = other.mRoomID_;
+      mIp_ = other.mIp_;
+      mPort_ = other.mPort_;
+      mConnentkey_ = other.mConnentkey_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomS2C Clone() {
       return new UserServerJoinRoomS2C(this);
+    }
+
+    /// <summary>Field number for the "m_roomID" field.</summary>
+    public const int MRoomIDFieldNumber = 1;
+    private uint mRoomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MRoomID {
+      get { return mRoomID_; }
+      set {
+        mRoomID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_ip" field.</summary>
+    public const int MIpFieldNumber = 2;
+    private string mIp_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MIp {
+      get { return mIp_; }
+      set {
+        mIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_port" field.</summary>
+    public const int MPortFieldNumber = 3;
+    private uint mPort_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MPort {
+      get { return mPort_; }
+      set {
+        mPort_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_connentkey" field.</summary>
+    public const int MConnentkeyFieldNumber = 4;
+    private string mConnentkey_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MConnentkey {
+      get { return mConnentkey_; }
+      set {
+        mConnentkey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -596,12 +1038,20 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MRoomID != other.MRoomID) return false;
+      if (MIp != other.MIp) return false;
+      if (MPort != other.MPort) return false;
+      if (MConnentkey != other.MConnentkey) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MRoomID != 0) hash ^= MRoomID.GetHashCode();
+      if (MIp.Length != 0) hash ^= MIp.GetHashCode();
+      if (MPort != 0) hash ^= MPort.GetHashCode();
+      if (MConnentkey.Length != 0) hash ^= MConnentkey.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -615,6 +1065,22 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MRoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MRoomID);
+      }
+      if (MIp.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MIp);
+      }
+      if (MPort != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(MPort);
+      }
+      if (MConnentkey.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(MConnentkey);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -623,6 +1089,18 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MRoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MRoomID);
+      }
+      if (MIp.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
+      }
+      if (MPort != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPort);
+      }
+      if (MConnentkey.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MConnentkey);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -633,6 +1111,18 @@ namespace MsgPB {
     public void MergeFrom(UserServerJoinRoomS2C other) {
       if (other == null) {
         return;
+      }
+      if (other.MRoomID != 0) {
+        MRoomID = other.MRoomID;
+      }
+      if (other.MIp.Length != 0) {
+        MIp = other.MIp;
+      }
+      if (other.MPort != 0) {
+        MPort = other.MPort;
+      }
+      if (other.MConnentkey.Length != 0) {
+        MConnentkey = other.MConnentkey;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -645,6 +1135,22 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            MRoomID = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            MIp = input.ReadString();
+            break;
+          }
+          case 24: {
+            MPort = input.ReadUInt32();
+            break;
+          }
+          case 34: {
+            MConnentkey = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -659,7 +1165,7 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[6]; }
+      get { return global::MsgPB.UserServerRoomReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -676,12 +1182,60 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomS2SC(UserServerJoinRoomS2SC other) : this() {
+      mPlayerId_ = other.mPlayerId_;
+      mIp_ = other.mIp_;
+      mPort_ = other.mPort_;
+      mConnentkey_ = other.mConnentkey_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerJoinRoomS2SC Clone() {
       return new UserServerJoinRoomS2SC(this);
+    }
+
+    /// <summary>Field number for the "m_playerId" field.</summary>
+    public const int MPlayerIdFieldNumber = 1;
+    private string mPlayerId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MPlayerId {
+      get { return mPlayerId_; }
+      set {
+        mPlayerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_ip" field.</summary>
+    public const int MIpFieldNumber = 2;
+    private string mIp_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MIp {
+      get { return mIp_; }
+      set {
+        mIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_port" field.</summary>
+    public const int MPortFieldNumber = 3;
+    private uint mPort_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MPort {
+      get { return mPort_; }
+      set {
+        mPort_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_connentkey" field.</summary>
+    public const int MConnentkeyFieldNumber = 4;
+    private string mConnentkey_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MConnentkey {
+      get { return mConnentkey_; }
+      set {
+        mConnentkey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -697,12 +1251,20 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MPlayerId != other.MPlayerId) return false;
+      if (MIp != other.MIp) return false;
+      if (MPort != other.MPort) return false;
+      if (MConnentkey != other.MConnentkey) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MPlayerId.Length != 0) hash ^= MPlayerId.GetHashCode();
+      if (MIp.Length != 0) hash ^= MIp.GetHashCode();
+      if (MPort != 0) hash ^= MPort.GetHashCode();
+      if (MConnentkey.Length != 0) hash ^= MConnentkey.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -716,6 +1278,22 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MPlayerId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(MPlayerId);
+      }
+      if (MIp.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MIp);
+      }
+      if (MPort != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(MPort);
+      }
+      if (MConnentkey.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(MConnentkey);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -724,6 +1302,18 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MPlayerId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MPlayerId);
+      }
+      if (MIp.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
+      }
+      if (MPort != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPort);
+      }
+      if (MConnentkey.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MConnentkey);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -734,6 +1324,18 @@ namespace MsgPB {
     public void MergeFrom(UserServerJoinRoomS2SC other) {
       if (other == null) {
         return;
+      }
+      if (other.MPlayerId.Length != 0) {
+        MPlayerId = other.MPlayerId;
+      }
+      if (other.MIp.Length != 0) {
+        MIp = other.MIp;
+      }
+      if (other.MPort != 0) {
+        MPort = other.MPort;
+      }
+      if (other.MConnentkey.Length != 0) {
+        MConnentkey = other.MConnentkey;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -746,6 +1348,22 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            MPlayerId = input.ReadString();
+            break;
+          }
+          case 18: {
+            MIp = input.ReadString();
+            break;
+          }
+          case 24: {
+            MPort = input.ReadUInt32();
+            break;
+          }
+          case 34: {
+            MConnentkey = input.ReadString();
+            break;
+          }
         }
       }
     }
