@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GameUserServer {
-    public class PlayerServer : WF.SimpleComponent {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Net;
 
+    public class PlayerServer : WF.SimpleComponent {
         private class PlayerLoginInfo {
             public uint m_playerId;
             public string m_userName;
@@ -15,31 +18,28 @@ namespace GameUserServer {
             public string m_cacheLoginID;
         }
 
+        private class PlayerNetInfo {
+            public uint m_playerID;
+            public IPEndPoint m_ipEndPoint;
+            public long m_key;
+            public long m_lastHeartBeatTime;
+        }
+
         public static PlayerServer Instance;
 
-        List<uint> m_listPlayerIds;
-        private Dictionary<uint, PlayerLoginInfo> m_dicPlayerLoginInfo;
-        private Dictionary<uint, IPEndPoint> m_dicPlayerId2IPEndPoint;
-        private Dictionary<IPEndPoint, uint> m_dicIPEndPoint2PlayerId;
-        private Dictionary<uint, long> m_dicPlayerId2Key;
-        private Dictionary<uint, long> m_dicPlayerId2HeartBeat;
-        private System.Random m_random;
+        private Dictionary<uint, PlayerNetInfo> m_dicPlayerInfo;
+        private Dictionary<IPEndPoint, PlayerNetInfo> m_dicIPEndPoint2PlayerInfo;
 
-        private uint testPlayerId = 1;
+        private System.Random m_random;
+        private uint testPlayerId = 0;
 
         public override bool initialize() {
             base.initialize();
             Instance = this;
 
             m_random = new System.Random((int)ServerMgr.Instance.NowTime);
-
-            m_listPlayerIds = new List<uint>();
-
-            m_dicPlayerLoginInfo = new Dictionary<uint, PlayerLoginInfo>();
-            m_dicPlayerId2IPEndPoint = new Dictionary<uint, IPEndPoint>();
-            m_dicIPEndPoint2PlayerId = new Dictionary<IPEndPoint, uint>();
-            m_dicPlayerId2Key = new Dictionary<uint, long>();
-            m_dicPlayerId2HeartBeat = new Dictionary<uint, long>();
+            m_dicPlayerInfo = new Dictionary<uint, PlayerNetInfo>();
+            m_dicIPEndPoint2PlayerInfo = new Dictionary<IPEndPoint, PlayerNetInfo>();
 
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerPlayerLoginC2S), onUserServerPlayerLoginC2S);
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerHeartBeatC2S), onUserServerHeartBeatC2S);
@@ -49,47 +49,49 @@ namespace GameUserServer {
 
 
         public List<uint> getAllPlayerId() {
-            return new List<uint>(m_listPlayerIds);
+            List<uint> m_playerIds = new List<uint>();
+            foreach (var playerInfo in m_dicIPEndPoint2PlayerInfo.Values) {
+                m_playerIds.Add(playerInfo.m_playerID);
+            }
+            return m_playerIds;
         }
 
         public void onUserServerPlayerLoginC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
             MsgPB.UserServerPlayerLoginC2S msg = MsgPB.UserServerPlayerLoginC2S.Parser.ParseFrom(protobytes);
 
-            //ToDo login password check
-
             PlayerLoginInfo playerLoginInfo = new PlayerLoginInfo();
             playerLoginInfo.m_playerId = ++testPlayerId;
-            m_dicPlayerLoginInfo[playerLoginInfo.m_playerId] = playerLoginInfo;
 
-            addIpEndPoint(playerLoginInfo.m_playerId, iPEndPoint);
-
-            if (!(m_listPlayerIds.Contains(playerLoginInfo.m_playerId))) {
-                m_listPlayerIds.Add(playerLoginInfo.m_playerId);
+            if (!m_dicPlayerInfo.ContainsKey(playerLoginInfo.m_playerId)) {
+                m_dicPlayerInfo.Add(playerLoginInfo.m_playerId, new PlayerNetInfo());
             }
-            m_dicPlayerId2Key[playerLoginInfo.m_playerId] = m_random.Next(int.MinValue, int.MaxValue);
-            m_dicPlayerId2HeartBeat[playerLoginInfo.m_playerId] = ServerMgr.Instance.NowTime;
+
+            PlayerNetInfo playerNetInfo = m_dicPlayerInfo[playerLoginInfo.m_playerId];
+            playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
+            playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
+
+            m_dicIPEndPoint2PlayerInfo[playerNetInfo.m_ipEndPoint] = playerNetInfo;
 
             //告知登录成功
             MsgPB.UserServerPlayerLoginS2C loginMsg = new MsgPB.UserServerPlayerLoginS2C();
             loginMsg.MLoginSuccess = true;
             loginMsg.MPlayerId = playerLoginInfo.m_playerId;
-            loginMsg.MKey = m_dicPlayerId2Key[playerLoginInfo.m_playerId];
+            loginMsg.MKey = playerNetInfo.m_key;
             ServerMsgReceiver.Instance.sendMsg(playerLoginInfo.m_playerId, loginMsg);
         }
 
         public void onUserServerHeartBeatC2S(byte[] protobytes, IPEndPoint iPEndPoint) {
             MsgPB.UserServerHeartBeatC2S msg = MsgPB.UserServerHeartBeatC2S.Parser.ParseFrom(protobytes);
-            if (m_dicPlayerId2Key.ContainsKey(msg.MPlayerId)) {
-                if (msg.MKey == m_dicPlayerId2Key[msg.MPlayerId]) {
-                    m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
-                    if (!m_dicPlayerId2IPEndPoint.ContainsKey(msg.MPlayerId)) {
-                        ServerLog.log("m_dicPlayerId2IPEndPoint.ContainsKey(msg.MPlayerId) = false");
-                        return;
-                    }
-                    if (m_dicPlayerId2IPEndPoint[msg.MPlayerId] != iPEndPoint) {
-                        m_dicIPEndPoint2PlayerId.Remove(m_dicPlayerId2IPEndPoint[msg.MPlayerId]);
-                        m_dicIPEndPoint2PlayerId[iPEndPoint] = msg.MPlayerId;
-                        m_dicPlayerId2IPEndPoint[msg.MPlayerId] = iPEndPoint;
+            if (m_dicPlayerInfo.ContainsKey(msg.MPlayerId)) {
+                PlayerNetInfo playerNetInfo = m_dicPlayerInfo[msg.MPlayerId];
+                if (msg.MKey == playerNetInfo.m_key) {
+                    playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
+
+                    if (playerNetInfo.m_ipEndPoint != iPEndPoint) {
+                        m_dicIPEndPoint2PlayerInfo.Remove(playerNetInfo.m_ipEndPoint);
+
+                        playerNetInfo.m_ipEndPoint = iPEndPoint;
+                        m_dicIPEndPoint2PlayerInfo[playerNetInfo.m_ipEndPoint] = playerNetInfo;
                     }
                 }
             } else {
@@ -97,40 +99,27 @@ namespace GameUserServer {
             }
         }
 
-        private void addIpEndPoint(uint playerId, IPEndPoint ipEndPoint) {
-            m_dicPlayerId2IPEndPoint[playerId] = ipEndPoint;
-            m_dicIPEndPoint2PlayerId[ipEndPoint] = playerId;
-        }
-
         public IPEndPoint getIpEndPointByPlayerId(uint playerId) {
-            if (m_dicPlayerId2IPEndPoint.ContainsKey(playerId)) {
-                return m_dicPlayerId2IPEndPoint[playerId];
+            if (m_dicPlayerInfo.ContainsKey(playerId)) {
+                return m_dicPlayerInfo[playerId].m_ipEndPoint;
             }
             return null;
         }
 
         public uint getPlayerIdByIPEndPoint(IPEndPoint ipEndPoint) {
-            if (m_dicIPEndPoint2PlayerId.ContainsKey(ipEndPoint)) {
-                return m_dicIPEndPoint2PlayerId[ipEndPoint];
+            if (m_dicIPEndPoint2PlayerInfo.ContainsKey(ipEndPoint)) {
+                return m_dicIPEndPoint2PlayerInfo[ipEndPoint].m_playerID;
             }
             return 0;
         }
 
         long m_lastHeartBeatTime;
         public override void update() {
-            List<uint> lstOfflinePlayerId = new List<uint>();
-            foreach (var keyValue in m_dicPlayerId2HeartBeat) {
-                long offsetTime = ServerMgr.Instance.NowTime - keyValue.Value;
-                if (offsetTime > GameConfig.Instance.HeartBeatWaitTime) {
-                    ServerLog.log("heart beat remove palyer id:" + keyValue.Key + ", offset Time : " + offsetTime);
-                    lstOfflinePlayerId.Add(keyValue.Key);
+            foreach (var keyValue in m_dicPlayerInfo) {
+                if ((ServerMgr.Instance.NowTime - keyValue.Value.m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatWaitTime) {
+                    m_dicIPEndPoint2PlayerInfo.Remove(keyValue.Value.m_ipEndPoint);
+                    keyValue.Value.m_ipEndPoint = null;
                 }
-            }
-
-            foreach (var offlinePlayerId in lstOfflinePlayerId) {
-                m_dicPlayerId2HeartBeat.Remove(offlinePlayerId);
-                m_dicIPEndPoint2PlayerId.Remove(m_dicPlayerId2IPEndPoint[offlinePlayerId]);
-                m_dicPlayerId2IPEndPoint.Remove(offlinePlayerId);
             }
 
             if ((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatIntervalTime) {
