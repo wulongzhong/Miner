@@ -35,7 +35,7 @@ namespace MsgPB {
             "Sm9pblJvb21DMlMSEAoIbV9yb29tSUQYASABKA0SEgoKbV9wYXNzd29yZBgC",
             "IAEoCSJdChVVc2VyU2VydmVySm9pblJvb21TMkMSEAoIbV9yb29tSUQYASAB",
             "KA0SDAoEbV9pcBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoMbV9jb25uZW50",
-            "a2V5GAQgASgJImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyU0MSEgoKbV9wbGF5",
+            "a2V5GAQgASgJImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyUlMSEgoKbV9wbGF5",
             "ZXJJZBgBIAEoCRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxt",
             "X2Nvbm5lbnRrZXkYBCABKAkqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnBy",
             "b3RvMw=="));
@@ -49,7 +49,7 @@ namespace MsgPB {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomS2C), global::MsgPB.UserServerFindRoomS2C.Parser, new[]{ "MLstRoomInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomC2S), global::MsgPB.UserServerJoinRoomC2S.Parser, new[]{ "MRoomID", "MPassword" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2C), global::MsgPB.UserServerJoinRoomS2C.Parser, new[]{ "MRoomID", "MIp", "MPort", "MConnentkey" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2SC), global::MsgPB.UserServerJoinRoomS2SC.Parser, new[]{ "MPlayerId", "MIp", "MPort", "MConnentkey" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerJoinRoomS2RS), global::MsgPB.UserServerJoinRoomS2RS.Parser, new[]{ "MPlayerId", "MIp", "MPort", "MConnentkey" }, null, null, null)
           }));
     }
     #endregion
@@ -1157,11 +1157,11 @@ namespace MsgPB {
 
   }
 
-  public sealed partial class UserServerJoinRoomS2SC : pb::IMessage<UserServerJoinRoomS2SC> {
-    private static readonly pb::MessageParser<UserServerJoinRoomS2SC> _parser = new pb::MessageParser<UserServerJoinRoomS2SC>(() => new UserServerJoinRoomS2SC());
+  public sealed partial class UserServerJoinRoomS2RS : pb::IMessage<UserServerJoinRoomS2RS> {
+    private static readonly pb::MessageParser<UserServerJoinRoomS2RS> _parser = new pb::MessageParser<UserServerJoinRoomS2RS>(() => new UserServerJoinRoomS2RS());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<UserServerJoinRoomS2SC> Parser { get { return _parser; } }
+    public static pb::MessageParser<UserServerJoinRoomS2RS> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -1174,14 +1174,14 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserServerJoinRoomS2SC() {
+    public UserServerJoinRoomS2RS() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserServerJoinRoomS2SC(UserServerJoinRoomS2SC other) : this() {
+    public UserServerJoinRoomS2RS(UserServerJoinRoomS2RS other) : this() {
       mPlayerId_ = other.mPlayerId_;
       mIp_ = other.mIp_;
       mPort_ = other.mPort_;
@@ -1190,8 +1190,8 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserServerJoinRoomS2SC Clone() {
-      return new UserServerJoinRoomS2SC(this);
+    public UserServerJoinRoomS2RS Clone() {
+      return new UserServerJoinRoomS2RS(this);
     }
 
     /// <summary>Field number for the "m_playerId" field.</summary>
@@ -1240,11 +1240,11 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as UserServerJoinRoomS2SC);
+      return Equals(other as UserServerJoinRoomS2RS);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(UserServerJoinRoomS2SC other) {
+    public bool Equals(UserServerJoinRoomS2RS other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1321,7 +1321,7 @@ namespace MsgPB {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(UserServerJoinRoomS2SC other) {
+    public void MergeFrom(UserServerJoinRoomS2RS other) {
       if (other == null) {
         return;
       }

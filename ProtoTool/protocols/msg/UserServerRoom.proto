@@ -38,7 +38,7 @@ message UserServerJoinRoomS2C{
     string m_connentkey = 4;
 }
 
-message UserServerJoinRoomS2SC{
+message UserServerJoinRoomS2RS{
     string m_playerId = 1;
     string m_ip = 2;
     uint32 m_port = 3;

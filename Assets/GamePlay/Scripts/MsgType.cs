@@ -10,6 +10,8 @@ public static class MsgType {
 
         typeof(MsgPB.UserServerHeartBeatC2S),
         typeof(MsgPB.UserServerHeartBeatS2C),
+        typeof(MsgPB.UserServerRoomHeartBeatRS2S),
+        typeof(MsgPB.UserServerRoomHeartBeatS2RS),
 
         typeof(MsgPB.UserServerRegisterRoomC2S),
         typeof(MsgPB.UserServerRegisterRoomS2C),
@@ -19,7 +21,7 @@ public static class MsgType {
 
         typeof(MsgPB.UserServerJoinRoomC2S),
         typeof(MsgPB.UserServerJoinRoomS2C),
-        typeof(MsgPB.UserServerJoinRoomS2SC),
+        typeof(MsgPB.UserServerJoinRoomS2RS),
 
         //user server不包含的
 #if !USER_SERVER

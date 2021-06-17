@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -40,6 +40,7 @@ public class ServerMgr : WF.SimpleComponent {
         gameCommandSyncServer.initialize();
         addComponent(gameCommandSyncServer);
 
+        //向用户服务器注册房间
         return true;
     }
 

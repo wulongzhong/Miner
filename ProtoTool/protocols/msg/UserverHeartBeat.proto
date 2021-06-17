@@ -9,3 +9,11 @@ message UserServerHeartBeatC2S{
 message UserServerHeartBeatS2C{
 
 }
+
+message UserServerRoomHeartBeatRS2S{
+    uint32 m_roomID = 1;
+    int64 m_key = 2;
+}
+message UserServerRoomHeartBeatS2RS{
+    
+}
