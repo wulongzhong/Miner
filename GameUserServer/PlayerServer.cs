@@ -67,6 +67,7 @@ namespace GameUserServer {
             }
 
             PlayerNetInfo playerNetInfo = m_dicPlayerInfo[playerLoginInfo.m_playerId];
+            playerNetInfo.m_playerID = playerLoginInfo.m_playerId;
             playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
             playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
             playerNetInfo.m_ipEndPoint = iPEndPoint;
@@ -76,9 +77,9 @@ namespace GameUserServer {
             //告知登录成功
             MsgPB.UserServerPlayerLoginS2C loginMsg = new MsgPB.UserServerPlayerLoginS2C();
             loginMsg.MLoginSuccess = true;
-            loginMsg.MPlayerId = playerLoginInfo.m_playerId;
+            loginMsg.MPlayerId = playerNetInfo.m_playerID;
             loginMsg.MKey = playerNetInfo.m_key;
-            ServerMsgReceiver.Instance.sendMsg(playerLoginInfo.m_playerId, loginMsg);
+            ServerMsgReceiver.Instance.sendMsg(playerNetInfo.m_playerID, loginMsg);
         }
 
         public void onUserServerHeartBeatC2S(byte[] protobytes, IPEndPoint iPEndPoint) {

@@ -49,6 +49,7 @@ public class PlayerServer : WF.SimpleComponent {
         }
 
         PlayerNetInfo playerNetInfo = m_dicPlayerInfo[msg.MPlayerId];
+        playerNetInfo.m_playerID = msg.MPlayerId;
         playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
         playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
         playerNetInfo.m_ipEndPoint = iPEndPoint;
@@ -58,9 +59,9 @@ public class PlayerServer : WF.SimpleComponent {
         //告知登录成功
         MsgPB.GameRoomPlayerLoginS2C loginMsg = new MsgPB.GameRoomPlayerLoginS2C();
         loginMsg.MLoginSuccess = true;
-        loginMsg.MPlayerId = msg.MPlayerId;
+        loginMsg.MPlayerId = playerNetInfo.m_playerID;
         loginMsg.MKey = playerNetInfo.m_key;
-        ServerMsgReceiver.Instance.sendMsg(msg.MPlayerId, loginMsg);
+        ServerMsgReceiver.Instance.sendMsg(playerNetInfo.m_playerID, loginMsg);
 
         //发送缓存数据
         MsgPB.GameRoomCache roomCache = HandlerRoomDataCache.Instance.getGameRoomCache();
