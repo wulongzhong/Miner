@@ -6,6 +6,8 @@ using Google.Protobuf;
 namespace GameUserServer {
     class Program {
         static void Main(string[] args) {
+            GameConfig gameConfig = new GameConfig();
+
             ServerMgr serverMgr = new ServerMgr();
             serverMgr.initialize();
             serverMgr.startServer(10);

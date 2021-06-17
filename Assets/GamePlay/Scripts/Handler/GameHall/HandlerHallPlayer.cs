@@ -5,7 +5,7 @@ using UnityEngine;
 public class HandlerHallPlayer : WF.SimpleComponent {
     public static HandlerHallPlayer Instance;
 
-    private uint m_selfPlayerId = 1;
+    private uint m_selfPlayerId;
     private long m_key;
 
     public uint SelfPlayerId { get => m_selfPlayerId; }

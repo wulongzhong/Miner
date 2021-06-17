@@ -33,7 +33,7 @@ public class HandlerRoomHeartBeat : WF.SimpleComponent {
         //掉线了
         if ((Time.time - m_lastReceiveServerTime) > (GameConfig.Instance.HeartBeatWaitTime * 0.001f)) {
             if (m_bViewOffline) {
-                Debug.Log("掉线了");
+                Debug.Log("与游戏房间失去连接");
                 m_bViewOffline = false;
             }
         }
