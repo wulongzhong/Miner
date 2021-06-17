@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public static class MsgType {
     private static List<Type> m_lstMsgType = new List<Type>() {
         //user server包含的
+        typeof(MsgPB.CommonPingA2A),
+
         typeof(MsgPB.UserServerPlayerLoginC2S),
         typeof(MsgPB.UserServerPlayerLoginS2C),
 
