@@ -98,6 +98,20 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         }
     }
 
+    public void sendMsgByIpEndPoint<T>(IPEndPoint ipGroupEp, T msg) {
+        if(ipGroupEp == null) {
+            return;
+        }
+
+        IMessage data = (IMessage)(object)msg;
+        byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
+        byte[] msgByte = data.ToByteArray();
+        byte[] sendByte = new byte[msgByte.Length + 2];
+        msgIdByte.CopyTo(sendByte, 0);
+        msgByte.CopyTo(sendByte, 2);
+        sendMsg2Client(ipGroupEp, sendByte);
+    }
+
     public override void update() {
         mutex.WaitOne();
         m_waitHandleMasterList = new List<WaitHandler>(m_waitHandleSyncList);
