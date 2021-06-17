@@ -51,6 +51,7 @@ public class PlayerServer : WF.SimpleComponent {
         PlayerNetInfo playerNetInfo = m_dicPlayerInfo[msg.MPlayerId];
         playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
         playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
+        playerNetInfo.m_ipEndPoint = iPEndPoint;
 
         m_dicIPEndPoint2PlayerInfo[playerNetInfo.m_ipEndPoint] = playerNetInfo;
 

@@ -69,6 +69,7 @@ namespace GameUserServer {
             PlayerNetInfo playerNetInfo = m_dicPlayerInfo[playerLoginInfo.m_playerId];
             playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
             playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
+            playerNetInfo.m_ipEndPoint = iPEndPoint;
 
             m_dicIPEndPoint2PlayerInfo[playerNetInfo.m_ipEndPoint] = playerNetInfo;
 
