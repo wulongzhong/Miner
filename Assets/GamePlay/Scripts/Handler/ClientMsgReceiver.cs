@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine;
 
 public class ClientMsgReceiver : WF.SimpleComponent {
     public static ClientMsgReceiver Instance;
@@ -119,7 +120,7 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
-        sendMsg2Server(sendByte, m_roomServerIpEndPoint);
+        sendMsg2IpEndPoint(sendByte, m_roomServerIpEndPoint);
     }
 
     public void sendMsg2UserServer<T>(T msg) {
@@ -129,10 +130,14 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         byte[] sendByte = new byte[msgByte.Length + 2];
         msgIdByte.CopyTo(sendByte, 0);
         msgByte.CopyTo(sendByte, 2);
-        sendMsg2Server(sendByte, GameConfig.Instance.UserServerIpendPoint);
+        sendMsg2IpEndPoint(sendByte, GameConfig.Instance.UserServerIpendPoint);
     }
 
-    private void sendMsg2Server(byte[] sendbuf, IPEndPoint iPEndPoint) {
+    public void pingRoomServer(string ip, ushort port) {
+        m_roomServerIpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+    }
+
+    private void sendMsg2IpEndPoint(byte[] sendbuf, IPEndPoint iPEndPoint) {
         if (m_listener == null) {
             ServerLog.log("Client Connect Server Fail");
             return;

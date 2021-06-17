@@ -40,7 +40,10 @@ public class ServerMgr : WF.SimpleComponent {
         gameCommandSyncServer.initialize();
         addComponent(gameCommandSyncServer);
 
-        //向用户服务器注册房间
+
+        RoomConnectServer roomConnectServer = new RoomConnectServer();
+        roomConnectServer.initialize();
+        addComponent(roomConnectServer);
         return true;
     }
 
