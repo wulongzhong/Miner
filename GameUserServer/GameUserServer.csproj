@@ -24,8 +24,8 @@
     <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\UserServerRoom.cs" />
     <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\UserverHeartBeat.cs" />
     <Compile Include="..\Assets\GamePlay\Scripts\Protobuf\Msg\Common.cs" />
-    <Compile Include="..\Assets\GamePlay\Scripts\MsgType.cs" />
-    <Compile Include="..\Assets\GamePlay\Scripts\GameConfig.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\Common\MsgType.cs" />
+    <Compile Include="..\Assets\GamePlay\Scripts\Common\GameConfig.cs" />
   </ItemGroup>
 
 </Project>
