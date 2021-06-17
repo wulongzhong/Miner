@@ -82,7 +82,10 @@ namespace GameUserServer {
             if (m_dicPlayerId2Key.ContainsKey(msg.MPlayerId)) {
                 if (msg.MKey == m_dicPlayerId2Key[msg.MPlayerId]) {
                     m_dicPlayerId2HeartBeat[msg.MPlayerId] = ServerMgr.Instance.NowTime;
-
+                    if (!m_dicPlayerId2IPEndPoint.ContainsKey(msg.MPlayerId)) {
+                        ServerLog.log("m_dicPlayerId2IPEndPoint.ContainsKey(msg.MPlayerId) = false");
+                        return;
+                    }
                     if (m_dicPlayerId2IPEndPoint[msg.MPlayerId] != iPEndPoint) {
                         m_dicIPEndPoint2PlayerId.Remove(m_dicPlayerId2IPEndPoint[msg.MPlayerId]);
                         m_dicIPEndPoint2PlayerId[iPEndPoint] = msg.MPlayerId;

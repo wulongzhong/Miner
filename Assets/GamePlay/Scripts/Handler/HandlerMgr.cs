@@ -12,6 +12,10 @@ public class HandlerMgr : WF.SimpleComponent {
         handlerHallPlayer.initialize();
         addComponent(handlerHallPlayer);
 
+        HandlerHallHeartBeat handlerHallHeartBeat = new HandlerHallHeartBeat();
+        handlerHallHeartBeat.initialize();
+        addComponent(handlerHallHeartBeat);
+
         HandlerRoomCommandExecute handlerRoomCommandExecute = new HandlerRoomCommandExecute();
         handlerRoomCommandExecute.initialize();
         addComponent(handlerRoomCommandExecute);

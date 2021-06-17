@@ -13,6 +13,7 @@ public class HandlerHallPlayer : WF.SimpleComponent {
 
     public override bool initialize() {
         base.initialize();
+        Instance = this;
 
         ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.UserServerPlayerLoginS2C), onUserServerPlayerLoginS2C);
 
