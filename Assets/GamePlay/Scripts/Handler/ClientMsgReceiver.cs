@@ -58,9 +58,11 @@ public class ClientMsgReceiver : WF.SimpleComponent {
             while (m_serverIsRuning) {
                 byte[] bytes = m_listener.Receive(ref m_groupEP);
                 mutex.WaitOne();
-                if(m_groupEP == m_roomServerIpEndPoint) {
-                    m_isConnectRoomServer = true;
-                    m_isPingRoomServering = false;
+                if (m_isPingRoomServering) {
+                    if (m_groupEP == m_roomServerIpEndPoint) {
+                        m_isConnectRoomServer = true;
+                        m_isPingRoomServering = false;
+                    }
                 }
                 m_waitHandleSyncList.Add(bytes);
                 mutex.ReleaseMutex();

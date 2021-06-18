@@ -36,7 +36,7 @@ namespace MsgPB {
             "IAEoCSJdChVVc2VyU2VydmVySm9pblJvb21TMkMSEAoIbV9yb29tSUQYASAB",
             "KA0SDAoEbV9pcBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoMbV9jb25uZW50",
             "a2V5GAQgASgJImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyUlMSEgoKbV9wbGF5",
-            "ZXJJZBgBIAEoCRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxt",
+            "ZXJJZBgBIAEoDRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxt",
             "X2Nvbm5lbnRrZXkYBCABKAkqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnBy",
             "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
@@ -1196,12 +1196,12 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_playerId" field.</summary>
     public const int MPlayerIdFieldNumber = 1;
-    private string mPlayerId_ = "";
+    private uint mPlayerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string MPlayerId {
+    public uint MPlayerId {
       get { return mPlayerId_; }
       set {
-        mPlayerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        mPlayerId_ = value;
       }
     }
 
@@ -1261,7 +1261,7 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (MPlayerId.Length != 0) hash ^= MPlayerId.GetHashCode();
+      if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
       if (MIp.Length != 0) hash ^= MIp.GetHashCode();
       if (MPort != 0) hash ^= MPort.GetHashCode();
       if (MConnentkey.Length != 0) hash ^= MConnentkey.GetHashCode();
@@ -1278,9 +1278,9 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MPlayerId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(MPlayerId);
+      if (MPlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MPlayerId);
       }
       if (MIp.Length != 0) {
         output.WriteRawTag(18);
@@ -1302,8 +1302,8 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (MPlayerId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MPlayerId);
+      if (MPlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
       }
       if (MIp.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
@@ -1325,7 +1325,7 @@ namespace MsgPB {
       if (other == null) {
         return;
       }
-      if (other.MPlayerId.Length != 0) {
+      if (other.MPlayerId != 0) {
         MPlayerId = other.MPlayerId;
       }
       if (other.MIp.Length != 0) {
@@ -1348,8 +1348,8 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            MPlayerId = input.ReadString();
+          case 8: {
+            MPlayerId = input.ReadUInt32();
             break;
           }
           case 18: {
