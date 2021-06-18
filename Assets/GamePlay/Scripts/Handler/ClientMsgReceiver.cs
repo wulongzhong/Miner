@@ -25,8 +25,6 @@ public class ClientMsgReceiver : WF.SimpleComponent {
     private bool m_serverIsRuning;
 
     private bool m_isConnectRoomServer = false;
-    private bool m_isPingRoomServering = false;
-    private float m_lastPingTime;
     public bool IsConnectRoomServer { get => m_isConnectRoomServer; }
 
     public override bool initialize() {
@@ -58,10 +56,9 @@ public class ClientMsgReceiver : WF.SimpleComponent {
             while (m_serverIsRuning) {
                 byte[] bytes = m_listener.Receive(ref m_groupEP);
                 mutex.WaitOne();
-                if (m_isPingRoomServering) {
+                if (!m_isConnectRoomServer) {
                     if (m_groupEP == m_roomServerIpEndPoint) {
                         m_isConnectRoomServer = true;
-                        m_isPingRoomServering = false;
                     }
                 }
                 m_waitHandleSyncList.Add(bytes);
@@ -94,13 +91,6 @@ public class ClientMsgReceiver : WF.SimpleComponent {
             }
         }
         m_waitHandleMasterList.Clear();
-
-        if (m_isPingRoomServering) {
-            if((Time.time - m_lastPingTime) > 2.0f) {
-                sendMsg2RoomServer(new MsgPB.CommonPingA2A());
-                m_lastPingTime = Time.time;
-            }
-        }
     }
 
     public override void terminate() {
@@ -151,9 +141,8 @@ public class ClientMsgReceiver : WF.SimpleComponent {
         sendMsg2IpEndPoint(sendByte, GameConfig.Instance.UserServerIpendPoint);
     }
 
-    public void pingRoomServer(string ip, ushort port) {
-        m_roomServerIpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-        m_isPingRoomServering = true;
+    public void setRoomServerIPEndPoint(IPEndPoint iPEndPoint) {
+        m_roomServerIpEndPoint = iPEndPoint;
     }
 
     private void sendMsg2IpEndPoint(byte[] sendbuf, IPEndPoint iPEndPoint) {

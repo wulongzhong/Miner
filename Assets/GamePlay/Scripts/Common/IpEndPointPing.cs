@@ -10,9 +10,6 @@ public class IpEndPointPing {
         TIME_LONG = 1,
     }
 
-    private const long m_intervalMS = 1000;
-    private const long m_maxPingTime = 6000;
-
     public uint m_playerId;
     public IPEndPoint m_ipendPoint;
     private long m_startPingTime;
@@ -25,11 +22,11 @@ public class IpEndPointPing {
     }
 
     public PingState ping() {
-        if((ServerMgr.Instance.NowTime - m_startPingTime) > m_maxPingTime) {
+        if((ServerMgr.Instance.NowTime - m_startPingTime) > GameConfig.Instance.PingMaxWaitMS) {
             return PingState.TIME_LONG;
         }
 
-        if((ServerMgr.Instance.NowTime - m_lastPingTime) >= m_intervalMS) {
+        if((ServerMgr.Instance.NowTime - m_lastPingTime) >= GameConfig.Instance.PingIntervalMS) {
             m_lastPingTime = ServerMgr.Instance.NowTime;
             ServerMsgReceiver.Instance.sendMsgByIpEndPoint(m_ipendPoint, new MsgPB.CommonPingA2A());
         }
