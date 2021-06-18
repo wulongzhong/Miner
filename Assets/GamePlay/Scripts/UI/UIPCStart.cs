@@ -18,13 +18,10 @@ public class UIPCStart : UIBevBase {
         onHide();
         GamePlay.Instance.openLocalServer();
         HandlerRoomDataCache.Instance.initCache();
-        HandlerRoomPlayer.Instance.joinGameRoom();
     }
 
     private void onBtnJoinPlayClick() {
         onHide();
-
-        HandlerRoomPlayer.Instance.joinGameRoom();
     }
 
     public override void onHide() {

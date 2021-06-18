@@ -36,6 +36,10 @@ public class HandlerMgr : WF.SimpleComponent {
         handlerRoomPlayer.initialize();
         addComponent(handlerRoomPlayer);
 
+        ActionConnectRoomServer actionConnectRoomServer = new ActionConnectRoomServer();
+        actionConnectRoomServer.initialize();
+        addComponent(actionConnectRoomServer);
+
         return true;
     }
 }

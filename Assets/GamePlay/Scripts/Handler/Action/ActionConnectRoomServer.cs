@@ -18,7 +18,8 @@ public class ActionConnectRoomServer : WF.SimpleComponent{
             return State.RUNING;
         }
 
-        public virtual void exit() {
+        public virtual void end() {
+
         }
     }
 
@@ -53,6 +54,47 @@ public class ActionConnectRoomServer : WF.SimpleComponent{
                 m_lastPingTime = Time.time;
             }
             return State.RUNING;
+        }
+    }
+
+    private class PlayerLoginAction : ConnectActionBase {
+        public override void start() {
+            HandlerRoomPlayer.Instance.joinGameRoom();
+        }
+        public override State update() {
+            return State.SUCCESS;
+        }
+    }
+
+    private List<ConnectActionBase> m_listAction;
+
+    public override bool initialize() {
+        base.initialize();
+        m_listAction = new List<ConnectActionBase>();
+
+        ClientMsgReceiver.Instance.registerS2C(typeof(MsgPB.UserServerJoinRoomS2C), onUserServerJoinRoomS2C);
+        return true;
+    }
+
+    public void onUserServerJoinRoomS2C(byte[] protoBytes) {
+        MsgPB.UserServerJoinRoomS2C msg = MsgPB.UserServerJoinRoomS2C.Parser.ParseFrom(protoBytes);
+        m_listAction.Add(new PingRoomServerAction(new IPEndPoint(IPAddress.Parse(msg.MIp), (int)msg.MPort)));
+        m_listAction.Add(new PlayerLoginAction());
+        m_listAction[0].start();
+    }
+
+    public override void update() {
+        if(m_listAction.Count > 0) {
+            var state = m_listAction[0].update();
+            if(state == ConnectActionBase.State.SUCCESS) {
+                m_listAction.RemoveAt(0);
+                if(m_listAction.Count > 0) {
+                    m_listAction[0].start();
+                }
+            }
+            if(state == ConnectActionBase.State.FAIL) {
+                m_listAction.Clear();
+            }
         }
     }
 }
