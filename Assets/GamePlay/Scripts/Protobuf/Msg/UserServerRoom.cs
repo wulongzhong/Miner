@@ -35,10 +35,10 @@ namespace MsgPB {
             "ASADKAsyDy5Nc2dQQi5Sb29tSW5mbyI9ChVVc2VyU2VydmVySm9pblJvb21D",
             "MlMSEAoIbV9yb29tSUQYASABKA0SEgoKbV9wYXNzd29yZBgCIAEoCSJdChVV",
             "c2VyU2VydmVySm9pblJvb21TMkMSEAoIbV9yb29tSUQYASABKA0SDAoEbV9p",
-            "cBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoMbV9jb25uZW50a2V5GAQgASgJ",
+            "cBgCIAEoCRIOCgZtX3BvcnQYAyABKAUSFAoMbV9jb25uZW50a2V5GAQgASgD",
             "ImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyUlMSEgoKbV9wbGF5ZXJJZBgBIAEo",
-            "DRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxtX2Nvbm5lbnRr",
-            "ZXkYBCABKAkqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnByb3RvMw=="));
+            "DRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoBRIUCgxtX2Nvbm5lbnRr",
+            "ZXkYBCABKAMqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.RoomType), }, new pbr::GeneratedClrTypeInfo[] {
@@ -1061,9 +1061,9 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_port" field.</summary>
     public const int MPortFieldNumber = 3;
-    private uint mPort_;
+    private int mPort_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint MPort {
+    public int MPort {
       get { return mPort_; }
       set {
         mPort_ = value;
@@ -1072,12 +1072,12 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_connentkey" field.</summary>
     public const int MConnentkeyFieldNumber = 4;
-    private string mConnentkey_ = "";
+    private long mConnentkey_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string MConnentkey {
+    public long MConnentkey {
       get { return mConnentkey_; }
       set {
-        mConnentkey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        mConnentkey_ = value;
       }
     }
 
@@ -1107,7 +1107,7 @@ namespace MsgPB {
       if (MRoomID != 0) hash ^= MRoomID.GetHashCode();
       if (MIp.Length != 0) hash ^= MIp.GetHashCode();
       if (MPort != 0) hash ^= MPort.GetHashCode();
-      if (MConnentkey.Length != 0) hash ^= MConnentkey.GetHashCode();
+      if (MConnentkey != 0L) hash ^= MConnentkey.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1131,11 +1131,11 @@ namespace MsgPB {
       }
       if (MPort != 0) {
         output.WriteRawTag(24);
-        output.WriteUInt32(MPort);
+        output.WriteInt32(MPort);
       }
-      if (MConnentkey.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(MConnentkey);
+      if (MConnentkey != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(MConnentkey);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1152,10 +1152,10 @@ namespace MsgPB {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
       }
       if (MPort != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPort);
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MPort);
       }
-      if (MConnentkey.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MConnentkey);
+      if (MConnentkey != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MConnentkey);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1177,7 +1177,7 @@ namespace MsgPB {
       if (other.MPort != 0) {
         MPort = other.MPort;
       }
-      if (other.MConnentkey.Length != 0) {
+      if (other.MConnentkey != 0L) {
         MConnentkey = other.MConnentkey;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1200,11 +1200,11 @@ namespace MsgPB {
             break;
           }
           case 24: {
-            MPort = input.ReadUInt32();
+            MPort = input.ReadInt32();
             break;
           }
-          case 34: {
-            MConnentkey = input.ReadString();
+          case 32: {
+            MConnentkey = input.ReadInt64();
             break;
           }
         }
@@ -1274,9 +1274,9 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_port" field.</summary>
     public const int MPortFieldNumber = 3;
-    private uint mPort_;
+    private int mPort_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint MPort {
+    public int MPort {
       get { return mPort_; }
       set {
         mPort_ = value;
@@ -1285,12 +1285,12 @@ namespace MsgPB {
 
     /// <summary>Field number for the "m_connentkey" field.</summary>
     public const int MConnentkeyFieldNumber = 4;
-    private string mConnentkey_ = "";
+    private long mConnentkey_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string MConnentkey {
+    public long MConnentkey {
       get { return mConnentkey_; }
       set {
-        mConnentkey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        mConnentkey_ = value;
       }
     }
 
@@ -1320,7 +1320,7 @@ namespace MsgPB {
       if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
       if (MIp.Length != 0) hash ^= MIp.GetHashCode();
       if (MPort != 0) hash ^= MPort.GetHashCode();
-      if (MConnentkey.Length != 0) hash ^= MConnentkey.GetHashCode();
+      if (MConnentkey != 0L) hash ^= MConnentkey.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1344,11 +1344,11 @@ namespace MsgPB {
       }
       if (MPort != 0) {
         output.WriteRawTag(24);
-        output.WriteUInt32(MPort);
+        output.WriteInt32(MPort);
       }
-      if (MConnentkey.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(MConnentkey);
+      if (MConnentkey != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(MConnentkey);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1365,10 +1365,10 @@ namespace MsgPB {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
       }
       if (MPort != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPort);
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MPort);
       }
-      if (MConnentkey.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MConnentkey);
+      if (MConnentkey != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MConnentkey);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1390,7 +1390,7 @@ namespace MsgPB {
       if (other.MPort != 0) {
         MPort = other.MPort;
       }
-      if (other.MConnentkey.Length != 0) {
+      if (other.MConnentkey != 0L) {
         MConnentkey = other.MConnentkey;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1413,11 +1413,11 @@ namespace MsgPB {
             break;
           }
           case 24: {
-            MPort = input.ReadUInt32();
+            MPort = input.ReadInt32();
             break;
           }
-          case 34: {
-            MConnentkey = input.ReadString();
+          case 32: {
+            MConnentkey = input.ReadInt64();
             break;
           }
         }

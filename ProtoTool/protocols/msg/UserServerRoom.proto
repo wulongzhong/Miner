@@ -37,13 +37,13 @@ message UserServerJoinRoomC2S{
 message UserServerJoinRoomS2C{
     uint32 m_roomID = 1;
     string m_ip = 2;
-    uint32 m_port = 3;
-    string m_connentkey = 4;
+    int32 m_port = 3;
+    int64 m_connentkey = 4;
 }
 
 message UserServerJoinRoomS2RS{
     uint32 m_playerId = 1;
     string m_ip = 2;
-    uint32 m_port = 3;
-    string m_connentkey = 4;
+    int32 m_port = 3;
+    int64 m_connentkey = 4;
 }

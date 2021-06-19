@@ -24,10 +24,12 @@ namespace GameUserServer {
         private const uint m_roomMaxCount = 1024;
         private uint m_roomIndex = 0;
         private Dictionary<uint, RoomData> m_dicRoomID2Data;
+        private System.Random m_random;
 
         public override bool initialize() {
             base.initialize();
             Instance = this;
+            m_random = new System.Random((int)ServerMgr.Instance.NowTime);
             m_dicRoomID2Data = new Dictionary<uint, RoomData>();
 
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerRegisterRoomC2S), onUserServerRegisterRoomC2S);
@@ -81,6 +83,37 @@ namespace GameUserServer {
                 }
             }
             ServerMsgReceiver.Instance.sendMsgToPlayer(playerId, sendMsg);
+        }
+
+        public void onUserServerJoinRoomC2S(byte[] protoBytes, uint playerId) {
+            MsgPB.UserServerJoinRoomC2S msg = MsgPB.UserServerJoinRoomC2S.Parser.ParseFrom(protoBytes);
+            if (m_dicRoomID2Data.ContainsKey(msg.MRoomID)) {
+                //ToDo error info
+                return;
+            }
+            RoomData roomData = m_dicRoomID2Data[msg.MRoomID];
+            long key = m_random.Next(int.MinValue, int.MaxValue);
+            //ToDo check can join room
+            {
+                // send to player
+                MsgPB.UserServerJoinRoomS2C sendPlayerMsg = new MsgPB.UserServerJoinRoomS2C();
+                sendPlayerMsg.MRoomID = msg.MRoomID;
+                sendPlayerMsg.MIp = roomData.m_homeownerIP.Address.ToString();
+                sendPlayerMsg.MPort = roomData.m_homeownerIP.Port;
+                sendPlayerMsg.MConnentkey = key;
+                ServerMsgReceiver.Instance.sendMsgToPlayer(playerId, msg);
+            }
+
+            {
+                //send to room
+                MsgPB.UserServerJoinRoomS2RS sendRoomMsg = new MsgPB.UserServerJoinRoomS2RS();
+                IPEndPoint playerIpEndPort = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
+                sendRoomMsg.MPlayerId = playerId;
+                sendRoomMsg.MIp = playerIpEndPort.Address.ToString();
+                sendRoomMsg.MPort = playerIpEndPort.Port;
+                sendRoomMsg.MConnentkey = key;
+                ServerMsgReceiver.Instance.sendMsgToRoom(roomData.m_roomId, sendRoomMsg);
+            }
         }
     }
 }
