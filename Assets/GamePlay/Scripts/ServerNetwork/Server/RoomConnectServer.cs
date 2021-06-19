@@ -35,6 +35,8 @@ public class RoomConnectServer : WF.SimpleComponent {
 
     public void registerRoom() {
         MsgPB.UserServerRegisterRoomC2S msg = new MsgPB.UserServerRegisterRoomC2S();
+        msg.MPlayerId = HandlerHallPlayer.Instance.SelfPlayerId;
+        msg.MKey = HandlerHallPlayer.Instance.Key;
         msg.MRoomName = "hhh";
         ServerMsgReceiver.Instance.sendMsgToUserServer(msg);
     }
