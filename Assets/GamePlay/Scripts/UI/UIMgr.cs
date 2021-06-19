@@ -24,7 +24,7 @@ public class UIMgr : MonoBehaviour
         if (m_UIPath2GameObj.ContainsKey(strUIPath)) {
             var uiGameObj = m_UIPath2GameObj[strUIPath];
             var uiBev = uiGameObj.GetComponent<UIBevBase>();
-            uiBev.onShow();
+            uiBev.doShow();
             return uiBev;
         }
         return null;
@@ -43,7 +43,7 @@ public class UIMgr : MonoBehaviour
         if (m_UIPath2GameObj.ContainsKey(strUIPath)) {
             var uiGameObj = m_UIPath2GameObj[strUIPath];
             var uiBev = uiGameObj.GetComponent<UIBevBase>();
-            uiBev.onHide();
+            uiBev.doHide();
         }
     }
 }

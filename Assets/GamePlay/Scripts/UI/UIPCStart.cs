@@ -15,17 +15,17 @@ public class UIPCStart : UIBevBase {
     }
 
     private void onBtnStartLocalPlayClick() {
-        onHide();
+        doHide();
         GamePlay.Instance.openLocalServer();
         HandlerRoomDataCache.Instance.initCache();
     }
 
     private void onBtnJoinPlayClick() {
-        onHide();
+        doHide();
     }
 
-    public override void onHide() {
-        base.onHide();
+    public override void doHide() {
+        base.doHide();
         UIMgr.Instance.showUI("UITestOperate");
     }
 }

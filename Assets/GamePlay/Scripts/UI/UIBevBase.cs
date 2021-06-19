@@ -15,10 +15,10 @@ public class UIBevBase : MonoBehaviour {
         
     }
 
-    public virtual void onShow() {
+    public virtual void doShow() {
         gameObject.SetActive(true);
     }
-    public virtual void onHide() {
+    public virtual void doHide() {
         gameObject.SetActive(false);
     }
 }
