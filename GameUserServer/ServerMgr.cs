@@ -39,6 +39,10 @@ namespace GameUserServer {
             playerServer.initialize();
             addComponent(playerServer);
 
+            RoomServer roomServer = new RoomServer();
+            roomServer.initialize();
+            addComponent(roomServer);
+
             return true;
         }
 
