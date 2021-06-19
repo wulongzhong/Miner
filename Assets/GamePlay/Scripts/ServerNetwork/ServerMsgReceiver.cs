@@ -77,7 +77,7 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         sendMsg2Client(pGroupEp, sendByte);
     }
     //对多个玩家发送消息
-    public void sendMsg<T>(List<uint> listPlayerId, T msg) {
+    public void sendMsgToPlayer<T>(List<uint> listPlayerId, T msg) {
         if(listPlayerId.Count == 0) {
             return;
         }
@@ -98,7 +98,17 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         }
     }
 
-    public void sendMsgByIpEndPoint<T>(IPEndPoint ipGroupEp, T msg) {
+    public void sendMsgToUserServer<T>(T msg) {
+        IMessage data = (IMessage)(object)msg;
+        byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
+        byte[] msgByte = data.ToByteArray();
+        byte[] sendByte = new byte[msgByte.Length + 2];
+        msgIdByte.CopyTo(sendByte, 0);
+        msgByte.CopyTo(sendByte, 2);
+        sendMsg2Client(GameConfig.Instance.UserServerIpendPoint, sendByte);
+    }
+
+    public void sendMsgToIpEndPoint<T>(IPEndPoint ipGroupEp, T msg) {
         if(ipGroupEp == null) {
             return;
         }

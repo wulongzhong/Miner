@@ -16,7 +16,7 @@ public static class MsgType {
         typeof(MsgPB.UserServerRoomHeartBeatS2RS),
 
         typeof(MsgPB.UserServerRegisterRoomC2S),
-        typeof(MsgPB.UserServerRegisterRoomS2C),
+        typeof(MsgPB.UserServerRegisterRoomS2RS),
 
         typeof(MsgPB.UserServerFindRoomC2S),
         typeof(MsgPB.UserServerFindRoomS2C),
@@ -48,5 +48,9 @@ public static class MsgType {
             return (ushort)(m_lstMsgType.IndexOf(type) + 1);
         }
         return 0;
+    }
+
+    public static ushort getMaxUserServerMsg() {
+        return (ushort)(m_lstMsgType.IndexOf(typeof(MsgPB.UserServerJoinRoomS2RS)) + 1);
     }
 }

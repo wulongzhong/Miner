@@ -28,7 +28,7 @@ public class IpEndPointPing {
 
         if((ServerMgr.Instance.NowTime - m_lastPingTime) >= GameConfig.Instance.PingIntervalMS) {
             m_lastPingTime = ServerMgr.Instance.NowTime;
-            ServerMsgReceiver.Instance.sendMsgByIpEndPoint(m_ipendPoint, new MsgPB.CommonPingA2A());
+            ServerMsgReceiver.Instance.sendMsgToIpEndPoint(m_ipendPoint, new MsgPB.CommonPingA2A());
         }
         return PingState.NONE;
     }

@@ -122,7 +122,7 @@ public class PlayerServer : WF.SimpleComponent {
         if((ServerMgr.Instance.NowTime - m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatIntervalTime) {
             m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
             MsgPB.GameRoomHeartBeatS2C msg = new MsgPB.GameRoomHeartBeatS2C();
-            ServerMsgReceiver.Instance.sendMsg(getAllPlayerId(), msg);
+            ServerMsgReceiver.Instance.sendMsgToPlayer(getAllPlayerId(), msg);
         }
     }
 }

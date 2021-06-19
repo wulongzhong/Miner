@@ -1,12 +1,18 @@
 syntax = "proto3";
 package MsgPB;
 
+message RoomInfo{
+    uint32 m_roomID = 1;
+    string m_roomName = 2;
+    bool m_needPassword = 3;
+}
+
 message UserServerRegisterRoomC2S{
     string m_roomName = 1;
     string m_password = 2;
     //ToDo more info
 }
-message UserServerRegisterRoomS2C{
+message UserServerRegisterRoomS2RS{
     uint32 m_roomID = 1;
 }
 
@@ -17,11 +23,6 @@ message UserServerFindRoomC2S{
     RoomType m_roomType = 1;
 }
 
-message RoomInfo{
-    uint32 m_roomID = 1;
-    string m_roomName = 2;
-    bool m_needPassword = 3;
-}
 message UserServerFindRoomS2C{
     repeated RoomInfo m_lstRoomInfo = 1;
 }

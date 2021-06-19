@@ -30,8 +30,7 @@ public class RoomConnectServer : WF.SimpleComponent {
     public void registerRoom() {
         MsgPB.UserServerRegisterRoomC2S msg = new MsgPB.UserServerRegisterRoomC2S();
         msg.MRoomName = "hhh";
-        msg.MPassword = "";
-        ServerMsgReceiver.Instance.sendMsgByIpEndPoint(GameConfig.Instance.UserServerIpendPoint, msg);
+        ServerMsgReceiver.Instance.sendMsgToUserServer(msg);
     }
 
     public void onUserServerJoinRoomS2RS(byte[] protobytes) {

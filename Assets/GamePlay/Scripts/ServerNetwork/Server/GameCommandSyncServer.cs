@@ -99,13 +99,13 @@ public class GameCommandSyncServer : WF.SimpleComponent {
         }
 
         if(GameConfig.Instance.FrameCommandCount == 1) {
-            ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), m_listCacheGameRoomandS2C[m_listCacheGameRoomandS2C.Count - 1]);
+            ServerMsgReceiver.Instance.sendMsgToPlayer(PlayerServer.Instance.getAllPlayerId(), m_listCacheGameRoomandS2C[m_listCacheGameRoomandS2C.Count - 1]);
         } else {
             MsgPB.GameCommandS2C msg = new MsgPB.GameCommandS2C();
             for (int i = m_listCacheGameRoomandS2C.Count - 1; (i >= 0) && (i >= (m_listCacheGameRoomandS2C.Count - GameConfig.Instance.FrameCommandCount)); --i) {
                 msg.MLstFrameAllCommandInfo.Add(m_listCacheGameRoomandS2C[i]);
             }
-            ServerMsgReceiver.Instance.sendMsg(PlayerServer.Instance.getAllPlayerId(), msg);
+            ServerMsgReceiver.Instance.sendMsgToPlayer(PlayerServer.Instance.getAllPlayerId(), msg);
         }
     }
 }
