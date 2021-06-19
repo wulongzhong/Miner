@@ -102,7 +102,7 @@ namespace GameUserServer {
                 sendPlayerMsg.MIp = roomData.m_homeownerIP.Address.ToString();
                 sendPlayerMsg.MPort = roomData.m_homeownerIP.Port;
                 sendPlayerMsg.MConnentkey = key;
-                ServerMsgReceiver.Instance.sendMsgToPlayer(playerId, msg);
+                ServerMsgReceiver.Instance.sendMsgToPlayer(playerId, sendPlayerMsg);
             }
 
             {

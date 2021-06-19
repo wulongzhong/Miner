@@ -11,8 +11,11 @@ public class ServerMsgReceiver : WF.SimpleComponent {
     public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
     public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
     public delegate void OnUserSerRev(byte[] protobytes);
-
+#if UNITY_EDITOR
+    private const int m_listenPort = 19986;
+#else
     private const int m_listenPort = 19981;
+#endif
     private UdpClient m_listener;
     private Thread m_udpListenThread;
     private bool m_serverIsRuning;

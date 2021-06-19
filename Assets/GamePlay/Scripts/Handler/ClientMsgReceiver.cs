@@ -45,7 +45,11 @@ public class ClientMsgReceiver : WF.SimpleComponent {
     private void startUdp() {
         terminate();
         m_serverIsRuning = true;
+#if UNITY_EDITOR
+        m_listener = new UdpClient(19985);
+#else
         m_listener = new UdpClient(19983);
+#endif
         //开启新线程接收新消息
         m_udpListenThread = new Thread(UdpListenUpdate);
         m_udpListenThread.Start();
