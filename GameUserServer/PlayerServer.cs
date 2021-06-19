@@ -89,7 +89,7 @@ namespace GameUserServer {
                 if (msg.MKey == playerNetInfo.m_key) {
                     playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
 
-                    if (playerNetInfo.m_ipEndPoint != iPEndPoint) {
+                    if (!playerNetInfo.m_ipEndPoint.Equals(iPEndPoint)) {
                         m_dicIPEndPoint2PlayerInfo.Remove(playerNetInfo.m_ipEndPoint);
 
                         playerNetInfo.m_ipEndPoint = iPEndPoint;

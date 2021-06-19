@@ -81,7 +81,7 @@ public class PlayerServer : WF.SimpleComponent {
             if (msg.MKey == playerNetInfo.m_key) {
                 playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
 
-                if (playerNetInfo.m_ipEndPoint != iPEndPoint) {
+                if (!playerNetInfo.m_ipEndPoint.Equals(iPEndPoint)) {
                     m_dicIPEndPoint2PlayerInfo.Remove(playerNetInfo.m_ipEndPoint);
 
                     playerNetInfo.m_ipEndPoint = iPEndPoint;
@@ -110,6 +110,9 @@ public class PlayerServer : WF.SimpleComponent {
     long m_lastHeartBeatTime;
     public override void update() {
         foreach(var keyValue in m_dicPlayerInfo) {
+            if(keyValue.Value.m_ipEndPoint == null) {
+                continue;
+            }
             if((ServerMgr.Instance.NowTime - keyValue.Value.m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatWaitTime) {
                 m_dicIPEndPoint2PlayerInfo.Remove(keyValue.Value.m_ipEndPoint);
                 keyValue.Value.m_ipEndPoint = null;
