@@ -26,24 +26,24 @@ namespace MsgPB {
           string.Concat(
             "ChRVc2VyU2VydmVyUm9vbS5wcm90bxIFTXNnUEIiSAoIUm9vbUluZm8SEAoI",
             "bV9yb29tSUQYASABKA0SEgoKbV9yb29tTmFtZRgCIAEoCRIWCg5tX25lZWRQ",
-            "YXNzd29yZBgDIAEoCCJDChlVc2VyU2VydmVyUmVnaXN0ZXJSb29tQzJTEhIK",
-            "Cm1fcm9vbU5hbWUYASABKAkSEgoKbV9wYXNzd29yZBgCIAEoCSIuChpVc2Vy",
-            "U2VydmVyUmVnaXN0ZXJSb29tUzJSUxIQCghtX3Jvb21JRBgBIAEoDSI8ChVV",
-            "c2VyU2VydmVyRmluZFJvb21DMlMSIwoKbV9yb29tVHlwZRgBIAEoDjIPLk1z",
-            "Z1BCLlJvb21UeXBlIj8KFVVzZXJTZXJ2ZXJGaW5kUm9vbVMyQxImCg1tX2xz",
-            "dFJvb21JbmZvGAEgAygLMg8uTXNnUEIuUm9vbUluZm8iPQoVVXNlclNlcnZl",
-            "ckpvaW5Sb29tQzJTEhAKCG1fcm9vbUlEGAEgASgNEhIKCm1fcGFzc3dvcmQY",
-            "AiABKAkiXQoVVXNlclNlcnZlckpvaW5Sb29tUzJDEhAKCG1fcm9vbUlEGAEg",
-            "ASgNEgwKBG1faXAYAiABKAkSDgoGbV9wb3J0GAMgASgNEhQKDG1fY29ubmVu",
-            "dGtleRgEIAEoCSJgChZVc2VyU2VydmVySm9pblJvb21TMlJTEhIKCm1fcGxh",
-            "eWVySWQYASABKA0SDAoEbV9pcBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoM",
-            "bV9jb25uZW50a2V5GAQgASgJKhYKCFJvb21UeXBlEgoKBk5PUk1BTBAAYgZw",
-            "cm90bzM="));
+            "YXNzd29yZBgDIAEoCCJmChlVc2VyU2VydmVyUmVnaXN0ZXJSb29tQzJTEhIK",
+            "Cm1fcGxheWVySWQYASABKA0SDQoFbV9rZXkYAiABKAMSEgoKbV9yb29tTmFt",
+            "ZRgDIAEoCRISCgptX3Bhc3N3b3JkGAQgASgJIi4KGlVzZXJTZXJ2ZXJSZWdp",
+            "c3RlclJvb21TMlJTEhAKCG1fcm9vbUlEGAEgASgNIjwKFVVzZXJTZXJ2ZXJG",
+            "aW5kUm9vbUMyUxIjCgptX3Jvb21UeXBlGAEgASgOMg8uTXNnUEIuUm9vbVR5",
+            "cGUiPwoVVXNlclNlcnZlckZpbmRSb29tUzJDEiYKDW1fbHN0Um9vbUluZm8Y",
+            "ASADKAsyDy5Nc2dQQi5Sb29tSW5mbyI9ChVVc2VyU2VydmVySm9pblJvb21D",
+            "MlMSEAoIbV9yb29tSUQYASABKA0SEgoKbV9wYXNzd29yZBgCIAEoCSJdChVV",
+            "c2VyU2VydmVySm9pblJvb21TMkMSEAoIbV9yb29tSUQYASABKA0SDAoEbV9p",
+            "cBgCIAEoCRIOCgZtX3BvcnQYAyABKA0SFAoMbV9jb25uZW50a2V5GAQgASgJ",
+            "ImAKFlVzZXJTZXJ2ZXJKb2luUm9vbVMyUlMSEgoKbV9wbGF5ZXJJZBgBIAEo",
+            "DRIMCgRtX2lwGAIgASgJEg4KBm1fcG9ydBgDIAEoDRIUCgxtX2Nvbm5lbnRr",
+            "ZXkYBCABKAkqFgoIUm9vbVR5cGUSCgoGTk9STUFMEABiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MsgPB.RoomType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.RoomInfo), global::MsgPB.RoomInfo.Parser, new[]{ "MRoomID", "MRoomName", "MNeedPassword" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomC2S), global::MsgPB.UserServerRegisterRoomC2S.Parser, new[]{ "MRoomName", "MPassword" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomC2S), global::MsgPB.UserServerRegisterRoomC2S.Parser, new[]{ "MPlayerId", "MKey", "MRoomName", "MPassword" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerRegisterRoomS2RS), global::MsgPB.UserServerRegisterRoomS2RS.Parser, new[]{ "MRoomID" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomC2S), global::MsgPB.UserServerFindRoomC2S.Parser, new[]{ "MRoomType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MsgPB.UserServerFindRoomS2C), global::MsgPB.UserServerFindRoomS2C.Parser, new[]{ "MLstRoomInfo" }, null, null, null),
@@ -273,6 +273,8 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UserServerRegisterRoomC2S(UserServerRegisterRoomC2S other) : this() {
+      mPlayerId_ = other.mPlayerId_;
+      mKey_ = other.mKey_;
       mRoomName_ = other.mRoomName_;
       mPassword_ = other.mPassword_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -283,8 +285,30 @@ namespace MsgPB {
       return new UserServerRegisterRoomC2S(this);
     }
 
+    /// <summary>Field number for the "m_playerId" field.</summary>
+    public const int MPlayerIdFieldNumber = 1;
+    private uint mPlayerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MPlayerId {
+      get { return mPlayerId_; }
+      set {
+        mPlayerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_key" field.</summary>
+    public const int MKeyFieldNumber = 2;
+    private long mKey_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long MKey {
+      get { return mKey_; }
+      set {
+        mKey_ = value;
+      }
+    }
+
     /// <summary>Field number for the "m_roomName" field.</summary>
-    public const int MRoomNameFieldNumber = 1;
+    public const int MRoomNameFieldNumber = 3;
     private string mRoomName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MRoomName {
@@ -295,7 +319,7 @@ namespace MsgPB {
     }
 
     /// <summary>Field number for the "m_password" field.</summary>
-    public const int MPasswordFieldNumber = 2;
+    public const int MPasswordFieldNumber = 4;
     private string mPassword_ = "";
     /// <summary>
     ///ToDo more info
@@ -321,6 +345,8 @@ namespace MsgPB {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (MPlayerId != other.MPlayerId) return false;
+      if (MKey != other.MKey) return false;
       if (MRoomName != other.MRoomName) return false;
       if (MPassword != other.MPassword) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -329,6 +355,8 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (MPlayerId != 0) hash ^= MPlayerId.GetHashCode();
+      if (MKey != 0L) hash ^= MKey.GetHashCode();
       if (MRoomName.Length != 0) hash ^= MRoomName.GetHashCode();
       if (MPassword.Length != 0) hash ^= MPassword.GetHashCode();
       if (_unknownFields != null) {
@@ -344,12 +372,20 @@ namespace MsgPB {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (MPlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(MPlayerId);
+      }
+      if (MKey != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(MKey);
+      }
       if (MRoomName.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(26);
         output.WriteString(MRoomName);
       }
       if (MPassword.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(34);
         output.WriteString(MPassword);
       }
       if (_unknownFields != null) {
@@ -360,6 +396,12 @@ namespace MsgPB {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (MPlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPlayerId);
+      }
+      if (MKey != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MKey);
+      }
       if (MRoomName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MRoomName);
       }
@@ -376,6 +418,12 @@ namespace MsgPB {
     public void MergeFrom(UserServerRegisterRoomC2S other) {
       if (other == null) {
         return;
+      }
+      if (other.MPlayerId != 0) {
+        MPlayerId = other.MPlayerId;
+      }
+      if (other.MKey != 0L) {
+        MKey = other.MKey;
       }
       if (other.MRoomName.Length != 0) {
         MRoomName = other.MRoomName;
@@ -394,11 +442,19 @@ namespace MsgPB {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            MPlayerId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            MKey = input.ReadInt64();
+            break;
+          }
+          case 26: {
             MRoomName = input.ReadString();
             break;
           }
-          case 18: {
+          case 34: {
             MPassword = input.ReadString();
             break;
           }

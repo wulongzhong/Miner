@@ -13,6 +13,7 @@ namespace GameUserServer {
     class ServerMsgReceiver :WF.SimpleComponent {
         public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
         public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
+        public delegate void OnRoomrRev(byte[] protobytes, uint roomId);
 
         private const int m_listenPort = 19982;
         private UdpClient m_listener;
@@ -23,6 +24,7 @@ namespace GameUserServer {
 
         private Dictionary<ushort, OnIpRev> m_onIpRevDic;
         private Dictionary<ushort, OnPlayerRev> m_onPlayerRevDic;
+        private Dictionary<ushort, OnRoomrRev> m_onRoomrRev;
 
         public static Mutex mutex = new Mutex();
         class WaitHandler {
@@ -37,6 +39,7 @@ namespace GameUserServer {
             Instance = this;
             m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
             m_onPlayerRevDic = new Dictionary<ushort, OnPlayerRev>();
+            m_onRoomrRev = new Dictionary<ushort, OnRoomrRev>();
             m_waitHandleSyncList = new List<WaitHandler>();
             m_waitHandleMasterList = new List<WaitHandler>();
             startUdpListen();
@@ -65,8 +68,23 @@ namespace GameUserServer {
             }
         }
 
+        //对房间发送消息
+        public void sendMsgToRoom<T>(uint roomId, T msg) {
+            IPEndPoint pGroupEp = RoomServer.Instance.getIpEndPointByRoomId(roomId);
+            if (pGroupEp == null) {
+                return;
+            }
+            IMessage data = (IMessage)(object)msg;
+            byte[] msgIdByte = BitConverter.GetBytes(MsgType.getTypeId(msg.GetType()));
+            byte[] msgByte = data.ToByteArray();
+            byte[] sendByte = new byte[msgByte.Length + 2];
+            msgIdByte.CopyTo(sendByte, 0);
+            msgByte.CopyTo(sendByte, 2);
+            sendMsg2Client(pGroupEp, sendByte);
+        }
+
         //对单个玩家发送消息
-        public void sendMsg<T>(uint playerId, T msg) {
+        public void sendMsgToPlayer<T>(uint playerId, T msg) {
             IPEndPoint pGroupEp = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
             if (pGroupEp == null) {
                 return;
@@ -80,7 +98,7 @@ namespace GameUserServer {
             sendMsg2Client(pGroupEp, sendByte);
         }
         //对多个玩家发送消息
-        public void sendMsg<T>(List<uint> listPlayerId, T msg) {
+        public void sendMsgToPlayer<T>(List<uint> listPlayerId, T msg) {
             if (listPlayerId.Count == 0) {
                 return;
             }
@@ -110,17 +128,17 @@ namespace GameUserServer {
                 try {
                     ushort msgId = BitConverter.ToUInt16(waitHandler.m_bytes.Skip(0).Take(2).ToArray(), 0);
                     byte[] msgInfo = waitHandler.m_bytes.Skip(2).Take(waitHandler.m_bytes.Length - 2).ToArray();
-
-                    if (m_onIpRevDic.ContainsKey(msgId)) {
-                        m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
-                    }
-                    if (m_onPlayerRevDic.ContainsKey(msgId)) {
-                        uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
-                        try {
-                            m_onPlayerRevDic[msgId](msgInfo, playerId);
-                        } catch (InvalidProtocolBufferException e) {
-                            ServerLog.log(e.Message);
+                    try {
+                        if (m_onIpRevDic.ContainsKey(msgId)) {
+                            m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
                         }
+                        if (m_onPlayerRevDic.ContainsKey(msgId)) {
+                            uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
+                                m_onPlayerRevDic[msgId](msgInfo, playerId);
+                        
+                        }
+                    } catch (InvalidProtocolBufferException e) {
+                        ServerLog.log(e.Message);
                     }
                 } catch (SocketException e) {
                     ServerLog.log(e.Message);
@@ -149,6 +167,16 @@ namespace GameUserServer {
                 m_onPlayerRevDic[msgId] = onPlayerRev;
             } else {
                 m_onPlayerRevDic.Add(msgId, onPlayerRev);
+            }
+        }
+
+        //此为房间消息专用
+        public void registerRS2S(Type type, OnRoomrRev onRoomrRev) {
+            ushort msgId = MsgType.getTypeId(type);
+            if (m_onRoomrRev.ContainsKey(msgId)) {
+                m_onRoomrRev[msgId] = onRoomrRev;
+            } else {
+                m_onRoomrRev.Add(msgId, onRoomrRev);
             }
         }
 

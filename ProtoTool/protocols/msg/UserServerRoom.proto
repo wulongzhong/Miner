@@ -8,8 +8,10 @@ message RoomInfo{
 }
 
 message UserServerRegisterRoomC2S{
-    string m_roomName = 1;
-    string m_password = 2;
+    uint32 m_playerId = 1;
+    int64 m_key = 2;
+    string m_roomName = 3;
+    string m_password = 4;
     //ToDo more info
 }
 message UserServerRegisterRoomS2RS{

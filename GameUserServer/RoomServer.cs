@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace GameUserServer {
 
     class RoomData {
+        public uint m_roomId;
         public uint m_homeownerPlayerID;
+        public long m_key;
         public IPEndPoint m_homeownerIP;
         public long m_createTime;
         public string m_roomName;
@@ -32,20 +34,33 @@ namespace GameUserServer {
             return true;
         }
 
-        public void onUserServerRegisterRoomC2S(byte[] protoBytes, uint playerId) {
+        public IPEndPoint getIpEndPointByRoomId(uint roomId) {
+            if (m_dicRoomID2Data.ContainsKey(roomId)) {
+                return m_dicRoomID2Data[roomId].m_homeownerIP;
+            }
+            return null;
+        }
+
+        public void onUserServerRegisterRoomC2S(byte[] protoBytes, IPEndPoint iPEndPoint) {
             MsgPB.UserServerRegisterRoomC2S msg = MsgPB.UserServerRegisterRoomC2S.Parser.ParseFrom(protoBytes);
+
+            if(!PlayerServer.Instance.checkPlayerKey(msg.MPlayerId, msg.MKey)) {
+                return;
+            }
+
+            ++m_roomIndex;
             RoomData roomData = new RoomData();
-            roomData.m_homeownerPlayerID = playerId;
-            roomData.m_homeownerIP = PlayerServer.Instance.getIpEndPointByPlayerId(playerId);
+            roomData.m_roomId = m_roomIndex;
+            roomData.m_homeownerPlayerID = msg.MPlayerId;
+            roomData.m_homeownerIP = iPEndPoint;
             roomData.m_createTime = ServerMgr.Instance.NowTime;
             roomData.m_roomName = msg.MRoomName;
             roomData.m_password = msg.MPassword;
-            ++m_roomIndex;
-            m_dicRoomID2Data[m_roomIndex] = roomData;
+            m_dicRoomID2Data[roomData.m_roomId] = roomData;
 
             MsgPB.UserServerRegisterRoomS2RS sendMsg = new MsgPB.UserServerRegisterRoomS2RS();
-            sendMsg.MRoomID = m_roomIndex;
-            ServerMsgReceiver.Instance.sendMsg(playerId, sendMsg);
+            sendMsg.MRoomID = roomData.m_roomId;
+            ServerMsgReceiver.Instance.sendMsgToRoom(roomData.m_roomId, sendMsg);
         }
     }
 }
