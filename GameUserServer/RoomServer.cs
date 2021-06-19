@@ -34,6 +34,7 @@ namespace GameUserServer {
 
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerRegisterRoomC2S), onUserServerRegisterRoomC2S);
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerFindRoomC2S), onUserServerFindRoomC2S);
+            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerJoinRoomC2S), onUserServerJoinRoomC2S);
             return true;
         }
 
