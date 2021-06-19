@@ -88,7 +88,7 @@ namespace GameUserServer {
 
         public void onUserServerJoinRoomC2S(byte[] protoBytes, uint playerId) {
             MsgPB.UserServerJoinRoomC2S msg = MsgPB.UserServerJoinRoomC2S.Parser.ParseFrom(protoBytes);
-            if (m_dicRoomID2Data.ContainsKey(msg.MRoomID)) {
+            if (!m_dicRoomID2Data.ContainsKey(msg.MRoomID)) {
                 //ToDo error info
                 return;
             }
