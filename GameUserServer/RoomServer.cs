@@ -31,6 +31,7 @@ namespace GameUserServer {
             m_dicRoomID2Data = new Dictionary<uint, RoomData>();
 
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerRegisterRoomC2S), onUserServerRegisterRoomC2S);
+            ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerFindRoomC2S), onUserServerFindRoomC2S);
             return true;
         }
 
@@ -61,6 +62,25 @@ namespace GameUserServer {
             MsgPB.UserServerRegisterRoomS2RS sendMsg = new MsgPB.UserServerRegisterRoomS2RS();
             sendMsg.MRoomID = roomData.m_roomId;
             ServerMsgReceiver.Instance.sendMsgToRoom(roomData.m_roomId, sendMsg);
+        }
+
+        public void onUserServerFindRoomC2S(byte[] protoBytes, uint playerId) {
+            MsgPB.UserServerFindRoomC2S msg = MsgPB.UserServerFindRoomC2S.Parser.ParseFrom(protoBytes);
+            //ToDo
+            MsgPB.UserServerFindRoomS2C sendMsg = new MsgPB.UserServerFindRoomS2C();
+            int count = 0;
+            foreach(var value in m_dicRoomID2Data.Values) {
+                MsgPB.RoomInfo roomInfo = new MsgPB.RoomInfo();
+                roomInfo.MRoomID = value.m_roomId;
+                roomInfo.MRoomName = value.m_roomName;
+                roomInfo.MNeedPassword = (value.m_roomName != string.Empty);
+                sendMsg.MLstRoomInfo.Add(roomInfo);
+                ++count;
+                if(count >= 12) {
+                    break;
+                }
+            }
+            ServerMsgReceiver.Instance.sendMsgToPlayer(playerId, sendMsg);
         }
     }
 }
