@@ -30,7 +30,6 @@ namespace GameUserServer {
 
         private Dictionary<uint, PlayerNetInfo> m_dicPlayerInfo;
         private Dictionary<IPEndPoint, PlayerNetInfo> m_dicClientIPEndPoint2PlayerInfo;
-        private Dictionary<IPEndPoint, PlayerNetInfo> m_dicRoomIPEndPoint2PlayerInfo;
 
         private System.Random m_random;
         private uint testPlayerId = 0;
@@ -42,7 +41,6 @@ namespace GameUserServer {
             m_random = new System.Random((int)ServerMgr.Instance.NowTime);
             m_dicPlayerInfo = new Dictionary<uint, PlayerNetInfo>();
             m_dicClientIPEndPoint2PlayerInfo = new Dictionary<IPEndPoint, PlayerNetInfo>();
-            m_dicRoomIPEndPoint2PlayerInfo = new Dictionary<IPEndPoint, PlayerNetInfo>();
 
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerPlayerLoginC2S), onUserServerPlayerLoginC2S);
             ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerHeartBeatC2S), onUserServerHeartBeatC2S);
@@ -74,6 +72,10 @@ namespace GameUserServer {
             playerNetInfo.m_key = m_random.Next(int.MinValue, int.MaxValue);
             playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
             playerNetInfo.m_clientIPEndPoint = iPEndPoint;
+
+            if (m_dicClientIPEndPoint2PlayerInfo.ContainsKey(playerNetInfo.m_clientIPEndPoint)) {
+                m_dicPlayerInfo.Remove(m_dicClientIPEndPoint2PlayerInfo[playerNetInfo.m_clientIPEndPoint].m_playerID);
+            }
 
             m_dicClientIPEndPoint2PlayerInfo[playerNetInfo.m_clientIPEndPoint] = playerNetInfo;
 
