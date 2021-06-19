@@ -86,9 +86,11 @@ namespace GameUserServer {
             MsgPB.UserServerHeartBeatC2S msg = MsgPB.UserServerHeartBeatC2S.Parser.ParseFrom(protobytes);
             if (m_dicPlayerInfo.ContainsKey(msg.MPlayerId)) {
                 PlayerNetInfo playerNetInfo = m_dicPlayerInfo[msg.MPlayerId];
+                if (playerNetInfo.m_ipEndPoint == null) {
+                    return;
+                }
                 if (msg.MKey == playerNetInfo.m_key) {
                     playerNetInfo.m_lastHeartBeatTime = ServerMgr.Instance.NowTime;
-
                     if (!playerNetInfo.m_ipEndPoint.Equals(iPEndPoint)) {
                         m_dicIPEndPoint2PlayerInfo.Remove(playerNetInfo.m_ipEndPoint);
 

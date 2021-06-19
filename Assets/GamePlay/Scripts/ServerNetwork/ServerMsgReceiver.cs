@@ -151,9 +151,7 @@ public class ServerMsgReceiver : WF.SimpleComponent {
                     }
                     if (m_onPlayerRevDic.ContainsKey(msgId)) {
                         uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
-                    
-                            m_onPlayerRevDic[msgId](msgInfo, playerId);
-                    
+                        m_onPlayerRevDic[msgId](msgInfo, playerId);
                     }
                 } catch (InvalidProtocolBufferException e) {
                     ServerLog.log(e.Message);
