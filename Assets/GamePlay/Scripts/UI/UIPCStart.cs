@@ -22,6 +22,7 @@ public class UIPCStart : UIBevBase {
 
     private void onBtnJoinPlayClick() {
         doHide();
+        UIMgr.Instance.showUI("UINetRoomSelect");
     }
 
     public override void doHide() {
