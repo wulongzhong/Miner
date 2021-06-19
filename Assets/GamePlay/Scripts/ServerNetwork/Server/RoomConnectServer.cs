@@ -4,11 +4,12 @@ using UnityEngine;
 using System.Net;
 
 public class RoomConnectServer : WF.SimpleComponent {
-
+    public static RoomConnectServer Instance;
     Dictionary<uint, IpEndPointPing> m_dicPingData;
 
     public override bool initialize() {
         base.initialize();
+        Instance = this;
         m_dicPingData = new Dictionary<uint, IpEndPointPing>();
         return true;
     }
@@ -24,6 +25,13 @@ public class RoomConnectServer : WF.SimpleComponent {
         foreach(var playerId in listTimeLongPlayer) {
             m_dicPingData.Remove(playerId);
         }
+    }
+
+    public void registerRoom() {
+        MsgPB.UserServerRegisterRoomC2S msg = new MsgPB.UserServerRegisterRoomC2S();
+        msg.MRoomName = "hhh";
+        msg.MPassword = "";
+        ServerMsgReceiver.Instance.sendMsgByIpEndPoint(GameConfig.Instance.UserServerIpendPoint, msg);
     }
 
     public void onUserServerJoinRoomS2RS(byte[] protobytes) {

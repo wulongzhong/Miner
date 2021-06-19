@@ -65,6 +65,7 @@ public class ServerMgr : WF.SimpleComponent {
         m_updateThread.Start();
         ClientMsgReceiver.Instance.setRoomServerIPEndPoint(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 19981));
         HandlerRoomPlayer.Instance.joinGameRoom();
+        RoomConnectServer.Instance.registerRoom();
     }
 
     public void pauseServer() {

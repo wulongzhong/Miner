@@ -118,6 +118,9 @@ namespace GameUserServer {
         long m_lastHeartBeatTime;
         public override void update() {
             foreach (var keyValue in m_dicPlayerInfo) {
+                if(keyValue.Value.m_ipEndPoint == null) {
+                    continue;
+                }
                 if ((ServerMgr.Instance.NowTime - keyValue.Value.m_lastHeartBeatTime) > GameConfig.Instance.HeartBeatWaitTime) {
                     m_dicIPEndPoint2PlayerInfo.Remove(keyValue.Value.m_ipEndPoint);
                     keyValue.Value.m_ipEndPoint = null;
