@@ -10,6 +10,7 @@ using System.Threading;
 public class ServerMsgReceiver : WF.SimpleComponent {
     public delegate void OnIpRev(byte[] protobytes, IPEndPoint iPEndPoint);
     public delegate void OnPlayerRev(byte[] protobytes, uint roleId);
+    public delegate void OnUserSerRev(byte[] protobytes);
 
     private const int m_listenPort = 19981;
     private UdpClient m_listener;
@@ -20,6 +21,7 @@ public class ServerMsgReceiver : WF.SimpleComponent {
 
     private Dictionary<ushort, OnIpRev> m_onIpRevDic;
     private Dictionary<ushort, OnPlayerRev> m_onPlayerRevDic;
+    private Dictionary<ushort, OnUserSerRev> m_onUserSerRev;
 
     public static Mutex mutex = new Mutex();
     class WaitHandler {
@@ -34,6 +36,7 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         Instance = this;
         m_onIpRevDic = new Dictionary<ushort, OnIpRev>();
         m_onPlayerRevDic = new Dictionary<ushort, OnPlayerRev>();
+        m_onUserSerRev = new Dictionary<ushort, OnUserSerRev>();
         m_waitHandleSyncList = new List<WaitHandler>();
         m_waitHandleMasterList = new List<WaitHandler>();
         startUdpListen();
@@ -130,25 +133,30 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         foreach (WaitHandler waitHandler in m_waitHandleMasterList) {
             try {
                 ushort msgId = BitConverter.ToUInt16(waitHandler.m_bytes.Skip(0).Take(2).ToArray(), 0);
-                //防止被攻击
-                if(msgId <= MsgType.getMaxUserServerMsg()) {
-                    if (!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)) {
-                        ServerLog.log("!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)");
-                        continue;
-                    }
-                }
                 byte[] msgInfo = waitHandler.m_bytes.Skip(2).Take(waitHandler.m_bytes.Length - 2).ToArray();
-
-                if (m_onIpRevDic.ContainsKey(msgId)) {
-                    m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
-                }
-                if (m_onPlayerRevDic.ContainsKey(msgId)) {
-                    uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
-                    try {
-                        m_onPlayerRevDic[msgId](msgInfo, playerId);
-                    } catch (InvalidProtocolBufferException e) {
-                        ServerLog.log(e.Message);
+                try {
+                    if (msgId <= MsgType.getMaxUserServerMsg()) {
+                        //防止被攻击
+                        if (!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)) {
+                            ServerLog.log("!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)");
+                            continue;
+                        } else {
+                            if (m_onUserSerRev.ContainsKey(msgId)) {
+                                m_onUserSerRev[msgId](msgInfo);
+                            }
+                        }
                     }
+                    if (m_onIpRevDic.ContainsKey(msgId)) {
+                        m_onIpRevDic[msgId](msgInfo, waitHandler.m_groupEP);
+                    }
+                    if (m_onPlayerRevDic.ContainsKey(msgId)) {
+                        uint playerId = PlayerServer.Instance.getPlayerIdByIPEndPoint(waitHandler.m_groupEP);
+                    
+                            m_onPlayerRevDic[msgId](msgInfo, playerId);
+                    
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    ServerLog.log(e.Message);
                 }
             } catch (SocketException e) {
                 ServerLog.log(e.Message);
@@ -180,6 +188,19 @@ public class ServerMsgReceiver : WF.SimpleComponent {
             m_onPlayerRevDic[msgId] = onPlayerRev;
         } else {
             m_onPlayerRevDic.Add(msgId, onPlayerRev);
+        }
+    }
+
+    //此为用户服务器的消息注册
+    public void registerC2S(Type type, OnUserSerRev onPlayerRev) {
+        ushort msgId = MsgType.getTypeId(type);
+        if (msgId == 0) {
+            ServerLog.log("msgId == 0");
+        }
+        if (m_onUserSerRev.ContainsKey(msgId)) {
+            m_onUserSerRev[msgId] = onPlayerRev;
+        } else {
+            m_onUserSerRev.Add(msgId, onPlayerRev);
         }
     }
 

@@ -5,12 +5,18 @@ using System.Net;
 
 public class RoomConnectServer : WF.SimpleComponent {
     public static RoomConnectServer Instance;
-    Dictionary<uint, IpEndPointPing> m_dicPingData;
+    private uint m_roomID;
+    private Dictionary<uint, IpEndPointPing> m_dicPingData;
+
+    public uint RoomID { get => m_roomID; }
 
     public override bool initialize() {
         base.initialize();
         Instance = this;
         m_dicPingData = new Dictionary<uint, IpEndPointPing>();
+
+        ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerRegisterRoomS2RS), onUserServerRegisterRoomS2RS);
+        ServerMsgReceiver.Instance.registerC2S(typeof(MsgPB.UserServerJoinRoomS2RS), onUserServerJoinRoomS2RS);
         return true;
     }
 
@@ -31,6 +37,12 @@ public class RoomConnectServer : WF.SimpleComponent {
         MsgPB.UserServerRegisterRoomC2S msg = new MsgPB.UserServerRegisterRoomC2S();
         msg.MRoomName = "hhh";
         ServerMsgReceiver.Instance.sendMsgToUserServer(msg);
+    }
+
+    public void onUserServerRegisterRoomS2RS(byte[] protobytes) {
+        MsgPB.UserServerRegisterRoomS2RS msg = MsgPB.UserServerRegisterRoomS2RS.Parser.ParseFrom(protobytes);
+        m_roomID = msg.MRoomID;
+        ServerLog.log("register success, room Id : " + m_roomID);
     }
 
     public void onUserServerJoinRoomS2RS(byte[] protobytes) {

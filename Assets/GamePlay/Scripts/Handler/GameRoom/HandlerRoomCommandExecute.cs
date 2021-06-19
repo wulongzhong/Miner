@@ -55,7 +55,9 @@ public class HandlerRoomCommandExecute : WF.SimpleComponent {
         if (!executeNextCommand()) {
             return;
         }
-        Debug.LogFormat("m_listGameCommand.Count : {0}", m_listGameCommand.Count);
+        if (m_listGameCommand.Count > 0) {
+            Debug.LogFormat("m_listGameCommand.Count : {0}", m_listGameCommand.Count);
+        }
         chaseFrame();
     }
 
