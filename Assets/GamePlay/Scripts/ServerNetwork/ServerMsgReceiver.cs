@@ -130,6 +130,13 @@ public class ServerMsgReceiver : WF.SimpleComponent {
         foreach (WaitHandler waitHandler in m_waitHandleMasterList) {
             try {
                 ushort msgId = BitConverter.ToUInt16(waitHandler.m_bytes.Skip(0).Take(2).ToArray(), 0);
+                //防止被攻击
+                if(msgId <= MsgType.getMaxUserServerMsg()) {
+                    if (!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)) {
+                        ServerLog.log("!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)");
+                        continue;
+                    }
+                }
                 byte[] msgInfo = waitHandler.m_bytes.Skip(2).Take(waitHandler.m_bytes.Length - 2).ToArray();
 
                 if (m_onIpRevDic.ContainsKey(msgId)) {

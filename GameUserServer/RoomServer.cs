@@ -33,7 +33,6 @@ namespace GameUserServer {
         }
 
         public void onUserServerRegisterRoomC2S(byte[] protoBytes, uint playerId) {
-
             MsgPB.UserServerRegisterRoomC2S msg = MsgPB.UserServerRegisterRoomC2S.Parser.ParseFrom(protoBytes);
             RoomData roomData = new RoomData();
             roomData.m_homeownerPlayerID = playerId;
@@ -44,6 +43,9 @@ namespace GameUserServer {
             ++m_roomIndex;
             m_dicRoomID2Data[m_roomIndex] = roomData;
 
+            MsgPB.UserServerRegisterRoomS2RS sendMsg = new MsgPB.UserServerRegisterRoomS2RS();
+            sendMsg.MRoomID = m_roomIndex;
+            ServerMsgReceiver.Instance.sendMsg(playerId, sendMsg);
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public static class MsgType {
+
+    private static ushort m_maxUserServerMsgID = 0;
     private static List<Type> m_lstMsgType = new List<Type>() {
         //user server包含的
         typeof(MsgPB.CommonPingA2A),
@@ -51,6 +53,9 @@ public static class MsgType {
     }
 
     public static ushort getMaxUserServerMsg() {
-        return (ushort)(m_lstMsgType.IndexOf(typeof(MsgPB.UserServerJoinRoomS2RS)) + 1);
+        if(m_maxUserServerMsgID == 0) {
+            m_maxUserServerMsgID = (ushort)(m_lstMsgType.IndexOf(typeof(MsgPB.UserServerJoinRoomS2RS)) + 1);
+        }
+        return m_maxUserServerMsgID;
     }
 }
