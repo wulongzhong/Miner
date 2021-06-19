@@ -45,11 +45,11 @@ public class ActionConnectRoomServer : WF.SimpleComponent{
             if (ClientMsgReceiver.Instance.IsConnectRoomServer) {
                 return State.SUCCESS;
             }
-            if ((Time.time - m_startPingTime) > GameConfig.Instance.PingMaxWaitMS) {
+            if ((Time.time - m_startPingTime) > GameConfig.Instance.PingMaxWaitMS * 0.001f) {
                 return State.FAIL;
             }
 
-            if ((Time.time - m_lastPingTime) > GameConfig.Instance.PingIntervalMS) {
+            if ((Time.time - m_lastPingTime) > GameConfig.Instance.PingIntervalMS * 0.001f) {
                 ClientMsgReceiver.Instance.sendMsg2RoomServer(new MsgPB.CommonPingA2A());
                 m_lastPingTime = Time.time;
             }
