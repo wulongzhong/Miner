@@ -54,14 +54,10 @@ public class RoomConnectServer : WF.SimpleComponent {
     }
 
     public void onCommonPingA2A(byte[] protobytes, IPEndPoint iPEndPoint) {
-        uint playerId = 0;
         foreach(var keyValue in m_dicPingData) {
             if(keyValue.Value.m_ipendPoint == iPEndPoint) {
-                playerId = keyValue.Key;
+                ServerLog.log("ping success player Id:" + keyValue.Value.m_playerId);
             }
-        }
-        if(playerId != 0) {
-            m_dicPingData.Remove(playerId);
         }
     }
 }

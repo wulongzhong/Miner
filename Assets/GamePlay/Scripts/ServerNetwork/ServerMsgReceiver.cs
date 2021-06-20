@@ -141,8 +141,10 @@ public class ServerMsgReceiver : WF.SimpleComponent {
                     if (msgId <= MsgType.getMaxUserServerMsg()) {
                         //防止被攻击
                         if (!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)) {
-                            ServerLog.log("!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)");
-                            continue;
+                            if (msgId != 1) {
+                                ServerLog.log("!waitHandler.m_groupEP.Equals(GameConfig.Instance.UserServerIpendPoint)");
+                                continue;
+                            }
                         } else {
                             if (m_onUserSerRev.ContainsKey(msgId)) {
                                 m_onUserSerRev[msgId](msgInfo);

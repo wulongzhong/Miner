@@ -41,12 +41,12 @@ public class ActionConnectRoomServer : WF.SimpleComponent{
         }
 
         public override State update() {
-
-            if (ClientMsgReceiver.Instance.IsConnectRoomServer) {
-                return State.SUCCESS;
-            }
             if ((Time.time - m_startPingTime) > GameConfig.Instance.PingMaxWaitMS * 0.001f) {
-                return State.FAIL;
+                if (ClientMsgReceiver.Instance.IsConnectRoomServer) {
+                    return State.SUCCESS;
+                } else {
+                    return State.FAIL;
+                }
             }
 
             if ((Time.time - m_lastPingTime) > GameConfig.Instance.PingIntervalMS * 0.001f) {

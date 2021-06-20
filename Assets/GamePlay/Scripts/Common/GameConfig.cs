@@ -26,7 +26,7 @@ public class GameConfig {
     //一次ping的间隔时间
     private long m_PingIntervalMS = 1000;
     //ping的最大等待时间
-    private long m_PingMaxWaitMS = 6000;
+    private long m_PingMaxWaitMS = 5000;
 
     public int FrameScale { get => m_frameScale; }
     public int FrameCommandCount { get => m_frameCommandCount; }
